@@ -1,4 +1,4 @@
-import {
+﻿import {
   FileText,
   Smartphone,
   Monitor,
@@ -22,7 +22,7 @@ import {
   Database,
   Zap
 } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function App() {
   return (
@@ -507,6 +507,15 @@ export default function App() {
               <p className="text-xs text-green-600 mt-2">مجاني من Penta-k لأول سنة</p>
             </div>
           </div>
+          <div className="p-4 bg-amber-50 rounded-lg border border-amber-200 mb-6">
+            <h3 className="font-bold text-slate-900 mb-2">تكاليف المنصات وإدارة النشر</h3>
+            <p className="text-sm text-slate-700">
+              في حال استمرار التطبيقات على منصاتنا (Google Play و Apple Store) تكون التكلفة السنوية من 35 إلى 40
+              دولار. وإذا رغب العميل بنقل التطبيقات إلى حساباته الخاصة، نقوم بعملية النقل مقابل 40 دولار مع متابعة
+              التطبيق حتى الاستقرار على الحساب الجديد، وإدراج حسابات العميل ضمن الدعم الفني لمتابعة حالة المنصات
+              واستقرارها.
+            </p>
+          </div>
 
           <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
             <h3 className="font-bold text-slate-900 mb-2">دعم فني مدفوع (إضافات جديدة)</h3>
@@ -608,81 +617,71 @@ export default function App() {
 
 // Helper Component for Feature Items
 function PricingControl() {
-  const BASE_COST = 70000;
-  const CHAT_COST = 10000;
-  const UI_COST = 18000;
-  const [chatIncluded, setChatIncluded] = useState(true);
-  const [uiIncluded, setUiIncluded] = useState(false);
+  const TOTAL_COST = 88000;
+  const FIRST_PAYMENT = 8000;
+  const UI_PAYMENT = 14000;
+  const REMAINING_PHASES = 4;
 
-  const mainTotal = BASE_COST + (chatIncluded ? CHAT_COST : 0) + (uiIncluded ? UI_COST : 0);
-  const installment = Math.ceil(mainTotal / 4);
+  const remaining = TOTAL_COST - FIRST_PAYMENT - UI_PAYMENT;
+  const evenInstallment = Math.floor(remaining / REMAINING_PHASES);
+  const lastInstallment = remaining - evenInstallment * (REMAINING_PHASES - 1);
 
   const fmt = (n: number) => n.toLocaleString();
 
   return (
     <div>
       <div className="text-center mb-6">
-        <div className="text-6xl font-bold mb-2">{fmt(mainTotal)} جنيه</div>
-        <div className="text-emerald-100 text-lg">التكلفة الإجمالية للمشروع {uiIncluded ? '(شاملة تكلفة التصميم UI)' : '(بدون تكلفة التصميم UI)'} </div>
+        <div className="text-6xl font-bold mb-2">{fmt(TOTAL_COST)} جنيه مصري</div>
+        <div className="text-emerald-100 text-lg">التكلفة الإجمالية للمشروع شاملة الـ UI</div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-4 mb-6">
-        <div className="flex-1 bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
-          <h3 className="text-xl font-bold mb-4">خيار الدردشة - Chat Feature</h3>
-          <label className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              checked={chatIncluded}
-              onChange={(e) => setChatIncluded(e.target.checked)}
-              className="w-4 h-4"
-            />
-            <span className="text-emerald-100">تمكين الدردشة بين المندوب والعميل وبين العميل والمغسلة</span>
-          </label>
-          <div className="mt-4 text-2xl font-bold">تكلفة الدردشة: {fmt(CHAT_COST)} جنيه</div>
-          <p className="text-sm text-emerald-100 mt-2">إلغاء هذه الخاصية يجعل التكلفة الكلية {fmt(BASE_COST)} جنيه</p>
+        <div className="w-full md:flex-[2] bg-white/10 rounded-xl p-6 border border-white/20">
+          <h4 className="font-bold text-lg mb-2">تسليم واجهات UI</h4>
+          <p className="text-emerald-100 text-sm">
+            يتم تسليم الواجهات قبل استكمال مراحل التطوير حسب جدول الدفع (الـ UI ثابت معنا).
+          </p>
         </div>
-
-        <div className="w-full md:w-72 bg-white/10 rounded-xl p-6 border border-white/20">
-          <h4 className="font-bold text-lg mb-2">تكلفة واجهة المستخدم - UI Cost</h4>
-          <label className="flex items-center gap-3 mb-3">
-            <input
-              type="checkbox"
-              checked={uiIncluded}
-              onChange={(e) => setUiIncluded(e.target.checked)}
-              className="w-4 h-4"
-            />
-            <span className="text-emerald-100">إضافة تكلفة الواجهة (UI) إلى التكلفة الكلية</span>
-          </label>
-          <div className="text-3xl font-bold">{fmt(UI_COST)} جنيه</div>
-          <div className="text-sm text-emerald-100 mt-2">شاملة تسليم تصميم فيجما كامل لتطبيق المستخدم والمندوب</div>
-          <div className="text-sm text-emerald-100 mt-3">مدة التسليم: <span className="font-semibold">15 يوم</span></div>
+        <div className="flex-1 md:flex-[1] bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
+          <h3 className="text-xl font-bold mb-4">خدمة المحادثة (متوقفة الان)</h3>
+          <p className="text-emerald-100">يتم عرضها فقط في الوقت الحالي.</p>
         </div>
       </div>
 
       <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
-        <h3 className="text-xl font-bold mb-4">شروط الدفع - Payment Terms</h3>
-        <div className="grid md:grid-cols-4 gap-4">
+        <h3 className="text-xl font-bold mb-4">شروط الدفع</h3>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
+            <div className="text-2xl font-bold mb-1">{fmt(FIRST_PAYMENT)} جنيه مصري</div>
             <div className="text-sm text-emerald-100">دفعة أولى مقدم</div>
           </div>
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
-            <div className="text-sm text-emerald-100">بعد أول شهر</div>
+            <div className="text-2xl font-bold mb-1">{fmt(UI_PAYMENT)} جنيه مصري</div>
+            <div className="text-sm text-emerald-100">بعد تسليم الـ UI</div>
           </div>
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
-            <div className="text-sm text-emerald-100">بعد الشهر الثاني</div>
+            <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
+            <div className="text-sm text-emerald-100">بعد تسليم تطبيق المستخدم</div>
           </div>
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
-            <div className="text-sm text-emerald-100">عند التسليم النهائي</div>
+            <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
+            <div className="text-sm text-emerald-100">مع تسليم تطبيق المغسلة والدليفري</div>
+          </div>
+          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
+            <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
+            <div className="text-sm text-emerald-100">بعد تسليم الأدمن</div>
+          </div>
+          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
+            <div className="text-2xl font-bold mb-1">{fmt(lastInstallment)} جنيه مصري</div>
+            <div className="text-sm text-emerald-100">المتبقي بعد رفع التطبيقات على Google Play و Apple Store</div>
           </div>
         </div>
 
-        <p className="text-sm text-emerald-100 mt-4">ملاحظة: تكلفة التصميم UI ({fmt(UI_COST)} جنيه) معروضة ويمكن إضافتها إلى التكلفة أعلاه عبر التفعيل.</p>
-
-      
+        <p className="text-sm text-emerald-100 mt-4">
+          في حال استمرار التطبيقات على منصاتنا (Google Play و Apple Store) تكون التكلفة السنوية من 35 إلى 40 دولار.
+          وإذا رغب العميل بنقل التطبيقات إلى حساباته الخاصة، نقوم بعملية النقل مقابل 40 دولار مع متابعة التطبيق حتى
+          الاستقرار على الحساب الجديد، وإدراج حسابات العميل ضمن الدعم الفني لمتابعة حالة المنصات واستقرارها.
+        </p>
       </div>
     </div>
   );
@@ -702,3 +701,8 @@ function FeatureItem({ icon, title, color = 'blue' }: { icon: React.ReactNode; t
     </div>
   );
 }
+
+
+
+
+
