@@ -327,6 +327,217 @@ export default function App() {
           </div>
         </div>
 
+        {/* Operation & Logic Details */}
+        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-6">
+            <FileText className="w-8 h-8 text-blue-600" />
+            <h2 className="text-2xl font-bold text-slate-900">تفاصيل التشغيل واللوجيك</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-6 bg-slate-50 rounded-xl border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">إنشاء الحساب والتحقق</h3>
+              <ul className="space-y-2 text-sm text-slate-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>البيانات المطلوبة: الاسم، رقم الجوال، المدينة، الحي، البريد الإلكتروني (اختياري).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>تفاصيل العنوان: رقم الشقة، رقم المنزل، رقم الدور.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>إدخال عنوان تفصيلي عند أول طلب مع حفظه للاستخدام المتكرر أو إضافة عنوان جديد.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>تفعيل خدمة OTP للتحقق من رقم الهاتف لكل عميل.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-6 bg-slate-50 rounded-xl border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">طلب الغسيل</h3>
+              <ul className="space-y-2 text-sm text-slate-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>اختيار القطع المطلوبة (مثل: ثوب أبيض، قميص، وغيرها).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>تحديد عدد كل قطعة ونوع الغسيل لكل قطعة.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>إضافة ملاحظات أو تحديد وجود بقع صعبة مع إمكانية إرفاق صور.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-6 bg-slate-50 rounded-xl border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">الرصيد والباقات</h3>
+              <ul className="space-y-2 text-sm text-slate-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>نظام باقات يمنح رصيدًا أكبر من قيمة الاشتراك (مثال: باقة 500 ريال = رصيد 750).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>الادمن يستطيع إضافة رصيد لأي عميل من لوحة التحكم.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-6 bg-slate-50 rounded-xl border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">الكوبونات والهدايا</h3>
+              <ul className="space-y-2 text-sm text-slate-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>استخدام كود كوبون خصم عند الدفع.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>الادمن يحدد صلاحية الكوبون وعدد مرات الاستخدام (مثال: 100 مستخدم من يوم 1 إلى 10).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>إمكانية تعطيل الكوبونات لعملاء الباقات حسب إعداد الادمن.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>يمكن للعميل شراء كوبون وإهداؤه لعميل آخر عبر رقم الجوال.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>إذا كان الرقم مسجلًا: إشعار بوجود كوبون خصم مرسل من العميل.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>إذا لم يكن مسجلًا: رسالة نصية برابط التطبيق مع نص دعوة لاستخدام الكوبون.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-6 bg-slate-50 rounded-xl border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">خدمة Bubbles Home</h3>
+              <ul className="space-y-2 text-sm text-slate-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>اشتراك يتيح تركيب بوكس في المنزل لوضع الملابس.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>المندوب يمر أيام محددة أسبوعيًا لاستلام الملابس وإعادتها بعد الانتهاء.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>إمكانية تحديد مواعيد ثابتة للغسيل مع إشعار تأكيد قبل الموعد.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>تفاصيل الاشتراك الكاملة تحدد لاحقًا وقت التنفيذ.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-6 bg-slate-50 rounded-xl border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">التقييمات والشكاوى</h3>
+              <ul className="space-y-2 text-sm text-slate-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>تقييم المندوب وخدمة الغسيل بعد كل طلب مع إمكانية إضافة ملاحظات.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>تقديم شكوى على الطلب خلال 48 ساعة مع تحديد القطع وسبب الشكوى وإرفاق صور.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>إرسال شكوى عامة من صفحة الشكاوى بدون ارتباط بطلب محدد.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-6 bg-slate-50 rounded-xl border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">إدارة المغاسل الفرعية</h3>
+              <ul className="space-y-2 text-sm text-slate-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>تحديد نسبة التطبيق لكل مغسلة من لوحة التحكم.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>تسجيل مستحقات كل مغسلة من مدفوعات العملاء داخل داش بورد المغسلة.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>تصفية الحسابات مع رفع إيصال الدفع وإشعار المغسلة بالمبلغ المدفوع.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>صفحة خاصة للتقييمات الأقل من 3 نجوم لتسهيل متابعة العملاء غير الراضين.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>سجل الطلبات غير المنفذة لتحديد مناطق التوسع مستقبلًا.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-6 bg-slate-50 rounded-xl border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">الإشعارات والسعات</h3>
+              <ul className="space-y-2 text-sm text-slate-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>إشعار للمغسلة عند طلب العميل مع تحديد سعر التوصيل بناءً على المسافة.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>سعة استيعابية لكل مغسلة (عدد أوردرات بالساعة + مواعيد استلام محددة).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>إذا انتهت السعة: عرض إمكانية استلام برسوم أعلى عند وجود ضغط.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>داخليًا يتم توجيه الطلب لأقرب مغسلة بديلة في حال موافقة المستخدم.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>المستخدم يرى مزودًا واحدًا باسم Bubbles Laundry رغم تعدد الفروع.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 md:col-span-2">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">تدفق الطلب ومتابعته</h3>
+              <ul className="space-y-2 text-sm text-slate-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>المغسلة توافق على الطلب وتحدد المندوب من قائمة المندوبين.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>إشعار للمندوب بالطلب، ثم عرض الخريطة بعد التأكيد، وإشعار العميل أنه في الطريق.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>حالة الطلب للعميل: قيد الاستلام والفحص، ثم تم الاستلام، ثم قيد التنفيذ.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>بعد الانتهاء: اختيار مندوب التوصيل وإشعار العميل بأن الطلب في الطريق مع إمكانية التتبع.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>اقتراح: تأكيد موعد التوصيل مع العميل قبل تحرك المندوب لتقليل الزيارات غير المثمرة.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         {/* Pricing Section - interactive */}
         <div className="bg-gradient-to-l from-emerald-600 to-emerald-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-emerald-500">
