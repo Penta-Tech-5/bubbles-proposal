@@ -7,6 +7,7 @@
   Calendar,
   CheckCircle,
   Globe,
+  MapPin,
   Code,
   Shield,
   PhoneCall,
@@ -32,7 +33,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">Bubbles Laundry</h1>
+              <h1 className="text-2xl font-bold text-slate-900">مشوار العاشر</h1>
               <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
             </div>
             <a
@@ -71,22 +72,22 @@ export default function App() {
           </div>
         </div>
 
-        {/* Project Overview */}
+                {/* Project Overview */}
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
           <div className="flex items-center gap-3 mb-6">
             <FileText className="w-8 h-8 text-blue-600" />
-            <h2 className="text-2xl font-bold text-slate-900">نظرة عامة على المشروع</h2>
+            <h2 className="text-2xl font-bold text-slate-900">وصف عام لمشروع مشوار العاشر</h2>
           </div>
           <div className="prose prose-slate max-w-none">
             <h3 className="text-xl font-semibold text-slate-800 mb-3">
-              نظام متكامل لإدارة خدمات استلام وتسليم الملابس
+              تطبيق توصيل تاكسي بسعر التاكسي العادي وأقل من خدمات الملاكي.
             </h3>
             <p className="text-slate-600 text-lg leading-relaxed">
-              يشمل النظام أربعة مكونات أساسية لضمان تجربة متكاملة لجميع الأطراف المعنية
+              يحدد المستخدم نقطة الانطلاق والوجهة، ويعرض التطبيق جميع السائقين المتاحين حوله مع المسافة لكل سائق
+              وسعر المشوار المقترح. بعد اختيار السائق يمكن للعميل الانتظار أو الاتصال أو إرسال رسالة مباشرة.
             </p>
           </div>
         </div>
-
         {/* System Components Grid */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           {/* Customer App */}
@@ -101,31 +102,31 @@ export default function App() {
               </div>
             </div>
             <p className="text-slate-600 mb-3">
-              تطبيق شامل للعملاء يتيح طلب خدمات الغسيل والتتبع والدفع الإلكتروني
+              يحدد المستخدم نقطة الانطلاق والوجهة ويقارن بين السائقين المتاحين حسب المسافة والسعر.
             </p>
             <div className="text-sm text-slate-500">
-              <span className="font-semibold text-blue-600">المميزات الرئيسية:</span>
-              <span> تسجيل دخول، طلب استلام، تتبع الطلبات، دفع إلكتروني، محفظة، اشتراكات</span>
+              <span className="font-semibold text-blue-600">أهم المزايا:</span>
+              <span> اختيار السائق، التواصل المباشر، وتتبع الرحلة.</span>
             </div>
           </div>
 
-          {/* Delivery Agent App */}
+          {/* Driver App */}
           <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-green-100 hover:border-green-300 transition-colors">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-3 bg-green-100 rounded-lg">
                 <Package className="w-6 h-6 text-green-600" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-slate-900">تطبيق المندوب</h3>
+                <h3 className="text-xl font-bold text-slate-900">تطبيق السائق</h3>
                 <p className="text-sm text-slate-600">Android & iOS</p>
               </div>
             </div>
             <p className="text-slate-600 mb-3">
-              تطبيق مخصص للمندوبين لاستقبال وتنفيذ طلبات التوصيل
+              استقبال الطلبات، التواصل مع العميل، ومتابعة الرحلات والربح.
             </p>
             <div className="text-sm text-slate-500">
-              <span className="font-semibold text-green-600">المميزات الرئيسية:</span>
-              <span> استقبال الطلبات، التواصل مع العميل، تحديث الحالة، سجل التوصيلات</span>
+              <span className="font-semibold text-green-600">أهم المزايا:</span>
+              <span> إشعارات فورية، خرائط، وسجل رحلات.</span>
             </div>
           </div>
 
@@ -137,133 +138,103 @@ export default function App() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-slate-900">لوحة التحكم المركزية</h3>
-                <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
+                <p className="text-sm text-slate-600">Web Dashboard</p>
               </div>
             </div>
             <p className="text-slate-600 mb-3">
-              لوحة تحكم شاملة لإدارة كافة جوانب النظام
+              إدارة السائقين، الطلبات، التسعير، والدعم الفني.
             </p>
             <div className="text-sm text-slate-500">
-              <span className="font-semibold text-purple-600">المميزات الرئيسية:</span>
-              <span> إدارة كاملة، تحكم في الأسعار، تقارير مالية، إدارة المستخدمين، الشكاوى</span>
+              <span className="font-semibold text-purple-600">أهم المزايا:</span>
+              <span> تقارير، صلاحيات، وتحكم كامل بالمنصة.</span>
             </div>
           </div>
 
-          {/* Partner Dashboard */}
+          {/* Payments & Trips */}
           <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-orange-100 hover:border-orange-300 transition-colors">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-3 bg-orange-100 rounded-lg">
                 <Monitor className="w-6 h-6 text-orange-600" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-slate-900">لوحة المغاسل الشريكة</h3>
-                <p className="text-sm text-slate-600">Web App & Windows App & Android App</p>
+                <h3 className="text-xl font-bold text-slate-900">إدارة التحصيل والرحلات</h3>
+                <p className="text-sm text-slate-600">Backoffice</p>
               </div>
             </div>
             <p className="text-slate-600 mb-3">
-              لوحة تحكم مستقلة لكل مغسلة شريكة
+              متابعة عدد الرحلات والمدفوعات المطلوبة لكل سائق.
             </p>
             <div className="text-sm text-slate-500">
-              <span className="font-semibold text-orange-600">المميزات الرئيسية:</span>
-              <span> حساب مستقل، تحديد مناطق التغطية، متابعة الطلبات والأرباح</span>
+              <span className="font-semibold text-orange-600">أهم المزايا:</span>
+              <span> بعد كل 15 رحلة يتم تحصيل 200 جنيه للسائق.</span>
             </div>
           </div>
         </div>
-
         {/* Detailed Features Sections */}
-        {/* Customer App Features */}
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
             <div className="p-3 bg-blue-100 rounded-lg">
               <Smartphone className="w-7 h-7 text-blue-600" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">تطبيق العميل - Customer Mobile App</h2>
+              <h2 className="text-2xl font-bold text-slate-900">تطبيق العميل - Customer App</h2>
               <p className="text-sm text-slate-600">Android & iOS</p>
             </div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="تسجيل / تسجيل دخول" />
-            <FeatureItem icon={<Calendar className="w-5 h-5" />} title="طلب استلام وتسليم مع جدولة المواعيد" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="اختيار نوع الخدمة" />
-            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="تتبع حالة الطلب والمندوب" />
-            <FeatureItem icon={<CreditCard className="w-5 h-5" />} title="الدفع الإلكتروني" />
-            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="محفظة إلكترونية" />
-            <FeatureItem icon={<Award className="w-5 h-5" />} title="الاشتراكات ومتابعة الرصيد" />
-            <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="كوبونات خصم وعروض" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="سجل الطلبات والفواتير" />
-            <FeatureItem icon={<PhoneCall className="w-5 h-5" />} title="التواصل مع المندوب" />
-            <FeatureItem icon={<Globe className="w-5 h-5" />} title="دعم لغتين (عربي/English)" />
-            <FeatureItem icon={<Settings className="w-5 h-5" />} title="نظام شكاوى ودعم فني" />
+            <FeatureItem icon={<MapPin className="w-5 h-5" />} title="تحديد نقطة الانطلاق والوجهة على الخريطة" />
+            <FeatureItem icon={<Users className="w-5 h-5" />} title="عرض السائقين المتاحين والمسافة لكل سائق" />
+            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="سعر المشوار لكل سائق قبل الاختيار" />
+            <FeatureItem icon={<PhoneCall className="w-5 h-5" />} title="الاتصال بالسائق أو إرسال رسالة" />
+            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="تتبع الرحلة في الوقت الحقيقي" />
+            <FeatureItem icon={<Award className="w-5 h-5" />} title="تقييم السائق بعد انتهاء الرحلة" />
+            <FeatureItem icon={<FileText className="w-5 h-5" />} title="سجل رحلات كامل للعميل" />
+            <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="تجربة تاكسي بسعر اقتصادي" />
+            <FeatureItem icon={<Globe className="w-5 h-5" />} title="واجهات عربية وإنجليزية" />
           </div>
         </div>
 
-        {/* Delivery Agent App Features */}
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
             <div className="p-3 bg-green-100 rounded-lg">
               <Package className="w-7 h-7 text-green-600" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">تطبيق المندوب - Delivery Agent App</h2>
+              <h2 className="text-2xl font-bold text-slate-900">تطبيق السائق - Driver App</h2>
               <p className="text-sm text-slate-600">Android & iOS</p>
             </div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="تسجيل واعتماد حساب المندوب" color="green" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="استقبال وتنفيذ الطلبات" color="green" />
-            <FeatureItem icon={<PhoneCall className="w-5 h-5" />} title="التواصل مع العميل (دردشة)" color="green" />
-            <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="تحديث حالة الطلب" color="green" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="سجل التوصيلات" color="green" />
+            <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="استقبال الطلبات بإشعارات فورية" color="green" />
+            <FeatureItem icon={<Users className="w-5 h-5" />} title="قبول أو رفض الطلب" color="green" />
+            <FeatureItem icon={<MapPin className="w-5 h-5" />} title="ملاحة إلى موقع العميل" color="green" />
+            <FeatureItem icon={<PhoneCall className="w-5 h-5" />} title="التواصل مع العميل" color="green" />
+            <FeatureItem icon={<FileText className="w-5 h-5" />} title="سجل الرحلات المنفذة" color="green" />
+            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="عدد الرحلات والإنجازات" color="green" />
+            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="تنبيه بمستحقات الدفع بعد حد الرحلات" color="green" />
           </div>
         </div>
 
-        {/* Admin Dashboard Features */}
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
             <div className="p-3 bg-purple-100 rounded-lg">
               <Monitor className="w-7 h-7 text-purple-600" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">لوحة التحكم المركزية - Central Admin Dashboard</h2>
-              <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
+              <h2 className="text-2xl font-bold text-slate-900">لوحة التحكم المركزية - Admin Dashboard</h2>
+              <p className="text-sm text-slate-600">Web Dashboard</p>
             </div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Settings className="w-5 h-5" />} title="إدارة التطبيق بالكامل" color="purple" />
-            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="التحكم الكامل في الأسعار" color="purple" />
-            <FeatureItem icon={<Award className="w-5 h-5" />} title="إدارة الاشتراكات" color="purple" />
-            <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="إدارة كوبونات الخصم" color="purple" />
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="إدارة العملاء والمندوبين" color="purple" />
-            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="تقارير مالية وفنية لحظية" color="purple" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="نظام عمولات مرن" color="purple" />
-            <FeatureItem icon={<Shield className="w-5 h-5" />} title="صلاحيات متعددة" color="purple" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="Backup تلقائي للبيانات" color="purple" />
+            <FeatureItem icon={<Users className="w-5 h-5" />} title="إدارة السائقين والمستخدمين" color="purple" />
+            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="تحديد التسعير حسب المسافة" color="purple" />
+            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="متابعة الطلبات وحالات الرحلات" color="purple" />
+            <FeatureItem icon={<FileText className="w-5 h-5" />} title="تقارير مالية وإحصائيات" color="purple" />
+            <FeatureItem icon={<Shield className="w-5 h-5" />} title="صلاحيات متعددة للمديرين" color="purple" />
+            <FeatureItem icon={<Settings className="w-5 h-5" />} title="نظام تحصيل بعد 15 رحلة = 200 جنيه" color="purple" />
           </div>
         </div>
-
-        {/* Partner Dashboard Features */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-orange-100 rounded-lg">
-              <Monitor className="w-7 h-7 text-orange-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">لوحة المغاسل الشريكة - Partner Laundry Dashboard</h2>
-              <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="حساب مستقل لكل مغسلة" color="orange" />
-            <FeatureItem icon={<Globe className="w-5 h-5" />} title="تحديد مناطق التغطية" color="orange" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="استقبال طلبات المناطق المحددة" color="orange" />
-            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="متابعة عدد الطلبات" color="orange" />
-            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="عرض الأرباح والعمولات" color="orange" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="تقارير خاصة" color="orange" />
-          </div>
-        </div>
-
-        {/* UI/UX Design Section */}
+{/* UI/UX Design Section */}
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
             <div className="p-3 bg-indigo-100 rounded-lg">
@@ -274,7 +245,7 @@ export default function App() {
           <div className="grid md:grid-cols-2 gap-4">
             <div className="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
               <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
-              <span className="text-slate-700">تصميم احترافي مخصص متوافق مع هوية Bubbles Laundry</span>
+              <span className="text-slate-700">تصميم احترافي مخصص متوافق مع هوية مشوار العاشر</span>
             </div>
             <div className="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
               <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
@@ -302,7 +273,7 @@ export default function App() {
           <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div className="bg-slate-700/50 rounded-xl p-6 border border-slate-600">
               <h3 className="text-xl font-bold mb-3 text-amber-400">مدة التنفيذ الكاملة</h3>
-              <p className="text-3xl font-bold mb-2">2.5 شهر</p>
+              <p className="text-3xl font-bold mb-2">من شهر الى شهر ونص</p>
               <p className="text-slate-300 text-sm">تشمل التصميم، البرمجة، الاختبارات، ورفع التطبيق على المتاجر</p>
             </div>
 
@@ -334,7 +305,7 @@ export default function App() {
             <div className="p-3 bg-emerald-500 rounded-lg">
               <DollarSign className="w-7 h-7 text-white" />
             </div>
-            <h2 className="text-2xl font-bold">Pricing - التكلفة الإجمالية</h2>
+            <h2 className="text-2xl font-bold">التكلفة الإجمالية للمشروع</h2>
           </div>
 
           {/* Pricing logic */}
@@ -375,7 +346,7 @@ export default function App() {
               <CheckCircle className="w-5 h-5 text-amber-600 mt-0.5" />
               <div>
                 <p className="text-slate-700 font-semibold mb-1">سياسة حسابات النشر (Google & Apple)</p>
-                <p className="text-sm text-slate-600">يتم رفع التطبيق مجاناً خلال أول سنة على حسابات شركة Penta-k لتقليل التكلفة المبدئية وضمان الالتزام بسياسات المتاجر</p>
+                <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
               </div>
             </div>
           </div>
@@ -485,26 +456,26 @@ export default function App() {
             <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
               <h3 className="font-bold text-slate-900 mb-2">Google Play Console</h3>
               <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$25</div>
-              <p className="text-sm text-slate-600">مدى الحياة (دفعة واحدة)</p>
+              <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
             </div>
 
             <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
               <h3 className="font-bold text-slate-900 mb-2">Apple Developer Account</h3>
               <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$100</div>
-              <p className="text-sm text-slate-600">سنوياً</p>
+              <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
             </div>
 
             <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
               <h3 className="font-bold text-slate-900 mb-2">Google Maps Platform</h3>
               <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$300</div>
-              <p className="text-sm text-slate-600">حد مجاني شهرياً</p>
+              <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
               <p className="text-xs text-slate-500 mt-2">يتطلب حساب Google Console مع Visa دولارية</p>
             </div>
 
             <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
               <h3 className="font-bold text-slate-900 mb-2">Hostinger VPS</h3>
               <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$96</div>
-              <p className="text-sm text-slate-600">سنوياً (سيرفر خاص)</p>
+              <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
               <p className="text-xs text-green-600 mt-2">مجاني من Penta-k لأول سنة</p>
             </div>
           </div>
@@ -606,7 +577,7 @@ export default function App() {
               شكراً لثقتكم في <span className="font-bold text-blue-600">Penta-k</span>
             </p>
             <p className="text-sm text-slate-500 mt-2">
-              نتطلع للعمل معكم على مشروع Bubbles Laundry
+              نتطلع للعمل معكم على مشروع مشوار العاشر
             </p>
           </div>
         </div>
@@ -618,12 +589,11 @@ export default function App() {
 
 // Helper Component for Feature Items
 function PricingControl() {
-  const TOTAL_COST = 88000;
-  const FIRST_PAYMENT = 8000;
-  const UI_PAYMENT = 14000;
-  const REMAINING_PHASES = 4;
+  const TOTAL_COST = 65000;
+  const FIRST_PAYMENT = 20000;
+  const REMAINING_PHASES = 3;
 
-  const remaining = TOTAL_COST - FIRST_PAYMENT - UI_PAYMENT;
+  const remaining = TOTAL_COST - FIRST_PAYMENT;
   const evenInstallment = Math.floor(remaining / REMAINING_PHASES);
   const lastInstallment = remaining - evenInstallment * (REMAINING_PHASES - 1);
 
@@ -633,56 +603,47 @@ function PricingControl() {
     <div>
       <div className="text-center mb-6">
         <div className="text-6xl font-bold mb-2">{fmt(TOTAL_COST)} جنيه مصري</div>
-        <div className="text-emerald-100 text-lg">التكلفة الإجمالية للمشروع شاملة الـ UI</div>
+        <div className="text-emerald-100 text-lg">عرض السعر لتطبيق مشوار العاشر</div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-4 mb-6">
-        <div className="w-full md:flex-[2] bg-white/10 rounded-xl p-6 border border-white/20">
-          <h4 className="font-bold text-lg mb-2">تسليم واجهات UI</h4>
-          <p className="text-emerald-100 text-sm">
-            يتم تسليم الواجهات قبل استكمال مراحل التطوير حسب جدول الدفع (الـ UI ثابت معنا).
+        <div className="flex-1 bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
+          <h3 className="text-xl font-bold mb-4">ميزة السعر الاقتصادي</h3>
+          <p className="text-emerald-100">
+            التطبيق مخصص للتاكسي بسعر التاكسي العادي وأقل من تطبيقات الملاكي مثل أوبر.
           </p>
         </div>
-        <div className="flex-1 md:flex-[1] bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
-          <h3 className="text-xl font-bold mb-4">خدمة المحادثة (متوقفة الان)</h3>
-          <p className="text-emerald-100">يتم عرضها فقط في الوقت الحالي.</p>
+
+        <div className="w-full md:flex-[2] bg-white/10 rounded-xl p-6 border border-white/20">
+          <h4 className="font-bold text-lg mb-2">عرض السائقين والأسعار</h4>
+          <p className="text-emerald-100 text-sm">
+            يظهر جميع السائقين المتاحين بجوار العميل مع المسافة والسعر لكل سائق قبل الاختيار.
+          </p>
         </div>
       </div>
 
       <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
         <h3 className="text-xl font-bold mb-4">شروط الدفع</h3>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
             <div className="text-2xl font-bold mb-1">{fmt(FIRST_PAYMENT)} جنيه مصري</div>
             <div className="text-sm text-emerald-100">دفعة أولى مقدم</div>
           </div>
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(UI_PAYMENT)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">بعد تسليم الـ UI</div>
+            <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
+            <div className="text-sm text-emerald-100">بعد تسليم تطبيق العميل</div>
           </div>
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
             <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">بعد تسليم تطبيق المستخدم</div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">مع تسليم تطبيق المغسلة والدليفري</div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">بعد تسليم الأدمن</div>
+            <div className="text-sm text-emerald-100">بعد تسليم تطبيق السائق</div>
           </div>
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
             <div className="text-2xl font-bold mb-1">{fmt(lastInstallment)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">المتبقي بعد رفع التطبيقات على Google Play و Apple Store</div>
+            <div className="text-sm text-emerald-100">بعد تسليم لوحة التحكم</div>
           </div>
         </div>
 
-        <p className="text-sm text-emerald-100 mt-4">
-          في حال استمرار التطبيقات على منصاتنا (Google Play و Apple Store) تكون التكلفة السنوية من 35 إلى 40 دولار.
-          وإذا رغب العميل بنقل التطبيقات إلى حساباته الخاصة، نقوم بعملية النقل مقابل 40 دولار مع متابعة التطبيق حتى
-          الاستقرار على الحساب الجديد، وإدراج حسابات العميل ضمن الدعم الفني لمتابعة حالة المنصات واستقرارها.
-        </p>
+        <p className="text-sm text-emerald-100 mt-4">تم تقسيم باقي المبلغ بالتساوي على مراحل التسليم.</p>
       </div>
     </div>
   );
@@ -702,6 +663,12 @@ function FeatureItem({ icon, title, color = 'blue' }: { icon: React.ReactNode; t
     </div>
   );
 }
+
+
+
+
+
+
 
 
 
