@@ -313,6 +313,64 @@ export default function App() {
           <PricingControl />
         </div>
 
+        {/* Payment Gateways Section */}
+        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border border-slate-200">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-3 bg-slate-100 rounded-lg">
+              <CreditCard className="w-7 h-7 text-slate-700" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900">بوابات الدفع ونسب العمولة</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h3 className="font-bold text-slate-900 mb-2">Visa / Mastercard</h3>
+              <ul className="space-y-1 text-sm text-slate-700">
+                <li>المدفوعات الدولية: 2.50% + 2.00 جنيه</li>
+                <li>عمولة البطاقة: 2% + 2 جنيه</li>
+                <li>ضريبة القيمة المضافة: 14%</li>
+              </ul>
+            </div>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h3 className="font-bold text-slate-900 mb-2">Fawry</h3>
+              <ul className="space-y-1 text-sm text-slate-700">
+                <li>العمولة: 2.00% + 2.00 جنيه</li>
+                <li>ضريبة القيمة المضافة: 14%</li>
+              </ul>
+            </div>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h3 className="font-bold text-slate-900 mb-2">Mobile Wallet</h3>
+              <ul className="space-y-1 text-sm text-slate-700">
+                <li>العمولة: 2.00% + 2.00 جنيه</li>
+                <li>ضريبة القيمة المضافة: 14%</li>
+              </ul>
+            </div>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h3 className="font-bold text-slate-900 mb-2">Aman</h3>
+              <ul className="space-y-1 text-sm text-slate-700">
+                <li>العمولة: 2.00% + 2.00 جنيه</li>
+                <li>ضريبة القيمة المضافة: 14%</li>
+              </ul>
+            </div>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h3 className="font-bold text-slate-900 mb-2">Basata</h3>
+              <ul className="space-y-1 text-sm text-slate-700">
+                <li>العمولة: 2.00% + 2.00 جنيه</li>
+                <li>ضريبة القيمة المضافة: 14%</li>
+              </ul>
+            </div>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h3 className="font-bold text-slate-900 mb-2">Apple Pay</h3>
+              <ul className="space-y-1 text-sm text-slate-700">
+                <li>العمولة: 2.00% + 2.00 جنيه</li>
+                <li>ضريبة القيمة المضافة: 14%</li>
+              </ul>
+            </div>
+          </div>
+          <p className="text-xs text-slate-500 mt-4">
+            ملاحظة: النسب توضيحية وقد تختلف حسب مزود الخدمة والعقد النهائي.
+          </p>
+        </div>
+
         {/* Free Services Section */}
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-green-200">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
@@ -325,15 +383,15 @@ export default function App() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">سيرفر مجاني</div>
-              <div className="text-slate-600 text-sm">لمدة سنة</div>
+              <div className="text-slate-600 text-sm">لمدة 6 شهور</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">دومين مجاني</div>
-              <div className="text-slate-600 text-sm">لمدة سنة</div>
+              <div className="text-slate-600 text-sm">أول سنة</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">دعم فني مجاني</div>
-              <div className="text-slate-600 text-sm">لمدة سنة</div>
+              <div className="text-slate-600 text-sm">لمدة 60 يوم</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">رفع على المتاجر</div>
@@ -346,7 +404,7 @@ export default function App() {
               <CheckCircle className="w-5 h-5 text-amber-600 mt-0.5" />
               <div>
                 <p className="text-slate-700 font-semibold mb-1">سياسة حسابات النشر (Google & Apple)</p>
-                <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
+                <p className="text-sm text-slate-600">يتم رفع التطبيق مجاناً خلال أول سنة على حسابات الشركة لتقليل التكلفة المبدئية وضمان الالتزام بسياسات المتاجر.</p>
               </div>
             </div>
           </div>
@@ -465,18 +523,18 @@ export default function App() {
               <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
             </div>
 
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <h3 className="font-bold text-slate-900 mb-2">Google Maps Platform</h3>
-              <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$300</div>
-              <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
-              <p className="text-xs text-slate-500 mt-2">يتطلب حساب Google Console مع Visa دولارية</p>
-            </div>
+           
 
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
               <h3 className="font-bold text-slate-900 mb-2">Hostinger VPS</h3>
               <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$96</div>
-              <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
-              <p className="text-xs text-green-600 mt-2">مجاني من Penta-k لأول سنة</p>
+              <p className="text-sm text-slate-600">استضافة السيرفر سنويًا.</p>
+              <p className="text-xs text-green-600 mt-2">مجاني من Penta-k لأول سنة.</p>
+            </div>
+                        <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h3 className="font-bold text-slate-900 mb-2">سيرفرات شركتنا</h3>
+              <div className="text-2xl font-bold text-blue-600 mb-1">2,000 جنيه</div>
+              <p className="text-sm text-slate-600">اشتراك سنوي على سيرفراتنا الخاصة.</p>
             </div>
           </div>
           <div className="p-4 bg-amber-50 rounded-lg border border-amber-200 mb-6">
@@ -643,7 +701,6 @@ function PricingControl() {
           </div>
         </div>
 
-        <p className="text-sm text-emerald-100 mt-4">تم تقسيم باقي المبلغ بالتساوي على مراحل التسليم.</p>
       </div>
     </div>
   );
@@ -663,6 +720,10 @@ function FeatureItem({ icon, title, color = 'blue' }: { icon: React.ReactNode; t
     </div>
   );
 }
+
+
+
+
 
 
 
