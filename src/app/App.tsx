@@ -269,7 +269,7 @@ export default function App() {
               <h3 className="font-bold text-slate-900 mb-2">Hostinger VPS</h3>
               <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$96</div>
               <p className="text-sm text-slate-600">استضافة السيرفر سنويًا.</p>
-              <p className="text-xs text-green-600 mt-2">مجاني من Penta-k لأول سنة.</p>
+              <p className="text-xs text-green-600 mt-2">مجاني من Penta-k لأول 6 شهور.</p>
             </div>
             <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
               <h3 className="font-bold text-slate-900 mb-2">سيرفرات شركتنا</h3>
