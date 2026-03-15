@@ -647,13 +647,17 @@ export default function App() {
 
 // Helper Component for Feature Items
 function PricingControl() {
-  const TOTAL_COST = 65000;
+  const TOTAL_COST = 70000;
   const FIRST_PAYMENT = 20000;
-  const REMAINING_PHASES = 3;
+  const MONTHS = 6;
 
   const remaining = TOTAL_COST - FIRST_PAYMENT;
-  const evenInstallment = Math.floor(remaining / REMAINING_PHASES);
-  const lastInstallment = remaining - evenInstallment * (REMAINING_PHASES - 1);
+  const monthlyInstallment = Math.floor(remaining / MONTHS);
+  const lastMonthInstallment = remaining - monthlyInstallment * (MONTHS - 1);
+  const installments = Array.from({ length: MONTHS }, (_, i) => ({
+    month: i + 1,
+    amount: i === MONTHS - 1 ? lastMonthInstallment : monthlyInstallment
+  }));
 
   const fmt = (n: number) => n.toLocaleString();
 
@@ -682,24 +686,21 @@ function PricingControl() {
 
       <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
         <h3 className="text-xl font-bold mb-4">شروط الدفع</h3>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
             <div className="text-2xl font-bold mb-1">{fmt(FIRST_PAYMENT)} جنيه مصري</div>
             <div className="text-sm text-emerald-100">دفعة أولى مقدم</div>
           </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">بعد تسليم تطبيق العميل</div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">بعد تسليم تطبيق السائق</div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(lastInstallment)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">بعد تسليم لوحة التحكم</div>
-          </div>
+          {installments.map((item) => (
+            <div key={item.month} className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
+              <div className="text-2xl font-bold mb-1">{fmt(item.amount)} جنيه مصري</div>
+              <div className="text-sm text-emerald-100">قسط الشهر {item.month} (نهاية الشهر)</div>
+            </div>
+          ))}
         </div>
+        <p className="text-sm text-emerald-100 mt-4">
+          الباقي بعد المقدم يتم سداده على 6 شهور، والدفع يكون في نهاية كل شهر.
+        </p>
 
       </div>
     </div>
