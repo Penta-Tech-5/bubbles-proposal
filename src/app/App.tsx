@@ -428,7 +428,7 @@ const paymentGateways: PaymentGateway[] = [
 const externalCosts: ExternalCost[] = [
   {
     title: { ar: 'Google Play', en: 'Google Play' },
-    amount: { ar: '600 جنيه', en: 'EGP 600' },
+    amount: { ar: '500 جنيه', en: 'EGP 500' },
     subtitle: { ar: 'سنويًا', en: 'Yearly' }
   },
   {
@@ -513,7 +513,7 @@ export default function App() {
                 </button>
               </div>
               <a href="https://penta-k.com" className="inline-flex items-center" aria-label="Penta-k website">
-                <img src="/logo.png" alt={labels[lang].logoAlt} className="h-12 w-auto object-contain" />
+                <img src="public/logo.png" alt={labels[lang].logoAlt} className="h-12 w-auto object-contain" />
               </a>
             </div>
           </div>
