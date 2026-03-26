@@ -1,896 +1,799 @@
 ﻿import {
+  AlertTriangle,
   Award,
   CheckCircle,
   Clock,
-  Code,
-  CreditCard,
-  DollarSign,
   FileText,
   Globe,
   Languages,
+  Moon,
   Monitor,
   Package,
-  PhoneCall,
   Shield,
   Smartphone,
+  Sun,
   TrendingUp,
-  Users
+  Users,
+  Car,
+  Wrench
 } from 'lucide-react';
 import React from 'react';
 
 type Lang = 'ar' | 'en';
-type FeatureColor = 'blue' | 'green' | 'purple' | 'orange' | 'indigo';
-type Localized = Record<Lang, string>;
+type Theme = 'dark' | 'light';
+
+type LocalizedText = Record<Lang, string>;
 type LocalizedList = Record<Lang, string[]>;
 
-type SectionCard = {
-  title: Localized;
-  description: Localized;
+type ModuleCard = {
+  title: LocalizedText;
+  subtitle: LocalizedText;
   icon: React.ComponentType<{ className?: string }>;
   points: LocalizedList;
+  businessNote: LocalizedText;
 };
 
-type PaymentGateway = {
-  title: string;
-  points: LocalizedList;
+type FlowStep = {
+  title: LocalizedText;
+  description: LocalizedText;
 };
 
-type TechCard = {
-  name: string;
-  details: Localized;
+type QuestionGroup = {
+  title: LocalizedText;
+  questions: LocalizedList;
 };
 
-type ExternalCost = {
-  title: Localized;
-  amount: Localized;
-  subtitle: Localized;
-  note?: Localized;
-};
-
-type PaymentMilestone = {
-  amount: Localized;
-  title: Localized;
-};
-
-const labels: Record<
-  Lang,
-  {
-    offerTitle: string;
-    companyTitle: string;
-    companyText: string;
-    overviewTitle: string;
-    overviewText: string;
-    userFeatures: string;
-    techFeatures: string;
-    adminFeatures: string;
-    deliveryTitle: string;
-    projectDuration: string;
-    totalCost: string;
-    totalCostNote: string;
-    paymentPlanTitle: string;
-    externalNote: string;
-    paymentGatewaysTitle: string;
-    freeServices: string;
-    technologies: string;
-    externalCosts: string;
-    whyUs: string;
-    whyUsSub: string;
-    contact: string;
-    thanks: string;
-    projectFooter: string;
-    logoAlt: string;
-    arBtn: string;
-    enBtn: string;
-  }
-> = {
+const labels = {
   ar: {
-    offerTitle: 'عرض السعر التفصيلي للمشروع',
-    companyTitle: 'شركة Penta-k',
-    companyText:
-      'شركة متخصصة في تصميم وتطوير حلول البرمجيات والتطبيقات الذكية، وتقديم أنظمة متكاملة بجودة عالية وتجربة استخدام احترافية.',
-    overviewTitle: 'وصف عام لمشروع Fix Phone',
-    overviewText:
-      'مشروع Fix Phone عبارة عن منصة صيانة متكاملة تتكون من تطبيق موحد للمستخدم والفني، وتطبيق منفصل للأدمن. المستخدم يرفع طلب الصيانة ويختار الفني المناسب من الأقرب على الخريطة أو عبر البحث والتقييمات، ثم تبدأ محادثة مباشرة بعد قبول الطلب لإتمام تفاصيل الخدمة.',
-    userFeatures: 'مميزات المستخدم',
-    techFeatures: 'مميزات الفني',
-    adminFeatures: 'مميزات الأدمن',
-    deliveryTitle: 'مدة التنفيذ والتسليم',
-    projectDuration: 'مدة المشروع: 3 شهور',
-    totalCost: 'التكلفة الإجمالية للمشروع',
-    totalCostNote: 'شاملة تصميم UI/UX والهوية واللوجو والباك اند والموبايل',
-    paymentPlanTitle: 'طريقة الدفع',
-    externalNote:
-      'ملاحظة: العميل هو المسؤول عن الاشتراكات مع الخدمات الخارجية (OTP / Payment Gateway / Google Maps Billing)، ونحن نقوم بربطها برمجياً داخل التطبيق.',
-    paymentGatewaysTitle: 'بوابات الدفع ونسب العمولة',
-    freeServices: 'Free Services - مميزات مقدمة من شركة Penta-k',
-    technologies: 'Technologies & Development Standards',
-    externalCosts: 'External Running Costs - التكاليف الخارجية',
-    whyUs: 'Why Penta-k? - ليه تختار Penta-k؟',
-    whyUsSub: 'نحن لا نكتب كود فقط، نبني حلول قابلة للنمو والتطور',
-    contact: 'للتواصل والاستفسار',
-    thanks: 'شكرًا لثقتكم في',
-    projectFooter: 'نتطلع للعمل معكم على مشروع Fix Phone.',
-    logoAlt: 'شعار Penta-k',
-    arBtn: 'العربية',
-    enBtn: 'English'
+    navTagline: 'عرض فكرة المنتج - نسخة اجتماع',
+    heroTitle: 'Salik X – Qater App',
+    heroSubtitle:
+      'منصة متعددة الخدمات تجمع خدمات السيارات، الحجز، والدفع، وتجارب الترفيه في تجربة واحدة سهلة وقابلة للتوسع.',
+    quickSummary: 'الخلاصة السريعة',
+    valueProposition: 'القيمة المقترحة للمستخدم',
+    modulesTitle: 'تقسيم المنتج (Modules)',
+    userFlowTitle: 'User Flow - رحلة المستخدم',
+    adminTitle: 'Admin Flow - الهيكل التشغيلي',
+    challengeTitle: 'التحدي الحقيقي للمنتج',
+    confirmedVsAssumed: 'ما هو مؤكد وما يحتاج تأكيد',
+    smartQuestions: 'الأسئلة الذكية في الاجتماع',
+    meetingScript: 'صياغة احترافية للعرض داخل الميتنج',
+    quickLine: 'أهم 30 ثانية',
+    confirmed: 'مؤكد غالبًا من هيكل التطبيق',
+    assumptions: 'لا يُفترض إلا بعد تأكيد العميل',
+    readytag: 'Meeting Ready',
+    userPitchLabel: 'نسخة عربية',
+    englishPitchLabel: 'English Version',
+    challengeLine:
+      'التحدي ليس عرض الخدمات، بل توحيد مسارات حجز وتنفيذ مختلفة جدًا داخل تجربة واحدة بسيطة وقابلة للإدارة.',
+    opsLine: 'المنتج يعتمد على التشغيل (Operations) بقدر اعتماده على الواجهة.'
   },
   en: {
-    offerTitle: 'Detailed Project Offer',
-    companyTitle: 'Penta-k Company',
-    companyText:
-      'A software house specialized in building smart digital solutions and integrated systems with high quality and professional user experience.',
-    overviewTitle: 'Fix Phone Project Overview',
-    overviewText:
-      'Fix Phone is a full maintenance platform with one app for users and technicians, plus a separate admin app. The user submits a request, checks nearby technicians on the map or by ratings/search, then starts direct chat once the technician accepts the request.',
-    userFeatures: 'User Features',
-    techFeatures: 'Technician Features',
-    adminFeatures: 'Admin Features',
-    deliveryTitle: 'Timeline & Deliverables',
-    projectDuration: 'Project duration: 3 months',
-    totalCost: 'Total Project Cost',
-    totalCostNote: 'Includes UI/UX, branding/logo, backend, and mobile apps',
-    paymentPlanTitle: 'Payment Plan',
-    externalNote:
-      'Note: The client is responsible for external service subscriptions (OTP / Payment Gateway / Google Maps Billing), and we handle the technical integration.',
-    paymentGatewaysTitle: 'Payment Gateways & Commission Rates',
-    freeServices: 'Free Services by Penta-k',
-    technologies: 'Technologies & Development Standards',
-    externalCosts: 'External Running Costs',
-    whyUs: 'Why Penta-k?',
-    whyUsSub: 'We do not just write code, we build scalable solutions',
-    contact: 'Contact & Inquiries',
-    thanks: 'Thank you for trusting',
-    projectFooter: 'We look forward to delivering the Fix Phone project with you.',
-    logoAlt: 'Penta-k Logo',
-    arBtn: 'العربية',
-    enBtn: 'English'
+    navTagline: 'Product Concept Deck - Meeting Version',
+    heroTitle: 'Salik X – Qater App',
+    heroSubtitle:
+      'A multi-service platform combining automotive services, booking, payment, and leisure experiences in one scalable user journey.',
+    quickSummary: 'Quick Summary',
+    valueProposition: 'User Value Proposition',
+    modulesTitle: 'Product Modules',
+    userFlowTitle: 'User Flow',
+    adminTitle: 'Admin Flow & Operations',
+    challengeTitle: 'Core Product Challenge',
+    confirmedVsAssumed: 'Confirmed vs Needs Validation',
+    smartQuestions: 'Smart Meeting Questions',
+    meetingScript: 'Professional Meeting Narrative',
+    quickLine: 'Best 30-Second Line',
+    confirmed: 'Likely Confirmed from Product Structure',
+    assumptions: 'Do Not Assume Without Confirmation',
+    readytag: 'Meeting Ready',
+    userPitchLabel: 'Arabic Narrative',
+    englishPitchLabel: 'English Narrative',
+    challengeLine:
+      'The challenge is not listing services; it is standardizing very different booking and fulfillment journeys into one simple product experience.',
+    opsLine: 'This product is operations-heavy, not only content-heavy.'
   }
+} satisfies Record<Lang, Record<string, string>>;
+
+const quickSummaryPoints: LocalizedList = {
+  ar: [
+    'Super App / Marketplace متعدد الخدمات.',
+    'تجميع خدمات السيارات + الترفيه + الحجز في مكان واحد.',
+    'اكتشاف الخدمة ثم الحجز ثم الدفع ثم متابعة التنفيذ.',
+    'يميل لنموذج multi-vertical booking platform أكثر من تطبيق سيارات عادي.'
+  ],
+  en: [
+    'A multi-service Super App / Marketplace.',
+    'Combines automotive, leisure, and booking experiences in one app.',
+    'Discovery -> Booking -> Payment -> Fulfillment tracking.',
+    'Closer to a multi-vertical booking platform than a single-use car app.'
+  ]
 };
 
-const mainSections: SectionCard[] = [
+const valuePropositionPoints: LocalizedList = {
+  ar: [
+    'سهولة الوصول للخدمات من تطبيق واحد.',
+    'توفير وقت البحث بين مزودين متعددين.',
+    'خدمات متعددة (سيارات + تنقل + ترفيه) في نفس الرحلة.',
+    'حجز + دفع + متابعة في تجربة موحدة.'
+  ],
+  en: [
+    'One destination for multiple services.',
+    'Saves time compared to searching many providers.',
+    'Automotive + mobility + leisure in one user journey.',
+    'Unified booking, payment, and tracking experience.'
+  ]
+};
+
+const modules: ModuleCard[] = [
   {
-    title: {
-      ar: 'تطبيق المستخدم والفني (نفس التطبيق)',
-      en: 'User & Technician App (Single App)'
-    },
-    description: {
-      ar: 'تطبيق موحد يخدم طرفي العملية مع واجهات وصلاحيات مختلفة حسب نوع الحساب.',
-      en: 'One application for both sides with separate roles and permissions.'
-    },
-    icon: Smartphone,
+    title: { ar: 'Automotive Mobility Module', en: 'Automotive Mobility Module' },
+    subtitle: { ar: 'سيارات VIP / SUV / Limousine', en: 'VIP / SUV / Limousine mobility bookings' },
+    icon: Car,
     points: {
+      ar: ['استعراض الفئة والسعر.', 'الحجز بالمشوار أو بالساعات.', 'دعم direct booking.', 'Commission per booking محتملة.'],
+      en: ['Browse categories and pricing.', 'Trip-based or hourly booking.', 'Supports direct booking.', 'Likely commission-per-booking model.']
+    },
+    businessNote: {
+      ar: 'سؤال مهم: هل أنتم مزود مباشر أم Marketplace بين العميل والمزود؟',
+      en: 'Key question: Direct provider model or aggregator marketplace model?'
+    }
+  },
+  {
+    title: { ar: 'Car Care Module', en: 'Car Care Module' },
+    subtitle: { ar: 'غسيل - تلميع - تظليل - بطارية', en: 'Wash, polishing, tinting, protection, battery' },
+    icon: Wrench,
+    points: {
+      ar: ['خدمة في الموقع On-site.', 'أو خدمة داخل مركز In-store.', 'اختيار نوع السيارة والوقت والمكان.', 'متابعة حالة الطلب.'],
+      en: ['On-site service option.', 'In-store/center option.', 'Vehicle type, time slot, and location inputs.', 'Order status tracking.']
+    },
+    businessNote: {
+      ar: 'هذه الوحدة تحتاج Service fulfillment model واضح في الباك-إند.',
+      en: 'This module requires a clear service fulfillment model in backend design.'
+    }
+  },
+  {
+    title: { ar: 'Inspection & Maintenance', en: 'Inspection & Maintenance Module' },
+    subtitle: { ar: 'فحص - زيت - صيانة دورية', en: 'Inspection, engine oil, and maintenance services' },
+    icon: Shield,
+    points: {
+      ar: ['طلب قائم على دورة حياة واضحة.', 'Pending > Confirmed > In Progress > Completed.', 'بيانات إضافية: موديل/سنة/موقع.', 'ليس مجرد Cart + Checkout.'],
+      en: ['Lifecycle-based order flow.', 'Pending > Confirmed > In Progress > Completed.', 'Extra inputs: model/year/location.', 'More than simple cart checkout.']
+    },
+    businessNote: {
+      ar: 'النقطة الأساسية: إدارة Order Lifecycle بشكل تشغيلي قوي.',
+      en: 'Core point: strong order lifecycle operations management.'
+    }
+  },
+  {
+    title: { ar: 'Products / Consumables', en: 'Products / Consumables Module' },
+    subtitle: { ar: 'بطاريات ومنتجات مرتبطة بالخدمة', en: 'Batteries and consumables with optional service' },
+    icon: Package,
+    points: {
+      ar: ['شراء منتج فقط.', 'أو منتج + تركيب.', 'إدارة عروض وأسعار.', 'توضيح هل يوجد Commerce layer كامل.'],
+      en: ['Product-only purchases.', 'Or product + installation bundles.', 'Promotions and pricing support.', 'Clarify full commerce layer scope.']
+    },
+    businessNote: {
+      ar: 'سؤال مهم: هل كل المنتجات مرتبطة بتنفيذ أم توجد منتجات مستقلة؟',
+      en: 'Key question: Are products standalone or always tied to execution service?'
+    }
+  },
+  {
+    title: { ar: 'Leisure & Entertainment', en: 'Leisure & Entertainment Module' },
+    subtitle: { ar: 'يخت - أنشطة - رحلات - تجارب', en: 'Yachts, activities, trips, and experiential bookings' },
+    icon: Globe,
+    points: {
+      ar: ['توسيع التطبيق خارج نطاق السيارات.', 'حجوزات بعدد أشخاص ومواعيد.', 'دعم Seasonal offers.', 'يوجه المنتج نحو Lifestyle ecosystem.'],
+      en: ['Expands the app beyond automotive services.', 'People/date/time-based bookings.', 'Supports seasonal offers.', 'Moves product toward lifestyle ecosystem.']
+    },
+    businessNote: {
+      ar: 'المنتج يتطور من Car App إلى Lifestyle Booking Ecosystem.',
+      en: 'The product evolves from car app to lifestyle booking ecosystem.'
+    }
+  }
+];
+
+const userFlow: FlowStep[] = [
+  {
+    title: { ar: '1) Onboarding / Authentication', en: '1) Onboarding / Authentication' },
+    description: {
+      ar: 'تسجيل دخول عبر الهاتف/OTP (أساسي غالبًا) مع خيارات إضافية (إيميل/سوشال).',
+      en: 'Login via phone/OTP (likely primary), with optional email/social methods.'
+    }
+  },
+  {
+    title: { ar: '2) Home / Discovery', en: '2) Home / Discovery' },
+    description: {
+      ar: 'الصفحة الرئيسية كسطح بيع واكتشاف: عروض، خدمات مميزة، أقسام رئيسية.',
+      en: 'Home acts as a discovery and sales surface: offers, featured services, and category entry points.'
+    }
+  },
+  {
+    title: { ar: '3) Category Browsing', en: '3) Category Browsing' },
+    description: {
+      ar: 'تصفح الفئة مع تفاصيل السعر والمدة والشروط والتوفر.',
+      en: 'Browse category details including pricing, duration, terms, and availability.'
+    }
+  },
+  {
+    title: { ar: '4) Service Detail', en: '4) Service Detail' },
+    description: {
+      ar: 'شاشة تحويل Conversion: توضيح القيمة + CTA للحجز.',
+      en: 'Conversion screen: service value clarity + direct booking CTA.'
+    }
+  },
+  {
+    title: { ar: '5) Booking Configuration', en: '5) Booking Configuration' },
+    description: {
+      ar: 'Dynamic Form مختلف حسب نوع الخدمة (سيارة/ليموزين/يخت/نشاط).',
+      en: 'Dynamic booking form changes by service type (wash/limousine/yacht/activity).'
+    }
+  },
+  {
+    title: { ar: '6) Cart / Checkout', en: '6) Cart / Checkout' },
+    description: {
+      ar: 'مراجعة الحجز، كوبون، ملاحظات، عنوان، والسعر النهائي.',
+      en: 'Booking review, coupon, notes, address, and final pricing confirmation.'
+    }
+  },
+  {
+    title: { ar: '7) Payment', en: '7) Payment' },
+    description: {
+      ar: 'سيناريوهات دفع متعددة: prepaid / partial / pay-later حسب الخدمة.',
+      en: 'Multiple payment scenarios: prepaid, partial, or pay-later by service type.'
+    }
+  },
+  {
+    title: { ar: '8) Confirmation & Tracking', en: '8) Confirmation & Tracking' },
+    description: {
+      ar: 'رقم الحجز + حالة التنفيذ + إشعارات + قنوات تواصل.',
+      en: 'Booking ID, fulfillment status, notifications, and communication options.'
+    }
+  },
+  {
+    title: { ar: '9) My Bookings', en: '9) My Bookings' },
+    description: {
+      ar: 'حجوزات حالية/سابقة/ملغاة + إعادة الحجز + إيصالات.',
+      en: 'Current/past/cancelled bookings with rebook and invoice access.'
+    }
+  },
+  {
+    title: { ar: '10) Profile & Support', en: '10) Profile & Support' },
+    description: {
+      ar: 'اللغة، العناوين، المفضلة، طرق الدفع، الدعم، والشروط.',
+      en: 'Language, addresses, favorites, payment methods, support, and legal pages.'
+    }
+  }
+];
+
+const adminRoles = [
+  {
+    title: { ar: 'Super Admin', en: 'Super Admin' },
+    points: {
+      ar: ['تحكم كامل بالنظام.', 'إدارة التسعير والمحتوى.', 'متابعة التقارير والمؤشرات.'],
+      en: ['Full system control.', 'Pricing and content governance.', 'Reports and KPIs oversight.']
+    }
+  },
+  {
+    title: { ar: 'Operations Admin', en: 'Operations Admin' },
+    points: {
+      ar: ['متابعة الحجوزات والتنفيذ.', 'إدارة الجدولة والتعيين.', 'التعامل مع الاستثناءات والإلغاءات.'],
+      en: ['Booking and fulfillment operations.', 'Scheduling and assignment handling.', 'Exceptions and cancellations handling.']
+    }
+  },
+  {
+    title: { ar: 'Vendor / Partner Admin', en: 'Vendor / Partner Admin' },
+    points: {
+      ar: ['إدارة خدمات المزود.', 'التوفر والمواعيد.', 'الطلبات والأسعار حسب الصلاحية.'],
+      en: ['Manage partner services.', 'Availability and slots.', 'Orders and pricing under permissions.']
+    }
+  }
+];
+
+const adminCoreAreas: LocalizedList = {
+  ar: [
+    'User Management',
+    'Service Catalog Management',
+    'Booking & Operations Management',
+    'Schedule & Availability Management',
+    'Pricing & Promotions',
+    'Payments & Refunds',
+    'Content Management',
+    'Analytics & Reports'
+  ],
+  en: [
+    'User Management',
+    'Service Catalog Management',
+    'Booking & Operations Management',
+    'Schedule & Availability Management',
+    'Pricing & Promotions',
+    'Payments & Refunds',
+    'Content Management',
+    'Analytics & Reports'
+  ]
+};
+
+const confirmedItems: LocalizedList = {
+  ar: [
+    'تصنيفات متعددة للخدمات.',
+    'تجربة حجز لخدمات سيارات وأنشطة.',
+    'ملف شخصي ومفضلة وسجل حجوزات.',
+    'دعم عربي / إنجليزي.',
+    'تتبع حالة الطلب بعد الحجز.'
+  ],
+  en: [
+    'Multi-category service architecture.',
+    'Booking journeys for automotive and leisure services.',
+    'Profile, favorites, and booking history.',
+    'Arabic/English support.',
+    'Post-booking status tracking.'
+  ]
+};
+
+const assumptionItems: LocalizedList = {
+  ar: [
+    'دفع إلكتروني شامل لكل الخدمات.',
+    'لوحة تحكم كاملة لجميع السيناريوهات.',
+    'Multi-vendor access production-ready.',
+    'Dispatch آلي كامل داخل النظام.',
+    'Refund automation متكامل.',
+    'تكاملات خارجية (Booking/Hotels) جاهزة فعليًا.'
+  ],
+  en: [
+    'Fully enabled online payment for all services.',
+    'Comprehensive production-grade admin for all scenarios.',
+    'Production-ready multi-vendor access.',
+    'Fully automated dispatch workflows.',
+    'Complete refund automation engine.',
+    'Live external integrations (Booking/Hotels).'
+  ]
+};
+
+const smartQuestions: QuestionGroup[] = [
+  {
+    title: { ar: 'A) أسئلة البزنس', en: 'A) Business Questions' },
+    questions: {
       ar: [
-        'المستخدم يرفع طلب الصيانة ويشاهد أقرب الفنيين على الخريطة.',
-        'الفني يستقبل الطلبات ويوافق عليها من نفس التطبيق.',
-        'التواصل بعد القبول عبر محادثة نصية مع صور و PDF فقط.'
+        'ما هو التركيز الحالي: سيارات أم ترفيه أم Super App كامل؟',
+        'ما أكثر الأقسام تحقيقًا للإيراد؟',
+        'هل التشغيل مباشر أم عبر مزودين؟',
+        'ما هي شخصية المستخدم الأساسية (Residents / Tourists / Premium)؟'
       ],
       en: [
-        'Users submit maintenance requests and see nearby technicians on the map.',
-        'Technicians receive and accept requests from the same app.',
-        'After acceptance, chat supports text, images, and PDF only.'
+        'What is the current focus: automotive, leisure, or full super app?',
+        'Which categories generate the highest revenue today?',
+        'Are you operating directly or via partners/vendors?',
+        'What is the primary user persona (residents, tourists, premium users)?'
       ]
     }
   },
   {
-    title: {
-      ar: 'تطبيق الأدمن (منفصل)',
-      en: 'Separate Admin Application'
-    },
-    description: {
-      ar: 'تطبيق مستقل لإدارة المنصة بالكامل ومتابعة كل العمليات.',
-      en: 'Dedicated admin app to manage all operations and system data.'
-    },
-    icon: Monitor,
-    points: {
+    title: { ar: 'B) أسئلة المنتج', en: 'B) Product Questions' },
+    questions: {
       ar: [
-        'إدارة المستخدمين والفنيين (إنشاء، متابعة، حذف، حظر).',
-        'إدارة الإعلانات والعروض والفئات الرئيسية والفرعية بشكل ديناميكي.',
-        'متابعة الاشتراكات، التوثيق، والتقارير التشغيلية.'
+        'ما الجزء المشترك في الحجز بين كل الفئات؟',
+        'ما الخدمات التي تحتاج Scheduling مقابل تنفيذ فوري؟',
+        'هل لكل فئة Dynamic form مستقل؟',
+        'هل توجد منتجات مستقلة أم كلها مرتبطة بخدمة؟'
       ],
       en: [
-        'Manage users and technicians (create, monitor, delete, block).',
-        'Manage ads, offers, categories, and sub-categories dynamically.',
-        'Track subscriptions, verification, and performance reports.'
+        'What is the shared booking core across categories?',
+        'Which services are scheduled vs instant fulfillment?',
+        'Is each category using its own dynamic form logic?',
+        'Are products standalone or always tied to services?'
       ]
     }
   },
   {
-    title: {
-      ar: 'نظام الاشتراكات والتوثيق للفنيين',
-      en: 'Technician Subscription & Verification'
-    },
-    description: {
-      ar: 'تحفيز نمو المنصة ونموذج ربح مستدام عبر الفنيين.',
-      en: 'A sustainable revenue model through technician plans and verification.'
-    },
-    icon: DollarSign,
-    points: {
+    title: { ar: 'C) أسئلة التشغيل', en: 'C) Operations Questions' },
+    questions: {
       ar: [
-        'فترة تمهيدية بدون اشتراكات لمدة 4 إلى 6 شهور.',
-        'بعد الفترة التمهيدية يبدأ اشتراك شهري للفنيين للظهور داخل التطبيق.',
-        'علامة توثيق مدفوعة للفني لإبراز الثقة أمام المستخدم.'
+        'كيف تتم إدارة الطلب بعد التأكيد؟',
+        'هل هناك فريق Dispatch داخلي؟',
+        'كيف يتم التحكم في التوفر والـ capacity؟',
+        'ما آلية الإلغاء والاسترجاع؟'
       ],
       en: [
-        'Initial phase without subscription for 4 to 6 months.',
-        'Monthly subscription starts afterward for technician visibility.',
-        'Paid verified badge option to increase user trust.'
+        'How is fulfillment managed post-confirmation?',
+        'Is there an internal dispatch team?',
+        'How do you manage slots and capacity?',
+        'How are cancellations and refunds handled?'
       ]
     }
   },
   {
-    title: {
-      ar: 'التصنيفات والإعلانات والعروض',
-      en: 'Categories, Ads & Offers'
-    },
-    description: {
-      ar: 'هيكل مرن لإدارة أنواع الصيانة المختلفة والتسويق داخل المنصة.',
-      en: 'Flexible structure to manage service types and in-app marketing.'
-    },
-    icon: TrendingUp,
-    points: {
+    title: { ar: 'D) أسئلة التقنية والإدارة', en: 'D) Tech & Admin Questions' },
+    questions: {
       ar: [
-        'الأدمن ينشئ Categories و Sub-Categories حسب الحاجة.',
-        'الأدمن ينشئ إعلانات عامة داخل التطبيق.',
-        'الفني ينشئ عروض خاصة (مثال: خصم 10% على خدمة معينة).'
+        'هل توجد لوحة تشغيل منفصلة عن إدارة المحتوى؟',
+        'هل يوجد Multi-vendor access أم Internal users فقط؟',
+        'كيف تُدار الأسعار بين الفئات المختلفة؟',
+        'هل لديكم Analytics للخدمات الأعلى حجزًا وتكرار المستخدمين؟'
       ],
       en: [
-        'Admin can create categories and sub-categories dynamically.',
-        'Admin can publish internal app advertisements.',
-        'Technicians can publish their own service offers (e.g. 10% discount).'
+        'Do you have a dedicated operations panel beyond CMS?',
+        'Multi-vendor access or internal admin users only?',
+        'How is pricing managed across categories?',
+        'Do you track top-booked services and repeat users analytics?'
       ]
     }
   }
 ];
 
-const userFeatures: LocalizedList = {
-  ar: [
-    'تسجيل الدخول ورفع طلب صيانة بسهولة.',
-    'إظهار أقرب الفنيين حسب الموقع على الخريطة.',
-    'اختيار فني مباشرة بعد مقارنة التقييمات أو البحث بالاسم/المنطقة.',
-    'محادثة مع الفني بعد قبول الطلب (Text + Images + PDF فقط).',
-    'عرض بروفايل الفني مع التقييمات والآراء.',
-    'إمكانية الحظر أو البلاغ داخل الشات.'
-  ],
-  en: [
-    'Easy login and maintenance request submission.',
-    'Show nearby technicians on map based on location.',
-    'Select technician by ratings, name, or area search.',
-    'Chat after acceptance (Text + Images + PDF only).',
-    'Technician profile with ratings and user reviews.',
-    'Block/report options inside chat.'
-  ]
+const arabicPitch =
+  'من فهمي الأولي، Salik X عبارة عن منصة متعددة الخدمات تجمع خدمات السيارات والتنقل والأنشطة في تجربة حجز وتنفيذ موحدة. المستخدم يكتشف الخدمة، يحدد التفاصيل، يحجز، يدفع، ثم يتابع التنفيذ داخل نفس التطبيق. لذلك المنتج أقرب إلى booking and fulfillment-driven multi-service marketplace وليس مجرد كتالوج خدمات.';
+
+const englishPitch =
+  'From my initial understanding, Salik X is a multi-service marketplace that combines automotive services, mobility offerings, and leisure bookings in one product experience. Users can discover services, configure booking details, pay, and track fulfillment within the same app. So it behaves more like a booking-and-fulfillment platform than a simple service catalog.';
+
+const quickThirtySeconds = {
+  ar: 'أرى المنتج كمنصة حجز وتنفيذ متعددة الخدمات، مركزها راحة المستخدم في خدمات السيارات مع توسع واضح نحو خدمات الحياة والترفيه. وأهم نقطة نحتاج فهمها بعمق هي نموذج التشغيل: إدارة المزودين، التنفيذ بعد الحجز، وتوحيد كل الفئات تحت تجربة واحدة.',
+  en: 'I see the product as a multi-service booking and fulfillment platform, centered on automotive convenience and expanding into lifestyle and leisure. The key area to validate deeper is the operating model: vendor management, post-booking execution, and how all categories are unified under one scalable experience.'
 };
-
-const techFeatures: LocalizedList = {
-  ar: [
-    'استقبال الطلبات القريبة بناءً على الموقع الحالي.',
-    'قبول/رفض الطلبات وإدارة حالة الطلب.',
-    'محادثة مع المستخدم (Text + Images + PDF).',
-    'إمكانية عمل حظر أو بلاغ داخل المحادثة.',
-    'إنشاء عروض خاصة على الخدمات.',
-    'إدارة البروفايل والتقييمات والآراء.'
-  ],
-  en: [
-    'Receive nearby service requests based on live location.',
-    'Accept/reject requests and update request status.',
-    'Chat with user (Text + Images + PDF).',
-    'Block/report options within chat.',
-    'Create custom service offers.',
-    'Manage profile, ratings, and feedback.'
-  ]
-};
-
-const adminFeatures: LocalizedList = {
-  ar: [
-    'إدارة المستخدمين والفنيين وصلاحيات الحسابات.',
-    'إدارة الفئات الرئيسية والفرعية بشكل ديناميكي.',
-    'إدارة الإعلانات العامة داخل المنصة.',
-    'متابعة نظام الاشتراكات الشهرية للفنيين.',
-    'إدارة شراء وتفعيل علامة التوثيق للفنيين.',
-    'متابعة الأداء والتقارير التشغيلية.'
-  ],
-  en: [
-    'Manage users, technicians, and account permissions.',
-    'Manage categories and sub-categories dynamically.',
-    'Manage platform-wide advertisements.',
-    'Track technician monthly subscriptions.',
-    'Manage verified badge purchasing and activation.',
-    'Monitor performance and operational reports.'
-  ]
-};
-
-const deliverables: LocalizedList = {
-  ar: [
-    'تسليم تطبيق المستخدم والفني معًا على Android و iOS.',
-    'تسليم تطبيق الأدمن على Android.',
-    'تسليم تطبيق الأدمن نسخة Windows.',
-    'رفع التطبيقات على Google Play و Apple Store.',
-    'تسليم سورس كود الموبايل + الباك اند + ملفات التصميم.'
-  ],
-  en: [
-    'Delivery of user/technician app on Android and iOS.',
-    'Delivery of admin app on Android.',
-    'Delivery of admin app on Windows.',
-    'Publishing on Google Play and Apple Store.',
-    'Handover mobile source code + backend + design files.'
-  ]
-};
-
-const includedInPrice: LocalizedList = {
-  ar: [
-    'تصميم UI/UX كامل للتطبيق.',
-    'تصميم الهوية واللوجو.',
-    'تطوير الباك اند.',
-    'تطوير تطبيقات الموبايل.',
-    'ربط بوابة الدفع.',
-    'ربط خدمة OTP عند التسجيل برقم الهاتف.'
-  ],
-  en: [
-    'Complete UI/UX design.',
-    'Brand identity and logo design.',
-    'Backend development.',
-    'Mobile applications development.',
-    'Payment gateway integration.',
-    'OTP integration for phone-based login.'
-  ]
-};
-
-const technologies: TechCard[] = [
-  {
-    name: 'Flutter',
-    details: {
-      ar: 'تطوير تطبيق المستخدم/الفني + تطبيق الأدمن (Android و iOS و Windows).',
-      en: 'User/technician app + admin app development (Android, iOS, Windows).'
-    }
-  },
-  {
-    name: 'Node.js Backend',
-    details: {
-      ar: 'API قوية لإدارة الطلبات، المستخدمين، الفنيين، والإشعارات.',
-      en: 'Robust API for requests, users, technicians, and notifications.'
-    }
-  },
-  {
-    name: 'Figma Design',
-    details: {
-      ar: 'تصميم UI/UX والهوية البصرية قبل التنفيذ.',
-      en: 'UI/UX and visual identity design before implementation.'
-    }
-  },
-  {
-    name: 'Hostinger Server',
-    details: {
-      ar: 'استضافة النظام وقاعدة البيانات والـ APIs.',
-      en: 'Hosting for backend services, database, and APIs.'
-    }
-  },
-  {
-    name: 'Firebase Notifications',
-    details: {
-      ar: 'إشعارات فورية للمستخدم والفني والأدمن.',
-      en: 'Real-time push notifications for user, technician, and admin.'
-    }
-  }
-];
-
-const paymentGateways: PaymentGateway[] = [
-  {
-    title: 'Visa / Mastercard',
-    points: {
-      ar: ['المدفوعات الدولية: 2.50% + 2.00 جنيه', 'عمولة البطاقة: 2% + 2 جنيه', 'VAT: 14%'],
-      en: ['International: 2.50% + 2.00 EGP', 'Card commission: 2% + 2 EGP', 'VAT: 14%']
-    }
-  },
-  {
-    title: 'Fawry',
-    points: {
-      ar: ['العمولة: 2.00% + 2.00 جنيه', 'VAT: 14%'],
-      en: ['Commission: 2.00% + 2.00 EGP', 'VAT: 14%']
-    }
-  },
-  {
-    title: 'Mobile Wallet',
-    points: {
-      ar: ['العمولة: 2.00% + 2.00 جنيه', 'VAT: 14%'],
-      en: ['Commission: 2.00% + 2.00 EGP', 'VAT: 14%']
-    }
-  },
-  {
-    title: 'Aman',
-    points: {
-      ar: ['العمولة: 2.00% + 2.00 جنيه', 'VAT: 14%'],
-      en: ['Commission: 2.00% + 2.00 EGP', 'VAT: 14%']
-    }
-  },
-  {
-    title: 'Basata',
-    points: {
-      ar: ['العمولة: 2.00% + 2.00 جنيه', 'VAT: 14%'],
-      en: ['Commission: 2.00% + 2.00 EGP', 'VAT: 14%']
-    }
-  },
-  {
-    title: 'Apple Pay',
-    points: {
-      ar: ['العمولة: 2.00% + 2.00 جنيه', 'VAT: 14%'],
-      en: ['Commission: 2.00% + 2.00 EGP', 'VAT: 14%']
-    }
-  },
-  {
-    title: 'Fawaterk',
-    points: {
-      ar: ['العمولة حسب الشريحة المتفق عليها مع Fawaterk', 'تُضاف ضريبة القيمة المضافة عند التطبيق'],
-      en: ['Commission depends on the agreed Fawaterk package', 'VAT applies when activated']
-    }
-  }
-];
-
-const externalCosts: ExternalCost[] = [
-  {
-    title: { ar: 'Google Play', en: 'Google Play' },
-    amount: { ar: '500 جنيه', en: 'EGP 500' },
-    subtitle: { ar: 'سنويًا', en: 'Yearly' }
-  },
-  {
-    title: { ar: 'Apple Store', en: 'Apple Store' },
-    amount: { ar: '2,000 جنيه', en: 'EGP 2,000' },
-    subtitle: { ar: 'سنويًا', en: 'Yearly' }
-  },
-  {
-    title: { ar: 'اشتراك السيرفر', en: 'Server Subscription' },
-    amount: { ar: '2,500 جنيه', en: 'EGP 2,500' },
-    subtitle: { ar: 'اشتراك سنوي', en: 'Annual subscription' },
-    note: {
-      ar: 'يشمل استضافة السيرفر والمتابعة الدورية طوال سنة الاشتراك.',
-      en: 'Includes server hosting and periodic follow-up throughout the yearly subscription.'
-    }
-  },
-  {
-    title: { ar: 'الدعم الفني السنوي', en: 'Annual Technical Support' },
-    amount: { ar: '5,000 جنيه', en: 'EGP 5,000' },
-    subtitle: { ar: 'سنويًا', en: 'Yearly' }
-  }
-];
-
-const paymentMilestones: PaymentMilestone[] = [
-  {
-    amount: { ar: '25,000 جنيه', en: 'EGP 25,000' },
-    title: { ar: 'دفعة مقدمة عند التعاقد', en: 'Advance payment at contract signing' }
-  },
-  {
-    amount: { ar: '5,000 جنيه', en: 'EGP 5,000' },
-    title: { ar: 'بعد الانتهاء من اللوجو والهوية', en: 'After logo and identity completion' }
-  },
-  {
-    amount: { ar: '15,000 جنيه', en: 'EGP 15,000' },
-    title: { ar: 'بعد الانتهاء من تصميم UI/UX', en: 'After UI/UX design completion' }
-  },
-  {
-    amount: { ar: '15,000 جنيه', en: 'EGP 15,000' },
-    title: { ar: 'بعد الانتهاء من تطبيق المستخدم', en: 'After user app completion' }
-  },
-  {
-    amount: { ar: '15,000 جنيه', en: 'EGP 15,000' },
-    title: { ar: 'بعد الانتهاء من الأدمن (موبايل + ويندوز)', en: 'After admin delivery (Mobile + Windows)' }
-  }
-];
-
-const projectName = 'Fix Phone';
 
 export default function App() {
   const [lang, setLang] = React.useState<Lang>('ar');
+  const [theme, setTheme] = React.useState<Theme>('dark');
   const isArabic = lang === 'ar';
+  const isDark = theme === 'dark';
+
+  const ui = {
+    page: isDark ? 'min-h-screen bg-slate-950 text-slate-100' : 'min-h-screen bg-slate-50 text-slate-900',
+    orbA: isDark ? 'bg-cyan-500/20' : 'bg-cyan-300/45',
+    orbB: isDark ? 'bg-blue-600/20' : 'bg-blue-300/40',
+    header: isDark
+      ? 'sticky top-0 z-40 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl'
+      : 'sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur-xl',
+    navTagline: isDark ? 'text-slate-300' : 'text-slate-600',
+    controlWrap: isDark
+      ? 'inline-flex items-center rounded-xl border border-white/15 bg-white/5 p-1'
+      : 'inline-flex items-center rounded-xl border border-slate-300 bg-white p-1',
+    controlIcon: isDark ? 'text-slate-300' : 'text-slate-600',
+    toggleActive: isDark ? 'bg-cyan-500 text-slate-950' : 'bg-slate-900 text-white',
+    toggleIdle: isDark ? 'text-slate-200 hover:bg-white/10' : 'text-slate-700 hover:bg-slate-100',
+    hero: isDark
+      ? 'rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.04] p-8 shadow-2xl'
+      : 'rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-100 p-8 shadow-sm',
+    badge: isDark
+      ? 'rounded-full border border-cyan-300/30 bg-cyan-400/15 px-3 py-1 text-xs font-semibold text-cyan-200'
+      : 'rounded-full border border-cyan-300/70 bg-cyan-100 px-3 py-1 text-xs font-semibold text-cyan-700',
+    chip: isDark
+      ? 'rounded-full border border-white/15 px-3 py-1 text-xs text-slate-300'
+      : 'rounded-full border border-slate-300 px-3 py-1 text-xs text-slate-700',
+    heroText: isDark ? 'text-slate-200' : 'text-slate-700',
+    section: isDark
+      ? 'rounded-3xl border border-white/10 bg-white/[0.04] p-8'
+      : 'rounded-3xl border border-slate-200 bg-white p-8 shadow-sm',
+    sectionAlert: isDark
+      ? 'rounded-3xl border border-white/10 bg-gradient-to-br from-cyan-500/15 to-blue-500/10 p-8'
+      : 'rounded-3xl border border-cyan-200 bg-gradient-to-br from-cyan-50 to-blue-50 p-8',
+    moduleCard: isDark
+      ? 'rounded-2xl border border-white/10 bg-slate-900/50 p-5'
+      : 'rounded-2xl border border-slate-200 bg-slate-50 p-5',
+    subCard: isDark
+      ? 'rounded-xl border border-white/10 bg-slate-900/40 p-4'
+      : 'rounded-xl border border-slate-200 bg-slate-50 p-4',
+    textSoft: isDark ? 'text-slate-200' : 'text-slate-700',
+    textSubtle: isDark ? 'text-slate-300' : 'text-slate-600',
+    textAccent: isDark ? 'text-cyan-200' : 'text-cyan-700',
+    noteCard: isDark
+      ? 'rounded-xl border border-cyan-300/20 bg-cyan-500/10 p-3 text-xs text-cyan-100'
+      : 'rounded-xl border border-cyan-300/50 bg-cyan-50 p-3 text-xs text-cyan-800',
+    confirmed: isDark
+      ? 'rounded-3xl border border-emerald-300/20 bg-emerald-400/10 p-8'
+      : 'rounded-3xl border border-emerald-300 bg-emerald-50 p-8',
+    assumptions: isDark
+      ? 'rounded-3xl border border-amber-300/20 bg-amber-400/10 p-8'
+      : 'rounded-3xl border border-amber-300 bg-amber-50 p-8',
+    pitchCard: isDark
+      ? 'rounded-2xl border border-white/10 bg-slate-900/40 p-5'
+      : 'rounded-2xl border border-slate-200 bg-white p-5',
+    quickLine: isDark
+      ? 'rounded-2xl border border-cyan-300/20 bg-cyan-500/10 p-5'
+      : 'rounded-2xl border border-cyan-300/60 bg-cyan-50 p-5'
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100" dir={isArabic ? 'rtl' : 'ltr'}>
-      <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900">{projectName}</h1>
-              <p className="text-sm text-slate-600">{labels[lang].offerTitle}</p>
+    <div className={ui.page} dir={isArabic ? 'rtl' : 'ltr'}>
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className={`absolute top-[-10rem] left-[-8rem] h-96 w-96 rounded-full blur-3xl ${ui.orbA}`} />
+        <div className={`absolute bottom-[-12rem] right-[-10rem] h-[28rem] w-[28rem] rounded-full blur-3xl ${ui.orbB}`} />
+      </div>
+
+      <header className={ui.header}>
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">{labels[lang].heroTitle}</h1>
+            <p className={`text-sm mt-1 ${ui.navTagline}`}>{labels[lang].navTagline}</p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <div className={ui.controlWrap}>
+              <Languages className={`w-4 h-4 mx-2 ${ui.controlIcon}`} />
+              <button
+                type="button"
+                onClick={() => setLang('ar')}
+                className={`rounded-lg px-3 py-1.5 text-sm font-semibold transition ${
+                  lang === 'ar' ? ui.toggleActive : ui.toggleIdle
+                }`}
+              >
+                العربية
+              </button>
+              <button
+                type="button"
+                onClick={() => setLang('en')}
+                className={`rounded-lg px-3 py-1.5 text-sm font-semibold transition ${
+                  lang === 'en' ? ui.toggleActive : ui.toggleIdle
+                }`}
+              >
+                English
+              </button>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-2 py-1">
-                <Languages className="w-4 h-4 text-slate-500" />
-                <button
-                  type="button"
-                  className={`px-3 py-2 text-sm font-semibold transition-colors ${
-                    lang === 'ar' ? 'bg-blue-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-100'
-                  }`}
-                  onClick={() => setLang('ar')}
-                >
-                  {labels[lang].arBtn}
-                </button>
-                <button
-                  type="button"
-                  className={`px-3 py-2 text-sm font-semibold transition-colors ${
-                    lang === 'en' ? 'bg-blue-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-100'
-                  }`}
-                  onClick={() => setLang('en')}
-                >
-                  {labels[lang].enBtn}
-                </button>
-              </div>
-              <a href="https://penta-k.com" className="inline-flex items-center" aria-label="Penta-k website">
-                <img src="public/logo.png" alt={labels[lang].logoAlt} className="h-12 w-auto object-contain" />
-              </a>
+
+            <div className={ui.controlWrap}>
+              <button
+                type="button"
+                onClick={() => setTheme('dark')}
+                className={`rounded-lg px-3 py-1.5 text-sm font-semibold transition inline-flex items-center gap-1 ${
+                  theme === 'dark' ? ui.toggleActive : ui.toggleIdle
+                }`}
+                aria-pressed={theme === 'dark'}
+              >
+                <Moon className="w-4 h-4" />
+                <span>{lang === 'ar' ? 'داكن' : 'Dark'}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setTheme('light')}
+                className={`rounded-lg px-3 py-1.5 text-sm font-semibold transition inline-flex items-center gap-1 ${
+                  theme === 'light' ? ui.toggleActive : ui.toggleIdle
+                }`}
+                aria-pressed={theme === 'light'}
+              >
+                <Sun className="w-4 h-4" />
+                <span>{lang === 'ar' ? 'فاتح' : 'Light'}</span>
+              </button>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="bg-gradient-to-l from-blue-600 to-blue-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="flex items-start justify-between flex-wrap gap-6">
-            <div className="flex-1">
-              <h2 className="text-3xl font-bold mb-2">{labels[lang].companyTitle}</h2>
-              <p className="text-blue-100 text-lg mb-4 leading-relaxed max-w-3xl">{labels[lang].companyText}</p>
-              <div className="flex flex-wrap gap-6">
-                <div className="flex items-center gap-2">
-                  <Globe className="w-5 h-5" />
-                  <a href="https://penta-k.com" className="hover:underline">
-                    penta-k.com
-                  </a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <PhoneCall className="w-5 h-5" />
-                  <a href="tel:+201061942646" className="hover:underline" dir="ltr">
-                    +20 10 61942646
-                  </a>
-                </div>
-              </div>
-            </div>
+      <main className="max-w-7xl mx-auto px-6 py-8 space-y-8">
+        <section className={ui.hero}>
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <span className={ui.badge}>
+              {labels[lang].readytag}
+            </span>
+            <span className={ui.chip}>Super App</span>
+            <span className={ui.chip}>Marketplace</span>
+            <span className={ui.chip}>Booking + Fulfillment</span>
           </div>
-        </div>
 
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6">
-            <FileText className="w-8 h-8 text-blue-600" />
-            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].overviewTitle}</h2>
-          </div>
-          <p className="text-slate-600 text-lg leading-relaxed">{labels[lang].overviewText}</p>
-        </div>
+          <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-4">{labels[lang].heroTitle}</h2>
+          <p className={`text-lg max-w-4xl leading-relaxed ${ui.heroText}`}>{labels[lang].heroSubtitle}</p>
+        </section>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {mainSections.map((section) => {
-            const Icon = section.icon;
-            return (
-              <div
-                key={section.title.en}
-                className="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-100 hover:border-blue-300 transition-colors"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-blue-100 rounded-lg">
-                    <Icon className="w-6 h-6 text-blue-600" />
+        <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <StatCard
+            icon={<FileText className="w-6 h-6 text-cyan-300" />}
+            title={labels[lang].quickSummary}
+            items={quickSummaryPoints[lang]}
+            isDark={isDark}
+          />
+          <StatCard
+            icon={<TrendingUp className="w-6 h-6 text-cyan-300" />}
+            title={labels[lang].valueProposition}
+            items={valuePropositionPoints[lang]}
+            isDark={isDark}
+          />
+          <MiniHighlight icon={<Award className="w-6 h-6 text-cyan-300" />} text={labels[lang].challengeLine} isDark={isDark} />
+          <MiniHighlight icon={<Monitor className="w-6 h-6 text-cyan-300" />} text={labels[lang].opsLine} isDark={isDark} />
+        </section>
+
+        <section className={ui.section}>
+          <SectionHeader icon={<Smartphone className="w-6 h-6 text-cyan-300" />} title={labels[lang].modulesTitle} isDark={isDark} />
+          <div className="grid lg:grid-cols-2 gap-5">
+            {modules.map((module) => {
+              const Icon = module.icon;
+              return (
+                <div key={module.title.en} className={ui.moduleCard}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="rounded-lg bg-cyan-500/15 p-2">
+                      <Icon className="w-5 h-5 text-cyan-300" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg">{module.title[lang]}</h3>
+                      <p className={`text-sm ${ui.textSubtle}`}>{module.subtitle[lang]}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900">{section.title[lang]}</h3>
-                    <p className="text-sm text-slate-600">{section.description[lang]}</p>
-                  </div>
+                  <ul className="space-y-2 mb-4">
+                    {module.points[lang].map((point) => (
+                      <li key={point} className={`flex gap-2 text-sm ${ui.textSoft}`}>
+                        <CheckCircle className="w-4 h-4 text-cyan-300 mt-0.5" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className={ui.noteCard}>{module.businessNote[lang]}</p>
                 </div>
-                <ul className="space-y-2 text-sm text-slate-700">
-                  {section.points[lang].map((point) => (
-                    <li key={point} className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
-        </div>
-
-        <FeatureSection
-          title={labels[lang].userFeatures}
-          subtitle="User Features"
-          icon={<Users className="w-7 h-7 text-blue-600" />}
-          color="blue"
-          items={userFeatures[lang]}
-        />
-
-        <FeatureSection
-          title={labels[lang].techFeatures}
-          subtitle="Technician Features"
-          icon={<Package className="w-7 h-7 text-green-600" />}
-          color="green"
-          items={techFeatures[lang]}
-        />
-
-        <FeatureSection
-          title={labels[lang].adminFeatures}
-          subtitle="Admin Features"
-          icon={<Monitor className="w-7 h-7 text-purple-600" />}
-          color="purple"
-          items={adminFeatures[lang]}
-        />
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-indigo-100 rounded-lg">
-              <Clock className="w-7 h-7 text-indigo-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">{labels[lang].deliveryTitle}</h2>
-              <p className="text-sm text-slate-600">{labels[lang].projectDuration}</p>
-            </div>
+              );
+            })}
           </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {deliverables[lang].map((item) => (
-              <div key={item} className="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-                <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
-                <span className="text-slate-700">{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        </section>
 
-        <div className="bg-gradient-to-l from-emerald-600 to-emerald-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-emerald-500">
-            <div className="p-3 bg-emerald-500 rounded-lg">
-              <DollarSign className="w-7 h-7 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold">{labels[lang].totalCost}</h2>
-          </div>
-          <div className="text-center mb-6">
-            <div className="text-6xl font-bold mb-2">75,000 جنيه مصري</div>
-            <div className="text-emerald-100 text-lg">{labels[lang].totalCostNote}</div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-            {includedInPrice[lang].map((item) => (
-              <div key={item} className="bg-white/10 rounded-lg p-4 border border-white/20 flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 mt-1" />
-                <span className="text-sm">{item}</span>
-              </div>
-            ))}
-          </div>
-          <div className="bg-white/10 rounded-xl p-5 border border-white/20">
-            <h3 className="text-xl font-bold mb-4">{labels[lang].paymentPlanTitle}</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-3">
-              {paymentMilestones.map((milestone) => (
-                <div key={milestone.title.en} className="bg-white/10 rounded-lg p-4 border border-white/20">
-                  <div className="text-2xl font-bold mb-1">{milestone.amount[lang]}</div>
-                  <p className="text-sm text-emerald-50">{milestone.title[lang]}</p>
+        <section className="grid xl:grid-cols-2 gap-6">
+          <div className={ui.section}>
+            <SectionHeader icon={<Users className="w-6 h-6 text-cyan-300" />} title={labels[lang].userFlowTitle} isDark={isDark} />
+            <div className="space-y-3">
+              {userFlow.map((step) => (
+                <div key={step.title.en} className={ui.subCard}>
+                  <h4 className={`font-semibold mb-1 ${ui.textAccent}`}>{step.title[lang]}</h4>
+                  <p className={`text-sm leading-relaxed ${ui.textSoft}`}>{step.description[lang]}</p>
                 </div>
               ))}
             </div>
           </div>
-          <p className="text-sm text-emerald-100 mt-4">{labels[lang].externalNote}</p>
-        </div>
 
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border border-slate-200">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-slate-100 rounded-lg">
-              <CreditCard className="w-7 h-7 text-slate-700" />
+          <div className={ui.section}>
+            <SectionHeader icon={<Monitor className="w-6 h-6 text-cyan-300" />} title={labels[lang].adminTitle} isDark={isDark} />
+
+            <div className="grid gap-3 mb-5">
+              {adminRoles.map((role) => (
+                <div key={role.title.en} className={ui.subCard}>
+                  <h4 className={`font-semibold mb-2 ${ui.textAccent}`}>{role.title[lang]}</h4>
+                  <ul className={`space-y-1 text-sm ${ui.textSoft}`}>
+                    {role.points[lang].map((point) => (
+                      <li key={point} className="flex gap-2">
+                        <CheckCircle className="w-4 h-4 text-cyan-300 mt-0.5" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].paymentGatewaysTitle}</h2>
+
+            <div className={ui.subCard}>
+              <h4 className={`font-semibold mb-3 ${ui.textAccent}`}>Core Admin Components</h4>
+              <div className="grid sm:grid-cols-2 gap-2">
+                {adminCoreAreas[lang].map((area) => (
+                  <div
+                    key={area}
+                    className={`rounded-lg border px-3 py-2 text-sm ${
+                      isDark ? 'border-white/10 text-slate-200' : 'border-slate-200 text-slate-700 bg-white'
+                    }`}
+                  >
+                    {area}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {paymentGateways.map((gateway) => (
-              <div key={gateway.title} className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-                <h3 className="font-bold text-slate-900 mb-2">{gateway.title}</h3>
-                <ul className="space-y-1 text-sm text-slate-700">
-                  {gateway.points[lang].map((point) => (
-                    <li key={point}>{point}</li>
+        </section>
+
+        <section className={ui.section}>
+          <SectionHeader icon={<AlertTriangle className="w-6 h-6 text-cyan-300" />} title={labels[lang].challengeTitle} isDark={isDark} />
+          <p className={`leading-relaxed text-lg ${ui.textSoft}`}>{labels[lang].challengeLine}</p>
+        </section>
+
+        <section className="grid lg:grid-cols-2 gap-6">
+          <div className={ui.confirmed}>
+            <SectionHeader icon={<CheckCircle className="w-6 h-6 text-emerald-200" />} title={labels[lang].confirmed} isDark={isDark} />
+            <ul className={`space-y-2 ${isDark ? 'text-slate-100' : 'text-slate-800'}`}>
+              {confirmedItems[lang].map((item) => (
+                <li key={item} className="flex gap-2">
+                  <CheckCircle className="w-4 h-4 text-emerald-200 mt-1" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={ui.assumptions}>
+            <SectionHeader icon={<AlertTriangle className="w-6 h-6 text-amber-200" />} title={labels[lang].assumptions} isDark={isDark} />
+            <ul className={`space-y-2 ${isDark ? 'text-slate-100' : 'text-slate-800'}`}>
+              {assumptionItems[lang].map((item) => (
+                <li key={item} className="flex gap-2">
+                  <AlertTriangle className="w-4 h-4 text-amber-200 mt-1" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className={ui.section}>
+          <SectionHeader icon={<FileText className="w-6 h-6 text-cyan-300" />} title={labels[lang].smartQuestions} isDark={isDark} />
+          <div className="grid xl:grid-cols-2 gap-4">
+            {smartQuestions.map((group) => (
+              <div key={group.title.en} className={ui.moduleCard}>
+                <h3 className={`font-bold mb-3 ${ui.textAccent}`}>{group.title[lang]}</h3>
+                <ul className={`space-y-2 text-sm ${ui.textSoft}`}>
+                  {group.questions[lang].map((q) => (
+                    <li key={q} className="flex gap-2">
+                      <Clock className="w-4 h-4 text-cyan-300 mt-0.5" />
+                      <span>{q}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-green-200">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-green-100 rounded-lg">
-              <Award className="w-7 h-7 text-green-600" />
+        <section className={ui.sectionAlert}>
+          <SectionHeader icon={<TrendingUp className="w-6 h-6 text-cyan-300" />} title={labels[lang].meetingScript} isDark={isDark} />
+
+          <div className="grid lg:grid-cols-2 gap-5 mb-6">
+            <div className={ui.pitchCard}>
+              <h3 className={`font-bold mb-3 ${ui.textAccent}`}>{labels[lang].userPitchLabel}</h3>
+              <p className={`leading-relaxed ${ui.textSoft}`}>{arabicPitch}</p>
             </div>
-            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].freeServices}</h2>
+
+            <div className={ui.pitchCard}>
+              <h3 className={`font-bold mb-3 ${ui.textAccent}`}>{labels[lang].englishPitchLabel}</h3>
+              <p className={`leading-relaxed ${ui.textSoft}`}>{englishPitch}</p>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{isArabic ? 'سيرفر مجاني' : 'Free Server'}</div>
-              <div className="text-slate-600 text-sm">{isArabic ? 'لمدة 4 شهور' : 'For 4 months'}</div>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{isArabic ? 'دومين مجاني' : 'Free Domain'}</div>
-              <div className="text-slate-600 text-sm">{isArabic ? 'أول سنة' : 'First year'}</div>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">
-                {isArabic ? 'دعم فني مجاني' : 'Free Technical Support'}
-              </div>
-              <div className="text-slate-600 text-sm">{isArabic ? 'لمدة 4 شهور' : 'For 4 months'}</div>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">
-                {isArabic ? 'رفع على المتاجر' : 'Store Publishing'}
-              </div>
-              <div className="text-slate-600 text-sm">{isArabic ? 'مجاناً خلال أول سنة' : 'Free during first year'}</div>
-            </div>
+          <div className={ui.quickLine}>
+            <h3 className={`font-bold mb-2 ${isDark ? 'text-cyan-100' : 'text-cyan-800'}`}>{labels[lang].quickLine}</h3>
+            <p className={`leading-relaxed ${ui.textSoft}`}>{quickThirtySeconds[lang]}</p>
           </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <Code className="w-7 h-7 text-blue-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].technologies}</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {technologies.map((tech) => (
-              <div key={tech.name} className="p-5 bg-slate-50 rounded-xl border border-slate-200">
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{tech.name}</h3>
-                <p className="text-sm text-slate-600">{tech.details[lang]}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-amber-200">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-amber-100 rounded-lg">
-              <DollarSign className="w-7 h-7 text-amber-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].externalCosts}</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-2">
-            {externalCosts.map((cost) => (
-              <div key={cost.title.en} className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-                <h3 className="font-bold text-slate-900 mb-2">{cost.title[lang]}</h3>
-                <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">
-                  {cost.amount[lang]}
-                </div>
-                <p className="text-sm text-slate-600">{cost.subtitle[lang]}</p>
-                {cost.note ? <p className="text-xs text-slate-500 mt-2">{cost.note[lang]}</p> : null}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-l from-blue-600 to-indigo-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-3">{labels[lang].whyUs}</h2>
-            <p className="text-blue-100 text-lg">{labels[lang].whyUsSub}</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <ValueCard
-              icon={<Shield className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'جودة الكود' : 'Code Quality'}
-              text={isArabic ? 'اهتمام حقيقي بجودة الكود وليس مجرد تنفيذ.' : 'Real focus on quality, not just delivery.'}
-            />
-            <ValueCard
-              icon={<TrendingUp className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'قابلية التوسع' : 'Scalability'}
-              text={isArabic ? 'تطبيقات قابلة للتوسع والنمو مع عملك.' : 'Apps built to scale with your business.'}
-            />
-            <ValueCard
-              icon={<Clock className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'تسليم منظم' : 'Structured Delivery'}
-              text={isArabic ? 'تسليم على مراحل مع متابعة مستمرة.' : 'Milestone-based delivery with steady follow-up.'}
-            />
-            <ValueCard
-              icon={<Users className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'سهولة الاستلام' : 'Easy Handover'}
-              text={
-                isArabic
-                  ? 'سهولة استلام المشروع من أي فريق تقني لاحقًا.'
-                  : 'Easy transfer to any future technical team.'
-              }
-            />
-            <ValueCard
-              icon={<DollarSign className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'توفير المستقبل' : 'Future Savings'}
-              text={isArabic ? 'كود نظيف = تكلفة أقل في المستقبل.' : 'Clean code means lower future costs.'}
-            />
-            <ValueCard
-              icon={<Award className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'خبرة احترافية' : 'Professional Experience'}
-              text={isArabic ? 'فريق متخصص بخبرة عملية في حلول الإنتاج.' : 'Specialized team with real production experience.'}
-            />
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">{labels[lang].contact}</h2>
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex items-center gap-3 text-lg">
-              <Globe className="w-6 h-6 text-blue-600" />
-              <a href="https://penta-k.com" className="text-blue-600 hover:underline font-semibold">
-                penta-k.com
-              </a>
-            </div>
-            <div className="flex items-center gap-3 text-lg" dir="ltr">
-              <PhoneCall className="w-6 h-6 text-green-600" />
-              <a href="tel:+201061942646" className="text-green-600 hover:underline font-semibold">
-                +20 10 61942646
-              </a>
-            </div>
-          </div>
-          <div className="mt-8 pt-6 border-t border-slate-200">
-            <p className="text-slate-600">
-              {labels[lang].thanks} <span className="font-bold text-blue-600">Penta-k</span>
-            </p>
-            <p className="text-sm text-slate-500 mt-2">{labels[lang].projectFooter}</p>
-          </div>
-        </div>
+        </section>
       </main>
     </div>
   );
 }
 
-function FeatureSection({
-  title,
-  subtitle,
+function SectionHeader({ icon, title, isDark }: { icon: React.ReactNode; title: string; isDark: boolean }) {
+  return (
+    <div className="flex items-center gap-3 mb-5">
+      <div className="rounded-lg bg-cyan-500/15 p-2">{icon}</div>
+      <h2 className={`text-2xl font-bold ${isDark ? 'text-slate-100' : 'text-slate-900'}`}>{title}</h2>
+    </div>
+  );
+}
+
+function StatCard({
   icon,
+  title,
   items,
-  color
+  isDark
 }: {
-  title: string;
-  subtitle: string;
   icon: React.ReactNode;
+  title: string;
   items: string[];
-  color: FeatureColor;
+  isDark: boolean;
 }) {
   return (
-    <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-      <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-        <div className={`p-3 rounded-lg ${getPillColor(color)}`}>{icon}</div>
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900">{title}</h2>
-          <p className="text-sm text-slate-600">{subtitle}</p>
-        </div>
+    <div className={isDark ? 'rounded-2xl border border-white/10 bg-white/[0.04] p-5' : 'rounded-2xl border border-slate-200 bg-white p-5 shadow-sm'}>
+      <div className="flex items-center gap-3 mb-3">
+        {icon}
+        <h3 className="font-bold">{title}</h3>
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <ul className={`space-y-2 text-sm ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>
         {items.map((item) => (
-          <FeatureItem key={item} icon={<CheckCircle className="w-5 h-5" />} title={item} color={color} />
+          <li key={item} className="flex gap-2">
+            <CheckCircle className="w-4 h-4 text-cyan-300 mt-0.5" />
+            <span>{item}</span>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
 
-function getPillColor(color: FeatureColor) {
-  if (color === 'green') return 'bg-green-100';
-  if (color === 'purple') return 'bg-purple-100';
-  if (color === 'orange') return 'bg-orange-100';
-  if (color === 'indigo') return 'bg-indigo-100';
-  return 'bg-blue-100';
-}
-
-function ValueCard({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
+function MiniHighlight({ icon, text, isDark }: { icon: React.ReactNode; text: string; isDark: boolean }) {
   return (
-    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-      {icon}
-      <h3 className="font-bold text-lg mb-2">{title}</h3>
-      <p className="text-sm text-blue-100">{text}</p>
-    </div>
-  );
-}
-
-function FeatureItem({
-  icon,
-  title,
-  color = 'blue'
-}: {
-  icon: React.ReactNode;
-  title: string;
-  color?: FeatureColor;
-}) {
-  const colorClasses = {
-    blue: 'bg-blue-50 text-blue-600 border-blue-100',
-    green: 'bg-green-50 text-green-600 border-green-100',
-    purple: 'bg-purple-50 text-purple-600 border-purple-100',
-    orange: 'bg-orange-50 text-orange-600 border-orange-100',
-    indigo: 'bg-indigo-50 text-indigo-600 border-indigo-100'
-  };
-
-  return (
-    <div className={`flex items-start gap-3 p-3 rounded-lg border ${colorClasses[color]}`}>
-      <div className="mt-0.5">{icon}</div>
-      <span className="text-sm text-slate-700">{title}</span>
+    <div
+      className={
+        isDark
+          ? 'rounded-2xl border border-cyan-300/20 bg-cyan-500/10 p-5 flex flex-col justify-between'
+          : 'rounded-2xl border border-cyan-300/50 bg-cyan-50 p-5 flex flex-col justify-between'
+      }
+    >
+      <div className="mb-3">{icon}</div>
+      <p className={`text-sm leading-relaxed ${isDark ? 'text-cyan-50' : 'text-cyan-800'}`}>{text}</p>
     </div>
   );
 }
