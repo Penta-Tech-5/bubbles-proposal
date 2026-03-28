@@ -8,17 +8,20 @@
   FileText,
   Globe,
   Languages,
+  Moon,
   Monitor,
   Package,
   PhoneCall,
   Shield,
   Smartphone,
+  Sun,
   TrendingUp,
   Users
 } from 'lucide-react';
 import React from 'react';
 
 type Lang = 'ar' | 'en';
+type Theme = 'dark' | 'light';
 type FeatureColor = 'blue' | 'green' | 'purple' | 'orange' | 'indigo';
 type Localized = Record<Lang, string>;
 type LocalizedList = Record<Lang, string[]>;
@@ -60,8 +63,8 @@ const labels: Record<
     companyText: string;
     overviewTitle: string;
     overviewText: string;
-    userFeatures: string;
-    techFeatures: string;
+    studentFeatures: string;
+    teacherFeatures: string;
     adminFeatures: string;
     deliveryTitle: string;
     projectDuration: string;
@@ -88,28 +91,28 @@ const labels: Record<
     companyTitle: 'شركة Penta-k',
     companyText:
       'شركة متخصصة في تصميم وتطوير حلول البرمجيات والتطبيقات الذكية، وتقديم أنظمة متكاملة بجودة عالية وتجربة استخدام احترافية.',
-    overviewTitle: 'وصف عام لمشروع Fix Phone',
+    overviewTitle: 'وصف عام لمشروع منصة السادات',
     overviewText:
-      'مشروع Fix Phone عبارة عن منصة صيانة متكاملة تتكون من تطبيق موحد للمستخدم والفني، وتطبيق منفصل للأدمن. المستخدم يرفع طلب الصيانة ويختار الفني المناسب من الأقرب على الخريطة أو عبر البحث والتقييمات، ثم تبدأ محادثة مباشرة بعد قبول الطلب لإتمام تفاصيل الخدمة.',
-    userFeatures: 'مميزات المستخدم',
-    techFeatures: 'مميزات الفني',
+      'منصة السادات عبارة عن نظام تعليمي متكامل يتكون من تطبيقات موبايل للطالب والمدرس، وتطبيق أدمن، بالإضافة إلى منصة ويب للطالب، بهدف إدارة الكورسات والاشتراكات والبث المباشر والتفاعل بين الطلاب والمدرسين في تجربة موحدة وآمنة.',
+    studentFeatures: 'مميزات الطالب',
+    teacherFeatures: 'مميزات المدرس',
     adminFeatures: 'مميزات الأدمن',
     deliveryTitle: 'مدة التنفيذ والتسليم',
-    projectDuration: 'مدة المشروع: 3 شهور',
+    projectDuration: 'مدة المشروع: 3 شهور (بحد أقصى)',
     totalCost: 'التكلفة الإجمالية للمشروع',
-    totalCostNote: 'شاملة تصميم UI/UX والهوية واللوجو والباك اند والموبايل',
+    totalCostNote: 'شاملة تنفيذ التطبيقات والمنصة والربط الكامل للمنظومة التعليمية',
     paymentPlanTitle: 'طريقة الدفع',
     externalNote:
-      'ملاحظة: العميل هو المسؤول عن الاشتراكات مع الخدمات الخارجية (OTP / Payment Gateway / Google Maps Billing)، ونحن نقوم بربطها برمجياً داخل التطبيق.',
-    paymentGatewaysTitle: 'بوابات الدفع ونسب العمولة',
+      'ملاحظة: الاشتراكات السنوية (السيرفر، Google Play، Apple Store، والدعم السنوي) تُدار كتجديدات تشغيلية بعد انتهاء الفترات المجانية.',
+    paymentGatewaysTitle: 'بوابة الدفع المعتمدة',
     freeServices: 'Free Services - مميزات مقدمة من شركة Penta-k',
     technologies: 'Technologies & Development Standards',
-    externalCosts: 'External Running Costs - التكاليف الخارجية',
+    externalCosts: 'External Running Costs - التكاليف التشغيلية السنوية',
     whyUs: 'Why Penta-k? - ليه تختار Penta-k؟',
     whyUsSub: 'نحن لا نكتب كود فقط، نبني حلول قابلة للنمو والتطور',
     contact: 'للتواصل والاستفسار',
     thanks: 'شكرًا لثقتكم في',
-    projectFooter: 'نتطلع للعمل معكم على مشروع Fix Phone.',
+    projectFooter: 'نتطلع للعمل معكم على مشروع منصة السادات.',
     logoAlt: 'شعار Penta-k',
     arBtn: 'العربية',
     enBtn: 'English'
@@ -119,28 +122,28 @@ const labels: Record<
     companyTitle: 'Penta-k Company',
     companyText:
       'A software house specialized in building smart digital solutions and integrated systems with high quality and professional user experience.',
-    overviewTitle: 'Fix Phone Project Overview',
+    overviewTitle: 'Al-Sadat Platform Overview',
     overviewText:
-      'Fix Phone is a full maintenance platform with one app for users and technicians, plus a separate admin app. The user submits a request, checks nearby technicians on the map or by ratings/search, then starts direct chat once the technician accepts the request.',
-    userFeatures: 'User Features',
-    techFeatures: 'Technician Features',
+      'Al-Sadat Platform is a complete e-learning ecosystem including mobile apps for students and teachers, an admin app, and a student web platform to manage courses, subscriptions, live sessions, and secure educational content delivery.',
+    studentFeatures: 'Student Features',
+    teacherFeatures: 'Teacher Features',
     adminFeatures: 'Admin Features',
     deliveryTitle: 'Timeline & Deliverables',
-    projectDuration: 'Project duration: 3 months',
+    projectDuration: 'Project duration: 3 months (maximum)',
     totalCost: 'Total Project Cost',
-    totalCostNote: 'Includes UI/UX, branding/logo, backend, and mobile apps',
+    totalCostNote: 'Includes full implementation of apps, web platform, and educational workflow integration',
     paymentPlanTitle: 'Payment Plan',
     externalNote:
-      'Note: The client is responsible for external service subscriptions (OTP / Payment Gateway / Google Maps Billing), and we handle the technical integration.',
-    paymentGatewaysTitle: 'Payment Gateways & Commission Rates',
+      'Note: Annual subscriptions (server, Google Play, Apple Store, and annual support) are handled as operational renewals after free periods.',
+    paymentGatewaysTitle: 'Approved Payment Gateway',
     freeServices: 'Free Services by Penta-k',
     technologies: 'Technologies & Development Standards',
-    externalCosts: 'External Running Costs',
+    externalCosts: 'External Annual Operating Costs',
     whyUs: 'Why Penta-k?',
     whyUsSub: 'We do not just write code, we build scalable solutions',
     contact: 'Contact & Inquiries',
     thanks: 'Thank you for trusting',
-    projectFooter: 'We look forward to delivering the Fix Phone project with you.',
+    projectFooter: 'We look forward to delivering Al-Sadat Platform with you.',
     logoAlt: 'Penta-k Logo',
     arBtn: 'العربية',
     enBtn: 'English'
@@ -150,188 +153,206 @@ const labels: Record<
 const mainSections: SectionCard[] = [
   {
     title: {
-      ar: 'تطبيق المستخدم والفني (نفس التطبيق)',
-      en: 'User & Technician App (Single App)'
+      ar: 'تطبيق الطالب + منصة ويب الطالب',
+      en: 'Student Mobile App + Student Web Platform'
     },
     description: {
-      ar: 'تطبيق موحد يخدم طرفي العملية مع واجهات وصلاحيات مختلفة حسب نوع الحساب.',
-      en: 'One application for both sides with separate roles and permissions.'
+      ar: 'تجربة متكاملة للطالب من التسجيل حتى الاشتراك ومتابعة الكورسات.',
+      en: 'Complete student journey from login to subscription and course engagement.'
     },
     icon: Smartphone,
     points: {
       ar: [
-        'المستخدم يرفع طلب الصيانة ويشاهد أقرب الفنيين على الخريطة.',
-        'الفني يستقبل الطلبات ويوافق عليها من نفس التطبيق.',
-        'التواصل بعد القبول عبر محادثة نصية مع صور و PDF فقط.'
+        'تسجيل الدخول بالإيميل أو رقم الموبايل حسب إعداد العميل.',
+        'اختيار السنة الدراسية ثم عرض المواد والمدرسين.',
+        'الاشتراك في الكورسات عبر بوابة الدفع Fawaterk.',
+        'عرض الكورسات والدروس والفيديوهات والملفات بشكل منظم.'
       ],
       en: [
-        'Users submit maintenance requests and see nearby technicians on the map.',
-        'Technicians receive and accept requests from the same app.',
-        'After acceptance, chat supports text, images, and PDF only.'
+        'Login via email or mobile number based on client preference.',
+        'Select academic year then browse subjects and teachers.',
+        'Course subscription via Fawaterk payment gateway.',
+        'Organized access to courses, lessons, videos, and files.'
       ]
     }
   },
   {
     title: {
-      ar: 'تطبيق الأدمن (منفصل)',
-      en: 'Separate Admin Application'
+      ar: 'تطبيق المدرس',
+      en: 'Teacher Mobile App'
     },
     description: {
-      ar: 'تطبيق مستقل لإدارة المنصة بالكامل ومتابعة كل العمليات.',
-      en: 'Dedicated admin app to manage all operations and system data.'
+      ar: 'أداة كاملة للمدرس لإدارة المحتوى والتفاعل مع الطلاب وتحليل الأداء.',
+      en: 'A complete tool for teachers to manage content, engagement, and performance.'
+    },
+    icon: Package,
+    points: {
+      ar: [
+        'رفع فيديوهات الكورسات وملفات PDF وامتحانات لكل درس.',
+        'متابعة تعليقات الطلبة والرد عليها.',
+        'متابعة عدد المشتركين بكل كورس.',
+        'عرض الرصيد بعد خصم نسبة المنصة المتفق عليها.'
+      ],
+      en: [
+        'Upload course videos, lesson files, and exams.',
+        'Monitor and reply to student comments.',
+        'Track subscriber count per course.',
+        'View net revenue after platform commission.'
+      ]
+    }
+  },
+  {
+    title: {
+      ar: 'تطبيق الأدمن (Android)',
+      en: 'Admin App (Android)'
+    },
+    description: {
+      ar: 'إدارة شاملة للحسابات والكورسات والتسعير والاشتراكات والرصيد.',
+      en: 'Full control over accounts, courses, pricing, subscriptions, and balances.'
     },
     icon: Monitor,
     points: {
       ar: [
-        'إدارة المستخدمين والفنيين (إنشاء، متابعة، حذف، حظر).',
-        'إدارة الإعلانات والعروض والفئات الرئيسية والفرعية بشكل ديناميكي.',
-        'متابعة الاشتراكات، التوثيق، والتقارير التشغيلية.'
+        'إنشاء/تعديل/حذف حسابات الطلبة والمدرسين.',
+        'إدارة الكورسات والتسعير والمحتوى.',
+        'إدارة الاشتراكات وإتاحة اشتراكات مجانية للطلاب.',
+        'متابعة الرصيد وحركة الاشتراكات المالية.'
       ],
       en: [
-        'Manage users and technicians (create, monitor, delete, block).',
-        'Manage ads, offers, categories, and sub-categories dynamically.',
-        'Track subscriptions, verification, and performance reports.'
+        'Create/edit/delete student and teacher accounts.',
+        'Manage courses, pricing, and educational content.',
+        'Manage subscriptions and assign free enrollments.',
+        'Track balances and subscription financial flow.'
       ]
     }
   },
   {
     title: {
-      ar: 'نظام الاشتراكات والتوثيق للفنيين',
-      en: 'Technician Subscription & Verification'
+      ar: 'البث المباشر وحماية المحتوى',
+      en: 'Live Streaming & Content Protection'
     },
     description: {
-      ar: 'تحفيز نمو المنصة ونموذج ربح مستدام عبر الفنيين.',
-      en: 'A sustainable revenue model through technician plans and verification.'
+      ar: 'ميزات أساسية لرفع جودة التعلم مع حماية قوية للمحتوى التعليمي.',
+      en: 'Core features for live education delivery with strong content security.'
     },
-    icon: DollarSign,
+    icon: Shield,
     points: {
       ar: [
-        'فترة تمهيدية بدون اشتراكات لمدة 4 إلى 6 شهور.',
-        'بعد الفترة التمهيدية يبدأ اشتراك شهري للفنيين للظهور داخل التطبيق.',
-        'علامة توثيق مدفوعة للفني لإبراز الثقة أمام المستخدم.'
+        'بث مباشر للمدرسين: على مستوى كورس محدد أو سنة كاملة.',
+        'أدوات البث المباشر تشمل Whiteboard و Raise Hand (حلول Open Source على سيرفرنا).',
+        'شات خاص لكل كورس (نص + صور + PDF) مع مشاركة الطلبة والمدرس.',
+        'تعليقات على الكورسات مع الردود.',
+        'منع تسجيل الشاشة + علامة مائية باسم الطالب على ملفات PDF.'
       ],
       en: [
-        'Initial phase without subscription for 4 to 6 months.',
-        'Monthly subscription starts afterward for technician visibility.',
-        'Paid verified badge option to increase user trust.'
-      ]
-    }
-  },
-  {
-    title: {
-      ar: 'التصنيفات والإعلانات والعروض',
-      en: 'Categories, Ads & Offers'
-    },
-    description: {
-      ar: 'هيكل مرن لإدارة أنواع الصيانة المختلفة والتسويق داخل المنصة.',
-      en: 'Flexible structure to manage service types and in-app marketing.'
-    },
-    icon: TrendingUp,
-    points: {
-      ar: [
-        'الأدمن ينشئ Categories و Sub-Categories حسب الحاجة.',
-        'الأدمن ينشئ إعلانات عامة داخل التطبيق.',
-        'الفني ينشئ عروض خاصة (مثال: خصم 10% على خدمة معينة).'
-      ],
-      en: [
-        'Admin can create categories and sub-categories dynamically.',
-        'Admin can publish internal app advertisements.',
-        'Technicians can publish their own service offers (e.g. 10% discount).'
+        'Teacher live sessions per course or full grade level.',
+        'Live class tools include Whiteboard and Raise Hand (open-source stack on our server).',
+        'Course-level chat (text + images + PDF) for students and teachers.',
+        'Course comments with threaded replies.',
+        'Screen-recording protection + student-name watermark on lesson PDFs.'
       ]
     }
   }
 ];
 
-const userFeatures: LocalizedList = {
+const studentFeatures: LocalizedList = {
   ar: [
-    'تسجيل الدخول ورفع طلب صيانة بسهولة.',
-    'إظهار أقرب الفنيين حسب الموقع على الخريطة.',
-    'اختيار فني مباشرة بعد مقارنة التقييمات أو البحث بالاسم/المنطقة.',
-    'محادثة مع الفني بعد قبول الطلب (Text + Images + PDF فقط).',
-    'عرض بروفايل الفني مع التقييمات والآراء.',
-    'إمكانية الحظر أو البلاغ داخل الشات.'
+    'تسجيل دخول بالإيميل أو رقم الموبايل حسب تفعيل العميل.',
+    'اختيار السنة الدراسية وعرض المواد والمدرسين.',
+    'الاشتراك في الكورسات والدفع عبر Fawaterk.',
+    'شات لكل كورس (رسائل نصية + صور + ملفات PDF).',
+    'تعليقات على الكورس والرد على التعليقات.',
+    'منع تسجيل الشاشة لحماية محتوى الفيديو.',
+    'تحميل ملفات PDF بعلامة مائية باسم الطالب.'
   ],
   en: [
-    'Easy login and maintenance request submission.',
-    'Show nearby technicians on map based on location.',
-    'Select technician by ratings, name, or area search.',
-    'Chat after acceptance (Text + Images + PDF only).',
-    'Technician profile with ratings and user reviews.',
-    'Block/report options inside chat.'
+    'Login by email or mobile number based on client settings.',
+    'Select grade and browse subjects and teachers.',
+    'Subscribe to courses via Fawaterk payment gateway.',
+    'Course chat (text + images + PDF files).',
+    'Course comments and replies.',
+    'Screen-recording prevention for video protection.',
+    'PDF downloads stamped with student watermark.'
   ]
 };
 
-const techFeatures: LocalizedList = {
+const teacherFeatures: LocalizedList = {
   ar: [
-    'استقبال الطلبات القريبة بناءً على الموقع الحالي.',
-    'قبول/رفض الطلبات وإدارة حالة الطلب.',
-    'محادثة مع المستخدم (Text + Images + PDF).',
-    'إمكانية عمل حظر أو بلاغ داخل المحادثة.',
-    'إنشاء عروض خاصة على الخدمات.',
-    'إدارة البروفايل والتقييمات والآراء.'
+    'رفع فيديوهات الدروس والكورسات من التطبيق.',
+    'إضافة ملفات PDF وامتحانات لكل درس.',
+    'متابعة تعليقات الطلاب والرد عليها.',
+    'عرض عدد المشتركين في كل كورس.',
+    'عرض الرصيد بعد خصم نسبة التطبيق.',
+    'عمل بث مباشر لطلاب كورس معين أو سنة كاملة.',
+    'استخدام Whiteboard و Raise Hand داخل الحصة المباشرة.'
   ],
   en: [
-    'Receive nearby service requests based on live location.',
-    'Accept/reject requests and update request status.',
-    'Chat with user (Text + Images + PDF).',
-    'Block/report options within chat.',
-    'Create custom service offers.',
-    'Manage profile, ratings, and feedback.'
+    'Upload lessons and full course videos from the app.',
+    'Attach PDF files and exams per lesson.',
+    'Review and respond to student comments.',
+    'Track subscriptions per course.',
+    'View balance after platform commission.',
+    'Run live sessions for a specific course or full grade.',
+    'Use Whiteboard and Raise Hand during live classes.'
   ]
 };
 
 const adminFeatures: LocalizedList = {
   ar: [
-    'إدارة المستخدمين والفنيين وصلاحيات الحسابات.',
-    'إدارة الفئات الرئيسية والفرعية بشكل ديناميكي.',
-    'إدارة الإعلانات العامة داخل المنصة.',
-    'متابعة نظام الاشتراكات الشهرية للفنيين.',
-    'إدارة شراء وتفعيل علامة التوثيق للفنيين.',
-    'متابعة الأداء والتقارير التشغيلية.'
+    'إدارة كاملة للطلبة والمدرسين والحسابات.',
+    'إدارة الكورسات (إنشاء/تعديل/حذف/تسعير).',
+    'إدارة الاشتراكات ومنح اشتراكات مجانية.',
+    'متابعة الرصيد الإجمالي للاشتراكات.',
+    'إدارة المحتوى على مستوى المنصة بالكامل.',
+    'متابعة الأداء التشغيلي والتفاعل داخل الكورسات.'
   ],
   en: [
-    'Manage users, technicians, and account permissions.',
-    'Manage categories and sub-categories dynamically.',
-    'Manage platform-wide advertisements.',
-    'Track technician monthly subscriptions.',
-    'Manage verified badge purchasing and activation.',
-    'Monitor performance and operational reports.'
+    'Full management of students, teachers, and accounts.',
+    'Course management (create/edit/delete/pricing).',
+    'Subscription management and free grants.',
+    'Track total subscription balances.',
+    'Control educational content across the platform.',
+    'Monitor operational activity and engagement.'
   ]
 };
 
 const deliverables: LocalizedList = {
   ar: [
-    'تسليم تطبيق المستخدم والفني معًا على Android و iOS.',
-    'تسليم تطبيق الأدمن على Android.',
-    'تسليم تطبيق الأدمن نسخة Windows.',
-    'رفع التطبيقات على Google Play و Apple Store.',
-    'تسليم سورس كود الموبايل + الباك اند + ملفات التصميم.'
+    'تطبيق الطالب على Android و iOS.',
+    'تطبيق المدرس على Android و iOS.',
+    'تطبيق الأدمن على Android.',
+    'منصة ويب للطالب.',
+    'إطلاق متجر Google Play و Apple App Store.',
+    'ربط بوابة الدفع Fawaterk.'
   ],
   en: [
-    'Delivery of user/technician app on Android and iOS.',
-    'Delivery of admin app on Android.',
-    'Delivery of admin app on Windows.',
-    'Publishing on Google Play and Apple Store.',
-    'Handover mobile source code + backend + design files.'
+    'Student app on Android & iOS.',
+    'Teacher app on Android & iOS.',
+    'Admin app on Android.',
+    'Student web platform.',
+    'Publishing to Google Play & Apple App Store.',
+    'Fawaterk payment gateway integration.'
   ]
 };
 
 const includedInPrice: LocalizedList = {
   ar: [
-    'تصميم UI/UX كامل للتطبيق.',
-    'تصميم الهوية واللوجو.',
-    'تطوير الباك اند.',
-    'تطوير تطبيقات الموبايل.',
-    'ربط بوابة الدفع.',
-    'ربط خدمة OTP عند التسجيل برقم الهاتف.'
+    'تحليل وتجهيز البنية التعليمية للمنصة.',
+    'تصميم وتجهيز الواجهات المطلوبة للتطبيقات والمنصة.',
+    'تطوير تطبيقات الطالب والمدرس والأدمن.',
+    'تطوير منصة ويب الطالب.',
+    'تنفيذ الشات والتعليقات والبث المباشر.',
+    'تنفيذ أدوات البث المباشر (Whiteboard + Raise Hand) كخدمة Open Source على سيرفرنا.',
+    'تنفيذ الحماية (منع تسجيل الشاشة + علامة مائية على PDF).'
   ],
   en: [
-    'Complete UI/UX design.',
-    'Brand identity and logo design.',
-    'Backend development.',
-    'Mobile applications development.',
-    'Payment gateway integration.',
-    'OTP integration for phone-based login.'
+    'Educational platform architecture and analysis.',
+    'UI/UX implementation for apps and web platform.',
+    'Development of student, teacher, and admin apps.',
+    'Development of student web platform.',
+    'Implementation of chat, comments, and live streaming.',
+    'Implementation of open-source live class tools (Whiteboard + Raise Hand) on our server.',
+    'Protection layer (screen recording prevention + PDF watermarking).'
   ]
 };
 
@@ -339,164 +360,187 @@ const technologies: TechCard[] = [
   {
     name: 'Flutter',
     details: {
-      ar: 'تطوير تطبيق المستخدم/الفني + تطبيق الأدمن (Android و iOS و Windows).',
-      en: 'User/technician app + admin app development (Android, iOS, Windows).'
+      ar: 'تطوير تطبيقات الطالب والمدرس (Android و iOS) + تطبيق الأدمن (Android).',
+      en: 'Student and Teacher apps (Android/iOS) + Admin app (Android).'
     }
   },
   {
     name: 'Node.js Backend',
     details: {
-      ar: 'API قوية لإدارة الطلبات، المستخدمين، الفنيين، والإشعارات.',
-      en: 'Robust API for requests, users, technicians, and notifications.'
+      ar: 'إدارة الحسابات، الاشتراكات، الكورسات، الشات، والتعليقات.',
+      en: 'Backend for accounts, subscriptions, courses, chat, and comments.'
     }
   },
   {
-    name: 'Figma Design',
+    name: 'Web Platform',
     details: {
-      ar: 'تصميم UI/UX والهوية البصرية قبل التنفيذ.',
-      en: 'UI/UX and visual identity design before implementation.'
+      ar: 'منصة ويب للطالب لعرض الكورسات والاشتراك والمتابعة.',
+      en: 'Student web platform for course browsing, subscription, and tracking.'
     }
   },
   {
     name: 'Hostinger Server',
     details: {
-      ar: 'استضافة النظام وقاعدة البيانات والـ APIs.',
-      en: 'Hosting for backend services, database, and APIs.'
+      ar: 'استضافة النظام وقاعدة البيانات والخدمات المساندة.',
+      en: 'Hosting backend, database, and supporting services.'
     }
   },
   {
-    name: 'Firebase Notifications',
+    name: 'Open-Source Live Classroom Stack',
     details: {
-      ar: 'إشعارات فورية للمستخدم والفني والأدمن.',
-      en: 'Real-time push notifications for user, technician, and admin.'
+      ar: 'تشغيل أدوات البث المباشر (Whiteboard + Raise Hand) على سيرفرنا بدون رسوم ترخيص.',
+      en: 'Running live classroom tools (Whiteboard + Raise Hand) on our server with no license fees.'
+    }
+  },
+  {
+    name: 'Fawaterk Gateway',
+    details: {
+      ar: 'بوابة الدفع المعتمدة للاشتراكات داخل المنصة.',
+      en: 'Approved payment gateway for course subscriptions.'
     }
   }
 ];
 
 const paymentGateways: PaymentGateway[] = [
   {
-    title: 'Visa / Mastercard',
-    points: {
-      ar: ['المدفوعات الدولية: 2.50% + 2.00 جنيه', 'عمولة البطاقة: 2% + 2 جنيه', 'VAT: 14%'],
-      en: ['International: 2.50% + 2.00 EGP', 'Card commission: 2% + 2 EGP', 'VAT: 14%']
-    }
-  },
-  {
-    title: 'Fawry',
-    points: {
-      ar: ['العمولة: 2.00% + 2.00 جنيه', 'VAT: 14%'],
-      en: ['Commission: 2.00% + 2.00 EGP', 'VAT: 14%']
-    }
-  },
-  {
-    title: 'Mobile Wallet',
-    points: {
-      ar: ['العمولة: 2.00% + 2.00 جنيه', 'VAT: 14%'],
-      en: ['Commission: 2.00% + 2.00 EGP', 'VAT: 14%']
-    }
-  },
-  {
-    title: 'Aman',
-    points: {
-      ar: ['العمولة: 2.00% + 2.00 جنيه', 'VAT: 14%'],
-      en: ['Commission: 2.00% + 2.00 EGP', 'VAT: 14%']
-    }
-  },
-  {
-    title: 'Basata',
-    points: {
-      ar: ['العمولة: 2.00% + 2.00 جنيه', 'VAT: 14%'],
-      en: ['Commission: 2.00% + 2.00 EGP', 'VAT: 14%']
-    }
-  },
-  {
-    title: 'Apple Pay',
-    points: {
-      ar: ['العمولة: 2.00% + 2.00 جنيه', 'VAT: 14%'],
-      en: ['Commission: 2.00% + 2.00 EGP', 'VAT: 14%']
-    }
-  },
-  {
     title: 'Fawaterk',
     points: {
-      ar: ['العمولة حسب الشريحة المتفق عليها مع Fawaterk', 'تُضاف ضريبة القيمة المضافة عند التطبيق'],
-      en: ['Commission depends on the agreed Fawaterk package', 'VAT applies when activated']
+      ar: ['بوابة الدفع المعتمدة للمشروع.', 'العمولة حسب الشريحة المتفق عليها مع Fawaterk.', 'تُضاف ضريبة القيمة المضافة عند التطبيق.'],
+      en: ['Approved payment gateway for this project.', 'Commission depends on the agreed Fawaterk package.', 'VAT applies when activated.']
     }
   }
 ];
 
 const externalCosts: ExternalCost[] = [
   {
-    title: { ar: 'Google Play', en: 'Google Play' },
-    amount: { ar: '500 جنيه', en: 'EGP 500' },
+    title: { ar: 'Google Play Subscription', en: 'Google Play Subscription' },
+    amount: { ar: '600 جنيه', en: 'EGP 600' },
     subtitle: { ar: 'سنويًا', en: 'Yearly' }
   },
   {
-    title: { ar: 'Apple Store', en: 'Apple Store' },
+    title: { ar: 'Apple Developer Subscription', en: 'Apple Developer Subscription' },
     amount: { ar: '2,000 جنيه', en: 'EGP 2,000' },
     subtitle: { ar: 'سنويًا', en: 'Yearly' }
   },
   {
-    title: { ar: 'اشتراك السيرفر', en: 'Server Subscription' },
+    title: { ar: 'Server Subscription', en: 'Server Subscription' },
     amount: { ar: '2,500 جنيه', en: 'EGP 2,500' },
-    subtitle: { ar: 'اشتراك سنوي', en: 'Annual subscription' },
+    subtitle: { ar: 'سنويًا', en: 'Yearly' }
+  },
+  {
+    title: { ar: 'Video Storage Server (Object Storage)', en: 'Video Storage Server (Object Storage)' },
+    amount: { ar: 'حسب الاستهلاك', en: 'Usage-based' },
+    subtitle: { ar: 'بعد الشريحة المجانية', en: 'After free tier' },
     note: {
-      ar: 'يشمل استضافة السيرفر والمتابعة الدورية طوال سنة الاشتراك.',
-      en: 'Includes server hosting and periodic follow-up throughout the yearly subscription.'
+      ar: 'مجاني: 10GB شهريًا. المدفوع: Standard Storage $0.015/GB-month، Class A $4.50/مليون، Class B $0.36/مليون، IA Storage $0.01/GB-month، IA Class A $9.00/مليون، IA Class B $0.90/مليون، Data Retrieval $0.01/GB.',
+      en: 'Free tier: 10GB/month. Paid: Standard Storage $0.015/GB-month, Class A $4.50/million, Class B $0.36/million, IA Storage $0.01/GB-month, IA Class A $9.00/million, IA Class B $0.90/million, Data Retrieval $0.01/GB.'
     }
   },
   {
-    title: { ar: 'الدعم الفني السنوي', en: 'Annual Technical Support' },
+    title: { ar: 'Technical Support Subscription', en: 'Technical Support Subscription' },
     amount: { ar: '5,000 جنيه', en: 'EGP 5,000' },
-    subtitle: { ar: 'سنويًا', en: 'Yearly' }
+    subtitle: { ar: 'سنويًا', en: 'Yearly' },
+    note: {
+      ar: 'يشمل كل عناصر الدعم الفني التشغيلي الموضحة في قسم \"خدمة الدعم الفني تشمل\".',
+      en: 'Covers all operational support items listed under \"Technical Support Scope\".'
+    }
   }
 ];
+
+const technicalSupportScope: LocalizedList = {
+  ar: [
+    'متابعة السيرفر الأساسي وكفاءته واستقراره بشكل مستمر.',
+    'متابعة سيرفر تخزين الفيديوهات (Object Storage) والأداء والاستهلاك.',
+    'متابعة منصات Google Play و Apple App Store.',
+    'تنفيذ تحديثات التوافق المطلوبة من Google و Apple على التطبيقات.',
+    'متابعة أدوات البث المباشر Open Source (Whiteboard + Raise Hand) على سيرفرنا.',
+    'إصلاح الأعطال والأخطاء التشغيلية لضمان عمل التطبيق والمنصة بكفاءة.'
+  ],
+  en: [
+    'Continuous monitoring of the main production server performance and stability.',
+    'Monitoring of the video storage server (Object Storage), including usage and performance.',
+    'Ongoing follow-up for Google Play and Apple App Store platforms.',
+    'Applying required compliance updates from Google and Apple.',
+    'Maintaining open-source live class tools (Whiteboard + Raise Hand) on our server.',
+    'Fixing operational issues and bugs to keep apps and web platform running reliably.'
+  ]
+};
 
 const paymentMilestones: PaymentMilestone[] = [
   {
-    amount: { ar: '25,000 جنيه', en: 'EGP 25,000' },
+    amount: { ar: '20,000 جنيه', en: 'EGP 20,000' },
     title: { ar: 'دفعة مقدمة عند التعاقد', en: 'Advance payment at contract signing' }
   },
   {
-    amount: { ar: '5,000 جنيه', en: 'EGP 5,000' },
-    title: { ar: 'بعد الانتهاء من اللوجو والهوية', en: 'After logo and identity completion' }
+    amount: { ar: '20,000 جنيه', en: 'EGP 20,000' },
+    title: { ar: 'عند تسليم تطبيق الطالب', en: 'Upon student app delivery' }
   },
   {
-    amount: { ar: '15,000 جنيه', en: 'EGP 15,000' },
-    title: { ar: 'بعد الانتهاء من تصميم UI/UX', en: 'After UI/UX design completion' }
+    amount: { ar: '20,000 جنيه', en: 'EGP 20,000' },
+    title: { ar: 'عند تسليم تطبيق المدرس والأدمن', en: 'Upon teacher and admin app delivery' }
   },
   {
-    amount: { ar: '15,000 جنيه', en: 'EGP 15,000' },
-    title: { ar: 'بعد الانتهاء من تطبيق المستخدم', en: 'After user app completion' }
-  },
-  {
-    amount: { ar: '15,000 جنيه', en: 'EGP 15,000' },
-    title: { ar: 'بعد الانتهاء من الأدمن (موبايل + ويندوز)', en: 'After admin delivery (Mobile + Windows)' }
+    amount: { ar: '20,000 جنيه', en: 'EGP 20,000' },
+    title: { ar: 'عند تسليم منصة الويب', en: 'Upon web platform delivery' }
   }
 ];
 
-const projectName = 'Fix Phone';
+const projectName = 'منصة السادات';
 
 export default function App() {
   const [lang, setLang] = React.useState<Lang>('ar');
-  const isArabic = lang === 'ar';
+  const [theme, setTheme] = React.useState<Theme>('dark');
+  const logoCandidates = ['/logo.png', 'logo.png', './logo.png', '/public/logo.png'];
+  const [logoIndex, setLogoIndex] = React.useState(0);
+  const isDark = theme === 'dark';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100" dir={isArabic ? 'rtl' : 'ltr'}>
-      <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
+    <div
+      className={`${isDark ? 'dark-proposal min-h-screen bg-gradient-to-br from-slate-900 to-slate-950' : 'min-h-screen bg-gradient-to-br from-slate-50 to-slate-100'}`}
+      dir={lang === 'ar' ? 'rtl' : 'ltr'}
+    >
+      {isDark ? (
+        <style>{`
+          .dark-proposal .bg-white { background-color: rgba(15, 23, 42, 0.92) !important; }
+          .dark-proposal .bg-slate-50 { background-color: rgba(30, 41, 59, 0.82) !important; }
+          .dark-proposal .bg-blue-50 { background-color: rgba(30, 64, 175, 0.18) !important; }
+          .dark-proposal .bg-indigo-50 { background-color: rgba(30, 58, 138, 0.22) !important; }
+          .dark-proposal .bg-green-50 { background-color: rgba(22, 101, 52, 0.22) !important; }
+          .dark-proposal .bg-purple-50 { background-color: rgba(107, 33, 168, 0.20) !important; }
+          .dark-proposal .bg-orange-50 { background-color: rgba(154, 52, 18, 0.20) !important; }
+          .dark-proposal .bg-amber-50 { background-color: rgba(146, 64, 14, 0.20) !important; }
+          .dark-proposal .text-slate-900 { color: #f8fafc !important; }
+          .dark-proposal .text-slate-700 { color: #e2e8f0 !important; }
+          .dark-proposal .text-slate-600 { color: #cbd5e1 !important; }
+          .dark-proposal .text-slate-500 { color: #94a3b8 !important; }
+          .dark-proposal .border-slate-200 { border-color: #334155 !important; }
+          .dark-proposal .border-blue-100 { border-color: #1e40af !important; }
+          .dark-proposal .border-indigo-100 { border-color: #1d4ed8 !important; }
+          .dark-proposal .border-green-200 { border-color: #166534 !important; }
+          .dark-proposal .border-purple-100 { border-color: #6b21a8 !important; }
+          .dark-proposal .border-orange-100 { border-color: #9a3412 !important; }
+          .dark-proposal .border-amber-200 { border-color: #92400e !important; }
+          .dark-proposal .hover\\:border-blue-300:hover { border-color: #3b82f6 !important; }
+        `}</style>
+      ) : null}
+      <header className={isDark ? 'bg-slate-900 shadow-sm border-b border-slate-700 sticky top-0 z-50' : 'bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50'}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">{projectName}</h1>
-              <p className="text-sm text-slate-600">{labels[lang].offerTitle}</p>
+              <h1 className={isDark ? 'text-2xl font-bold text-white' : 'text-2xl font-bold text-slate-900'}>{projectName}</h1>
+              <p className={isDark ? 'text-sm text-slate-300' : 'text-sm text-slate-600'}>{labels[lang].offerTitle}</p>
             </div>
             <div className="flex items-center gap-4">
-              <div className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-2 py-1">
-                <Languages className="w-4 h-4 text-slate-500" />
+              <div className={isDark ? 'inline-flex items-center gap-2 rounded-lg border border-slate-600 bg-slate-800 px-2 py-1' : 'inline-flex items-center gap-2 rounded-lg border border-slate-200 px-2 py-1'}>
+                <Languages className={isDark ? 'w-4 h-4 text-slate-300' : 'w-4 h-4 text-slate-500'} />
                 <button
                   type="button"
                   className={`px-3 py-2 text-sm font-semibold transition-colors ${
-                    lang === 'ar' ? 'bg-blue-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-100'
+                    lang === 'ar'
+                      ? 'bg-blue-600 text-white rounded-md'
+                      : isDark
+                        ? 'bg-slate-800 text-slate-200 hover:bg-slate-700 rounded-md'
+                        : 'bg-white text-slate-700 hover:bg-slate-100 rounded-md'
                   }`}
                   onClick={() => setLang('ar')}
                 >
@@ -505,15 +549,66 @@ export default function App() {
                 <button
                   type="button"
                   className={`px-3 py-2 text-sm font-semibold transition-colors ${
-                    lang === 'en' ? 'bg-blue-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-100'
+                    lang === 'en'
+                      ? 'bg-blue-600 text-white rounded-md'
+                      : isDark
+                        ? 'bg-slate-800 text-slate-200 hover:bg-slate-700 rounded-md'
+                        : 'bg-white text-slate-700 hover:bg-slate-100 rounded-md'
                   }`}
                   onClick={() => setLang('en')}
                 >
                   {labels[lang].enBtn}
                 </button>
               </div>
-              <a href="https://penta-k.com" className="inline-flex items-center" aria-label="Penta-k website">
-                <img src="public/logo.png" alt={labels[lang].logoAlt} className="h-12 w-auto object-contain" />
+              <div className={isDark ? 'inline-flex items-center gap-2 rounded-lg border border-slate-600 bg-slate-800 px-2 py-1' : 'inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-2 py-1'}>
+                <button
+                  type="button"
+                  className={`px-3 py-2 text-sm font-semibold transition-colors rounded-md ${
+                    theme === 'dark'
+                      ? 'bg-blue-600 text-white'
+                      : isDark
+                        ? 'text-slate-200 hover:bg-slate-700'
+                        : 'text-slate-700 hover:bg-slate-100'
+                  }`}
+                  onClick={() => setTheme('dark')}
+                >
+                  <span className="inline-flex items-center gap-1">
+                    <Moon className="w-4 h-4" />
+                    Dark
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className={`px-3 py-2 text-sm font-semibold transition-colors rounded-md ${
+                    theme === 'light'
+                      ? 'bg-blue-600 text-white'
+                      : isDark
+                        ? 'text-slate-200 hover:bg-slate-700'
+                        : 'text-slate-700 hover:bg-slate-100'
+                  }`}
+                  onClick={() => setTheme('light')}
+                >
+                  <span className="inline-flex items-center gap-1">
+                    <Sun className="w-4 h-4" />
+                    Light
+                  </span>
+                </button>
+              </div>
+              <a
+                href="https://penta-k.com"
+                className={isDark ? 'inline-flex items-center rounded-md bg-slate-800 p-1' : 'inline-flex items-center rounded-md bg-slate-900 p-1'}
+                aria-label="Penta-k website"
+              >
+                {logoIndex < logoCandidates.length ? (
+                  <img
+                    src={logoCandidates[logoIndex]}
+                    alt={labels[lang].logoAlt}
+                    className="h-12 w-auto object-contain"
+                    onError={() => setLogoIndex((idx) => idx + 1)}
+                  />
+                ) : (
+                  <span className="px-3 py-2 text-xs font-bold text-white">Penta-k</span>
+                )}
               </a>
             </div>
           </div>
@@ -583,24 +678,24 @@ export default function App() {
         </div>
 
         <FeatureSection
-          title={labels[lang].userFeatures}
-          subtitle="User Features"
+          title={labels[lang].studentFeatures}
+          subtitle="Student App & Web"
           icon={<Users className="w-7 h-7 text-blue-600" />}
           color="blue"
-          items={userFeatures[lang]}
+          items={studentFeatures[lang]}
         />
 
         <FeatureSection
-          title={labels[lang].techFeatures}
-          subtitle="Technician Features"
+          title={labels[lang].teacherFeatures}
+          subtitle="Teacher App"
           icon={<Package className="w-7 h-7 text-green-600" />}
           color="green"
-          items={techFeatures[lang]}
+          items={teacherFeatures[lang]}
         />
 
         <FeatureSection
           title={labels[lang].adminFeatures}
-          subtitle="Admin Features"
+          subtitle="Admin App"
           icon={<Monitor className="w-7 h-7 text-purple-600" />}
           color="purple"
           items={adminFeatures[lang]}
@@ -626,16 +721,20 @@ export default function App() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-l from-emerald-600 to-emerald-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-emerald-500">
-            <div className="p-3 bg-emerald-500 rounded-lg">
+        <div
+          className={`rounded-2xl p-8 mb-8 text-white shadow-xl ${
+            isDark ? 'bg-gradient-to-l from-blue-700 to-indigo-800' : 'bg-gradient-to-l from-emerald-600 to-emerald-700'
+          }`}
+        >
+          <div className={`flex items-center gap-3 mb-6 pb-4 border-b ${isDark ? 'border-blue-500' : 'border-emerald-500'}`}>
+            <div className={`p-3 rounded-lg ${isDark ? 'bg-blue-500' : 'bg-emerald-500'}`}>
               <DollarSign className="w-7 h-7 text-white" />
             </div>
             <h2 className="text-2xl font-bold">{labels[lang].totalCost}</h2>
           </div>
           <div className="text-center mb-6">
-            <div className="text-6xl font-bold mb-2">75,000 جنيه مصري</div>
-            <div className="text-emerald-100 text-lg">{labels[lang].totalCostNote}</div>
+            <div className="text-6xl font-bold mb-2">80,000 جنيه مصري</div>
+            <div className={`text-lg ${isDark ? 'text-blue-100' : 'text-emerald-100'}`}>{labels[lang].totalCostNote}</div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
             {includedInPrice[lang].map((item) => (
@@ -647,16 +746,16 @@ export default function App() {
           </div>
           <div className="bg-white/10 rounded-xl p-5 border border-white/20">
             <h3 className="text-xl font-bold mb-4">{labels[lang].paymentPlanTitle}</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-3">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
               {paymentMilestones.map((milestone) => (
                 <div key={milestone.title.en} className="bg-white/10 rounded-lg p-4 border border-white/20">
                   <div className="text-2xl font-bold mb-1">{milestone.amount[lang]}</div>
-                  <p className="text-sm text-emerald-50">{milestone.title[lang]}</p>
+                  <p className={`text-sm ${isDark ? 'text-blue-100' : 'text-emerald-50'}`}>{milestone.title[lang]}</p>
                 </div>
               ))}
             </div>
           </div>
-          <p className="text-sm text-emerald-100 mt-4">{labels[lang].externalNote}</p>
+          <p className={`text-sm mt-4 ${isDark ? 'text-blue-100' : 'text-emerald-100'}`}>{labels[lang].externalNote}</p>
         </div>
 
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border border-slate-200">
@@ -666,7 +765,7 @@ export default function App() {
             </div>
             <h2 className="text-2xl font-bold text-slate-900">{labels[lang].paymentGatewaysTitle}</h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-1 lg:grid-cols-1 gap-4">
             {paymentGateways.map((gateway) => (
               <div key={gateway.title} className="p-4 bg-slate-50 rounded-lg border border-slate-200">
                 <h3 className="font-bold text-slate-900 mb-2">{gateway.title}</h3>
@@ -690,24 +789,20 @@ export default function App() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{isArabic ? 'سيرفر مجاني' : 'Free Server'}</div>
-              <div className="text-slate-600 text-sm">{isArabic ? 'لمدة 4 شهور' : 'For 4 months'}</div>
+              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'سيرفر مجاني' : 'Free Server'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة 6 شهور بعد التسليم' : 'For 6 months after delivery'}</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{isArabic ? 'دومين مجاني' : 'Free Domain'}</div>
-              <div className="text-slate-600 text-sm">{isArabic ? 'أول سنة' : 'First year'}</div>
+              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'رفع على المتاجر' : 'Store Publishing'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'Google Play & Apple مجاناً' : 'Google Play & Apple free publishing'}</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">
-                {isArabic ? 'دعم فني مجاني' : 'Free Technical Support'}
-              </div>
-              <div className="text-slate-600 text-sm">{isArabic ? 'لمدة 4 شهور' : 'For 4 months'}</div>
+              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'دعم فني مجاني' : 'Free Technical Support'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة 6 شهور' : 'For 6 months'}</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">
-                {isArabic ? 'رفع على المتاجر' : 'Store Publishing'}
-              </div>
-              <div className="text-slate-600 text-sm">{isArabic ? 'مجاناً خلال أول سنة' : 'Free during first year'}</div>
+              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'متابعة المنصات' : 'Store & Server Follow-up'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'تحديثات توافق Google و iOS' : 'Google & iOS compliance updates'}</div>
             </div>
           </div>
         </div>
@@ -736,7 +831,7 @@ export default function App() {
             </div>
             <h2 className="text-2xl font-bold text-slate-900">{labels[lang].externalCosts}</h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-2">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
             {externalCosts.map((cost) => (
               <div key={cost.title.en} className="p-4 bg-slate-50 rounded-lg border border-slate-200">
                 <h3 className="font-bold text-slate-900 mb-2">{cost.title[lang]}</h3>
@@ -748,6 +843,19 @@ export default function App() {
               </div>
             ))}
           </div>
+          <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+            <h3 className="font-bold text-slate-900 mb-3">
+              {lang === 'ar' ? 'خدمة الدعم الفني تشمل' : 'Technical Support Scope'}
+            </h3>
+            <ul className="space-y-2 text-sm text-slate-700">
+              {technicalSupportScope[lang].map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="bg-gradient-to-l from-blue-600 to-indigo-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
@@ -758,37 +866,37 @@ export default function App() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             <ValueCard
               icon={<Shield className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'جودة الكود' : 'Code Quality'}
-              text={isArabic ? 'اهتمام حقيقي بجودة الكود وليس مجرد تنفيذ.' : 'Real focus on quality, not just delivery.'}
+              title={lang === 'ar' ? 'جودة الكود' : 'Code Quality'}
+              text={lang === 'ar' ? 'اهتمام حقيقي بجودة الكود وليس مجرد تنفيذ.' : 'Real focus on quality, not just delivery.'}
             />
             <ValueCard
               icon={<TrendingUp className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'قابلية التوسع' : 'Scalability'}
-              text={isArabic ? 'تطبيقات قابلة للتوسع والنمو مع عملك.' : 'Apps built to scale with your business.'}
+              title={lang === 'ar' ? 'قابلية التوسع' : 'Scalability'}
+              text={lang === 'ar' ? 'منصة قابلة للتوسع والنمو مع عدد الطلاب.' : 'Platform built to scale with student growth.'}
             />
             <ValueCard
               icon={<Clock className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'تسليم منظم' : 'Structured Delivery'}
-              text={isArabic ? 'تسليم على مراحل مع متابعة مستمرة.' : 'Milestone-based delivery with steady follow-up.'}
+              title={lang === 'ar' ? 'تسليم منظم' : 'Structured Delivery'}
+              text={lang === 'ar' ? 'تسليم على مراحل مع متابعة مستمرة.' : 'Milestone-based delivery with steady follow-up.'}
             />
             <ValueCard
               icon={<Users className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'سهولة الاستلام' : 'Easy Handover'}
+              title={lang === 'ar' ? 'سهولة الإدارة' : 'Easy Management'}
               text={
-                isArabic
-                  ? 'سهولة استلام المشروع من أي فريق تقني لاحقًا.'
-                  : 'Easy transfer to any future technical team.'
+                lang === 'ar'
+                  ? 'لوحة أدمن واضحة لإدارة النظام التعليمي بالكامل.'
+                  : 'Clear admin control for full learning operations.'
               }
             />
             <ValueCard
               icon={<DollarSign className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'توفير المستقبل' : 'Future Savings'}
-              text={isArabic ? 'كود نظيف = تكلفة أقل في المستقبل.' : 'Clean code means lower future costs.'}
+              title={lang === 'ar' ? 'توفير المستقبل' : 'Future Savings'}
+              text={lang === 'ar' ? 'كود نظيف = تكلفة أقل في التطويرات القادمة.' : 'Clean code reduces future update costs.'}
             />
             <ValueCard
               icon={<Award className="w-8 h-8 mb-3" />}
-              title={isArabic ? 'خبرة احترافية' : 'Professional Experience'}
-              text={isArabic ? 'فريق متخصص بخبرة عملية في حلول الإنتاج.' : 'Specialized team with real production experience.'}
+              title={lang === 'ar' ? 'خبرة احترافية' : 'Professional Experience'}
+              text={lang === 'ar' ? 'فريق متخصص بخبرة عملية في حلول الإنتاج.' : 'Specialized team with real production experience.'}
             />
           </div>
         </div>
