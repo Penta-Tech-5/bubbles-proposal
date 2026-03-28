@@ -103,11 +103,11 @@ const labels: Record<
     totalCostNote: 'شاملة تنفيذ التطبيقات والمنصة والربط الكامل للمنظومة التعليمية',
     paymentPlanTitle: 'طريقة الدفع',
     externalNote:
-      'ملاحظة: الاشتراكات السنوية (السيرفر، Google Play، Apple Store، والدعم السنوي) تُدار كتجديدات تشغيلية بعد انتهاء الفترات المجانية.',
+      'ملاحظة: الاشتراكات التشغيلية (سنوية/شهرية حسب الخطة) مثل السيرفر، Google Play، Apple Store، والدعم الفني تُدار كتجديدات بعد انتهاء الفترات المجانية.',
     paymentGatewaysTitle: 'بوابة الدفع المعتمدة',
     freeServices: 'Free Services - مميزات مقدمة من شركة Penta-k',
     technologies: 'Technologies & Development Standards',
-    externalCosts: 'External Running Costs - التكاليف التشغيلية السنوية',
+    externalCosts: 'External Running Costs - التكاليف التشغيلية',
     whyUs: 'Why Penta-k? - ليه تختار Penta-k؟',
     whyUsSub: 'نحن لا نكتب كود فقط، نبني حلول قابلة للنمو والتطور',
     contact: 'للتواصل والاستفسار',
@@ -134,11 +134,11 @@ const labels: Record<
     totalCostNote: 'Includes full implementation of apps, web platform, and educational workflow integration',
     paymentPlanTitle: 'Payment Plan',
     externalNote:
-      'Note: Annual subscriptions (server, Google Play, Apple Store, and annual support) are handled as operational renewals after free periods.',
+      'Note: Operational subscriptions (yearly/monthly based on plan) such as server, Google Play, Apple Store, and support are handled as renewals after free periods.',
     paymentGatewaysTitle: 'Approved Payment Gateway',
     freeServices: 'Free Services by Penta-k',
     technologies: 'Technologies & Development Standards',
-    externalCosts: 'External Annual Operating Costs',
+    externalCosts: 'External Operating Costs',
     whyUs: 'Why Penta-k?',
     whyUsSub: 'We do not just write code, we build scalable solutions',
     contact: 'Contact & Inquiries',
@@ -423,9 +423,31 @@ const externalCosts: ExternalCost[] = [
     subtitle: { ar: 'سنويًا', en: 'Yearly' }
   },
   {
-    title: { ar: 'Server Subscription', en: 'Server Subscription' },
+    title: { ar: 'خطة سيرفر 1 (خيار اقتصادي - غير مُحبذ)', en: 'Server Plan 1 (Budget Option - Not Recommended)' },
     amount: { ar: '2,500 جنيه', en: 'EGP 2,500' },
-    subtitle: { ar: 'سنويًا', en: 'Yearly' }
+    subtitle: { ar: 'سنويًا', en: 'Yearly' },
+    note: {
+      ar: 'خطة تشغيل أساسية، لكنها ليست الخيار المفضل للمشروع عند زيادة الأحمال.',
+      en: 'Basic hosting plan, not the preferred option as load grows.'
+    }
+  },
+  {
+    title: { ar: 'خطة سيرفر 2 (سيرفر خاص بالكامل)', en: 'Server Plan 2 (Dedicated Private Server)' },
+    amount: { ar: '6,000 جنيه', en: 'EGP 6,000' },
+    subtitle: { ar: 'شهريًا', en: 'Monthly' },
+    note: {
+      ar: 'سيرفر مستقل مخصص للمشروع لضمان كفاءة التشغيل وجودة البث المباشر.',
+      en: 'A fully dedicated server for the project to ensure stable performance and live streaming quality.'
+    }
+  },
+  {
+    title: { ar: 'خطة سيرفر 3 (الخيار الأفضل)', en: 'Server Plan 3 (Recommended Best Value)' },
+    amount: { ar: '11,000 جنيه', en: 'EGP 11,000' },
+    subtitle: { ar: 'سنويًا', en: 'Yearly' },
+    note: {
+      ar: 'أفضل توازن بين التكلفة والكفاءة مع أداء عالٍ جدًا للمشروع.',
+      en: 'Best balance between cost and performance with very high operational efficiency.'
+    }
   },
   {
     title: { ar: 'Video Storage Server (Object Storage)', en: 'Video Storage Server (Object Storage)' },
@@ -441,8 +463,8 @@ const externalCosts: ExternalCost[] = [
     amount: { ar: '5,000 جنيه', en: 'EGP 5,000' },
     subtitle: { ar: 'سنويًا', en: 'Yearly' },
     note: {
-      ar: 'يشمل كل عناصر الدعم الفني التشغيلي الموضحة في قسم \"خدمة الدعم الفني تشمل\".',
-      en: 'Covers all operational support items listed under \"Technical Support Scope\".'
+      ar: 'يشمل كل عناصر الدعم الفني التشغيلي الموضحة في قسم \"خدمة الدعم الفني تشمل\". يتم اختيار خطة السيرفر المناسبة حسب عدد المستخدمين، مع إمكانية النقل بين الخطط عند الحاجة.',
+      en: 'Covers all operational support items listed under \"Technical Support Scope\". Server plan selection depends on active user volume, with upgrade/downgrade flexibility when needed.'
     }
   }
 ];
