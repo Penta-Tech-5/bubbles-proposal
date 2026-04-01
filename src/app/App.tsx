@@ -3,7 +3,6 @@
   CheckCircle,
   Clock,
   Code,
-  CreditCard,
   DollarSign,
   FileText,
   Globe,
@@ -13,7 +12,6 @@
   Package,
   PhoneCall,
   Shield,
-  Smartphone,
   Sun,
   TrendingUp,
   Users
@@ -91,20 +89,20 @@ const labels: Record<
     companyTitle: 'شركة Penta-k',
     companyText:
       'شركة متخصصة في تصميم وتطوير حلول البرمجيات والتطبيقات الذكية، وتقديم أنظمة متكاملة بجودة عالية وتجربة استخدام احترافية.',
-    overviewTitle: 'وصف عام لمشروع منصة السادات',
+    overviewTitle: 'وصف عام لمشروع Task System',
     overviewText:
-      'منصة السادات عبارة عن نظام تعليمي متكامل يتكون من تطبيقات موبايل للطالب والمدرس، وتطبيق أدمن، بالإضافة إلى منصة ويب للطالب، بهدف إدارة الكورسات والاشتراكات والبث المباشر والتفاعل بين الطلاب والمدرسين في تجربة موحدة وآمنة.',
-    studentFeatures: 'مميزات الطالب',
-    teacherFeatures: 'مميزات المدرس',
-    adminFeatures: 'مميزات الأدمن',
+      'Task System هو تطبيق Windows مخصص لإدارة وتنظيم مهام فرق العمل داخل شركة تنفيذ شبكات. النظام يتيح تسجيل المهام، توزيعها على الموظفين، ومتابعة الحالة بمراحل واضحة (Pending ثم Process ثم Done)، مع فلاتر دقيقة وتقارير قابلة للتصدير إلى Excel حسب المطلوب.',
+    studentFeatures: 'مميزات إدارة المهام',
+    teacherFeatures: 'مميزات دورة التنفيذ',
+    adminFeatures: 'مميزات لوحة المدير',
     deliveryTitle: 'مدة التنفيذ والتسليم',
-    projectDuration: 'مدة المشروع: 3 شهور (بحد أقصى)',
+    projectDuration: 'مدة المشروع: 30 يوم',
     totalCost: 'التكلفة الإجمالية للمشروع',
-    totalCostNote: 'شاملة تنفيذ التطبيقات والمنصة والربط الكامل للمنظومة التعليمية',
+    totalCostNote: 'شاملة التحليل والتطوير والتقارير والفلاتر والتصدير إلى Excel',
     paymentPlanTitle: 'طريقة الدفع',
     externalNote:
-      'ملاحظة: الاشتراكات التشغيلية (سنوية/شهرية حسب الخطة) مثل السيرفر، Google Play، Apple Store، والدعم الفني تُدار كتجديدات بعد انتهاء الفترات المجانية.',
-    paymentGatewaysTitle: 'بوابة الدفع المعتمدة',
+      'ملاحظة: اشتراك السيرفر والدعم الفني اختياريان حسب طريقة التشغيل (محلي/أونلاين) ويتم تجديدهما دوريًا عند الحاجة.',
+    paymentGatewaysTitle: 'آلية التقارير والتصدير',
     freeServices: 'Free Services - مميزات مقدمة من شركة Penta-k',
     technologies: 'Technologies & Development Standards',
     externalCosts: 'External Running Costs - التكاليف التشغيلية',
@@ -112,7 +110,7 @@ const labels: Record<
     whyUsSub: 'نحن لا نكتب كود فقط، نبني حلول قابلة للنمو والتطور',
     contact: 'للتواصل والاستفسار',
     thanks: 'شكرًا لثقتكم في',
-    projectFooter: 'نتطلع للعمل معكم على مشروع منصة السادات.',
+    projectFooter: 'نتطلع للعمل معكم على مشروع Task System.',
     logoAlt: 'شعار Penta-k',
     arBtn: 'العربية',
     enBtn: 'English'
@@ -122,20 +120,20 @@ const labels: Record<
     companyTitle: 'Penta-k Company',
     companyText:
       'A software house specialized in building smart digital solutions and integrated systems with high quality and professional user experience.',
-    overviewTitle: 'Al-Sadat Platform Overview',
+    overviewTitle: 'Task System Project Overview',
     overviewText:
-      'Al-Sadat Platform is a complete e-learning ecosystem including mobile apps for students and teachers, an admin app, and a student web platform to manage courses, subscriptions, live sessions, and secure educational content delivery.',
-    studentFeatures: 'Student Features',
-    teacherFeatures: 'Teacher Features',
-    adminFeatures: 'Admin Features',
+      'Task System is a Windows desktop application for managing and organizing field tasks in a network delivery company. It enables task logging, employee assignment, and clear status tracking (Pending -> Process -> Done), with advanced filtering and Excel-ready reporting.',
+    studentFeatures: 'Task Management Features',
+    teacherFeatures: 'Execution Workflow Features',
+    adminFeatures: 'Manager Dashboard Features',
     deliveryTitle: 'Timeline & Deliverables',
-    projectDuration: 'Project duration: 3 months (maximum)',
+    projectDuration: 'Project duration: 30 days',
     totalCost: 'Total Project Cost',
-    totalCostNote: 'Includes full implementation of apps, web platform, and educational workflow integration',
+    totalCostNote: 'Includes analysis, development, filtering, reporting, and Excel export',
     paymentPlanTitle: 'Payment Plan',
     externalNote:
-      'Note: Operational subscriptions (yearly/monthly based on plan) such as server, Google Play, Apple Store, and support are handled as renewals after free periods.',
-    paymentGatewaysTitle: 'Approved Payment Gateway',
+      'Note: Server and support subscriptions are optional based on deployment mode (local/online) and renewed when needed.',
+    paymentGatewaysTitle: 'Reporting & Export Approach',
     freeServices: 'Free Services by Penta-k',
     technologies: 'Technologies & Development Standards',
     externalCosts: 'External Operating Costs',
@@ -143,7 +141,7 @@ const labels: Record<
     whyUsSub: 'We do not just write code, we build scalable solutions',
     contact: 'Contact & Inquiries',
     thanks: 'Thank you for trusting',
-    projectFooter: 'We look forward to delivering Al-Sadat Platform with you.',
+    projectFooter: 'We look forward to delivering Task System with you.',
     logoAlt: 'Penta-k Logo',
     arBtn: 'العربية',
     enBtn: 'English'
@@ -153,103 +151,105 @@ const labels: Record<
 const mainSections: SectionCard[] = [
   {
     title: {
-      ar: 'تطبيق الطالب + منصة ويب الطالب',
-      en: 'Student Mobile App + Student Web Platform'
+      ar: 'تسجيل وإدارة المهام',
+      en: 'Task Registration & Management'
     },
     description: {
-      ar: 'تجربة متكاملة للطالب من التسجيل حتى الاشتراك ومتابعة الكورسات.',
-      en: 'Complete student journey from login to subscription and course engagement.'
+      ar: 'إدخال المهام بشكل منظم مع ربطها بالموقع والنوع والجهة والبيانات التفصيلية.',
+      en: 'Structured task entry linked to location, type, owner, and detailed context.'
     },
-    icon: Smartphone,
+    icon: FileText,
     points: {
       ar: [
-        'تسجيل الدخول بالإيميل أو رقم الموبايل حسب إعداد العميل.',
-        'اختيار السنة الدراسية ثم عرض المواد والمدرسين.',
-        'الاشتراك في الكورسات عبر بوابة الدفع Fawaterk.',
-        'عرض الكورسات والدروس والفيديوهات والملفات بشكل منظم.'
+        'إنشاء Task جديدة مع جميع البيانات التشغيلية.',
+        'دعم الحقول الشائعة في الشيت الحالي مثل: WO Number، Site Code، Employee Name.',
+        'تصنيف المهام حسب النوع، المنطقة، والأولوية.',
+        'تسجيل ملاحظات كل مهمة وتحديثاتها.',
+        'ربط كل مهمة بحالة تشغيل واضحة داخل النظام.'
       ],
       en: [
-        'Login via email or mobile number based on client preference.',
-        'Select academic year then browse subjects and teachers.',
-        'Course subscription via Fawaterk payment gateway.',
-        'Organized access to courses, lessons, videos, and files.'
+        'Create new tasks with full operational details.',
+        'Support common current-sheet fields such as WO Number, Site Code, and Employee Name.',
+        'Classify tasks by type, area, and priority.',
+        'Attach notes and ongoing updates per task.',
+        'Maintain clear operational status for each task.'
       ]
     }
   },
   {
     title: {
-      ar: 'تطبيق المدرس',
-      en: 'Teacher Mobile App'
+      ar: 'توزيع الشغل على الموظفين',
+      en: 'Employee Assignment'
     },
     description: {
-      ar: 'أداة كاملة للمدرس لإدارة المحتوى والتفاعل مع الطلاب وتحليل الأداء.',
-      en: 'A complete tool for teachers to manage content, engagement, and performance.'
+      ar: 'المدير يوزع المهام على الموظفين ويتابع المنفذ والمسؤول وتوقيتات التنفيذ.',
+      en: 'Managers assign tasks to employees and track owner, executor, and timeline.'
     },
-    icon: Package,
+    icon: Users,
     points: {
       ar: [
-        'رفع فيديوهات الكورسات وملفات PDF وامتحانات لكل درس.',
-        'متابعة تعليقات الطلبة والرد عليها.',
-        'متابعة عدد المشتركين بكل كورس.',
-        'عرض الرصيد بعد خصم نسبة المنصة المتفق عليها.'
+        'Assign مباشر للموظف المسؤول عن التنفيذ.',
+        'سهولة إرسال المهمة للموظف أو للعميل حسب طبيعة الشغل.',
+        'إمكانية إعادة التعيين عند تغيير خطة العمل.',
+        'متابعة كل موظف حسب اسمه ومهامه الحالية.',
+        'تقليل التداخل وضياع المهام بين فرق العمل.'
       ],
       en: [
-        'Upload course videos, lesson files, and exams.',
-        'Monitor and reply to student comments.',
-        'Track subscriber count per course.',
-        'View net revenue after platform commission.'
+        'Direct assignment to the responsible employee.',
+        'Easy task forwarding to employees or clients based on workflow needs.',
+        'Reassignment support when plans change.',
+        'Track each employee by name and active tasks.',
+        'Reduce overlap and task loss across teams.'
       ]
     }
   },
   {
     title: {
-      ar: 'تطبيق الأدمن (Android)',
-      en: 'Admin App (Android)'
+      ar: 'مراحل التنفيذ (Workflow)',
+      en: 'Execution Workflow'
     },
     description: {
-      ar: 'إدارة شاملة للحسابات والكورسات والتسعير والاشتراكات والرصيد.',
-      en: 'Full control over accounts, courses, pricing, subscriptions, and balances.'
+      ar: 'كل Task تتحرك بمراحل واضحة: Pending ثم Process ثم Done حتى الإغلاق.',
+      en: 'Each task moves through clear statuses: Pending -> Process -> Done.'
     },
-    icon: Monitor,
+    icon: TrendingUp,
     points: {
       ar: [
-        'إنشاء/تعديل/حذف حسابات الطلبة والمدرسين.',
-        'إدارة الكورسات والتسعير والمحتوى.',
-        'إدارة الاشتراكات وإتاحة اشتراكات مجانية للطلاب.',
-        'متابعة الرصيد وحركة الاشتراكات المالية.'
+        'تغيير الحالة حسب المرحلة الحالية للتنفيذ.',
+        'تتبع واضح لحركة المهمة داخل دورة العمل.',
+        'تقليل الأخطاء مقارنة بالمتابعة اليدوية على Excel.',
+        'نظام بسيط مستوحى من Jira لكن مناسب لحجم التشغيل.'
       ],
       en: [
-        'Create/edit/delete student and teacher accounts.',
-        'Manage courses, pricing, and educational content.',
-        'Manage subscriptions and assign free enrollments.',
-        'Track balances and subscription financial flow.'
+        'Move task status according to execution stage.',
+        'Clear lifecycle tracking for every task.',
+        'Fewer mistakes vs manual Excel tracking.',
+        'Jira-inspired lightweight workflow for your operation.'
       ]
     }
   },
   {
     title: {
-      ar: 'البث المباشر وحماية المحتوى',
-      en: 'Live Streaming & Content Protection'
+      ar: 'الفلاتر والتقارير وملفات Excel',
+      en: 'Filtering, Reporting & Excel Export'
     },
     description: {
-      ar: 'ميزات أساسية لرفع جودة التعلم مع حماية قوية للمحتوى التعليمي.',
-      en: 'Core features for live education delivery with strong content security.'
+      ar: 'استخراج البيانات المطلوبة بسرعة مع فلاتر متعددة وإخراج تقرير Excel جاهز.',
+      en: 'Quickly retrieve required data through advanced filters and export-ready Excel reports.'
     },
-    icon: Shield,
+    icon: Code,
     points: {
       ar: [
-        'بث مباشر للمدرسين: على مستوى كورس محدد أو سنة كاملة.',
-        'أدوات البث المباشر تشمل Whiteboard و Raise Hand (حلول Open Source على سيرفرنا).',
-        'شات خاص لكل كورس (نص + صور + PDF) مع مشاركة الطلبة والمدرس.',
-        'تعليقات على الكورسات مع الردود.',
-        'منع تسجيل الشاشة + علامة مائية باسم الطالب على ملفات PDF.'
+        'فلترة حسب اسم الموظف، نوع الشغل، المكان، والحالة.',
+        'فلترة زمنية حسب فترة التنفيذ أو تاريخ الإنشاء.',
+        'تصدير النتائج إلى Excel بنفس الشكل المطلوب للإدارة.',
+        'إمكانية تطوير الاستيراد من الشيت الحالي لتسريع الانتقال.'
       ],
       en: [
-        'Teacher live sessions per course or full grade level.',
-        'Live class tools include Whiteboard and Raise Hand (open-source stack on our server).',
-        'Course-level chat (text + images + PDF) for students and teachers.',
-        'Course comments with threaded replies.',
-        'Screen-recording protection + student-name watermark on lesson PDFs.'
+        'Filter by employee name, task type, location, and status.',
+        'Date range filtering by creation or execution period.',
+        'Export filtered results to Excel in management-ready format.',
+        'Optional import enhancement from existing Excel sheet.'
       ]
     }
   }
@@ -257,214 +257,184 @@ const mainSections: SectionCard[] = [
 
 const studentFeatures: LocalizedList = {
   ar: [
-    'تسجيل دخول بالإيميل أو رقم الموبايل حسب تفعيل العميل.',
-    'اختيار السنة الدراسية وعرض المواد والمدرسين.',
-    'الاشتراك في الكورسات والدفع عبر Fawaterk.',
-    'شات لكل كورس (رسائل نصية + صور + ملفات PDF).',
-    'تعليقات على الكورس والرد على التعليقات.',
-    'منع تسجيل الشاشة لحماية محتوى الفيديو.',
-    'تحميل ملفات PDF بعلامة مائية باسم الطالب.'
+    'إنشاء وتسجيل المهام اليومية من شاشة واحدة.',
+    'سهولة إرسال المهام للموظفين أو العملاء بسرعة.',
+    'ربط كل مهمة بموظف، موقع، ونوع تنفيذ.',
+    'متابعة قائمة المهام المفتوحة والمغلقة.',
+    'بحث سريع داخل البيانات التشغيلية.',
+    'تحديث حالة المهمة في خطوات بسيطة.',
+    'تسجيل ملاحظات داخلية لكل مهمة.',
+    'تقليل الاعتماد على الجداول اليدوية المتفرقة.'
   ],
   en: [
-    'Login by email or mobile number based on client settings.',
-    'Select grade and browse subjects and teachers.',
-    'Subscribe to courses via Fawaterk payment gateway.',
-    'Course chat (text + images + PDF files).',
-    'Course comments and replies.',
-    'Screen-recording prevention for video protection.',
-    'PDF downloads stamped with student watermark.'
+    'Create and register daily tasks from one screen.',
+    'Easily send tasks to employees or clients.',
+    'Link each task to employee, location, and work type.',
+    'Track open and closed tasks clearly.',
+    'Fast operational search across records.',
+    'Update task status in simple workflow steps.',
+    'Record internal notes per task.',
+    'Reduce dependence on fragmented manual sheets.'
   ]
 };
 
 const teacherFeatures: LocalizedList = {
   ar: [
-    'رفع فيديوهات الدروس والكورسات من التطبيق.',
-    'إضافة ملفات PDF وامتحانات لكل درس.',
-    'متابعة تعليقات الطلاب والرد عليها.',
-    'عرض عدد المشتركين في كل كورس.',
-    'عرض الرصيد بعد خصم نسبة التطبيق.',
-    'عمل بث مباشر لطلاب كورس معين أو سنة كاملة.',
-    'استخدام Whiteboard و Raise Hand داخل الحصة المباشرة.'
+    'مراحل تنفيذ واضحة: Pending ثم Process ثم Done.',
+    'إمكانية تحريك المهمة بين المراحل حسب الإنجاز.',
+    'عرض المرحلة الحالية لكل مهمة في أي وقت.',
+    'سجل تغييرات يساعد الإدارة على المراجعة.',
+    'عرض المهام المتأخرة أو المتوقفة بسرعة.',
+    'تحسين الانضباط التشغيلي بين الفرق.',
+    'تقليل فقدان التفاصيل أثناء التسليم بين الموظفين.'
   ],
   en: [
-    'Upload lessons and full course videos from the app.',
-    'Attach PDF files and exams per lesson.',
-    'Review and respond to student comments.',
-    'Track subscriptions per course.',
-    'View balance after platform commission.',
-    'Run live sessions for a specific course or full grade.',
-    'Use Whiteboard and Raise Hand during live classes.'
+    'Clear execution statuses: Pending -> Process -> Done.',
+    'Move tasks across stages based on progress.',
+    'Always know each task current stage.',
+    'Change history helps management reviews.',
+    'Quick view for delayed or blocked tasks.',
+    'Improve operational discipline across teams.',
+    'Reduce handoff loss between employees.'
   ]
 };
 
 const adminFeatures: LocalizedList = {
   ar: [
-    'إدارة كاملة للطلبة والمدرسين والحسابات.',
-    'إدارة الكورسات (إنشاء/تعديل/حذف/تسعير).',
-    'إدارة الاشتراكات ومنح اشتراكات مجانية.',
-    'متابعة الرصيد الإجمالي للاشتراكات.',
-    'إدارة المحتوى على مستوى المنصة بالكامل.',
-    'متابعة الأداء التشغيلي والتفاعل داخل الكورسات.'
+    'واجهة إدارة واحدة للمدير/الأدمن فقط.',
+    'فلترة متقدمة حسب الموظف، الموقع، نوع الشغل، والحالة.',
+    'استخراج تقارير Excel حسب الفلاتر المختارة.',
+    'إمكانية أخذ نسخة Backup يدويًا من التطبيق على جهاز العميل في أي وقت.',
+    'نسخة Backup دورية على السيرفر للحفاظ على البيانات.',
+    'متابعة إجمالي الشغل المنفذ وغير المنفذ.',
+    'إدارة بيانات الموظفين المرتبطة بالمهام.',
+    'نظام جاهز للتوسع لاحقًا حسب احتياج التشغيل.'
   ],
   en: [
-    'Full management of students, teachers, and accounts.',
-    'Course management (create/edit/delete/pricing).',
-    'Subscription management and free grants.',
-    'Track total subscription balances.',
-    'Control educational content across the platform.',
-    'Monitor operational activity and engagement.'
+    'Single control panel for manager/admin only.',
+    'Advanced filters by employee, location, task type, and status.',
+    'Excel exports based on selected filters.',
+    'Manual backup export from the app to the client device at any time.',
+    'Periodic server-side backup for data protection.',
+    'Track completed vs pending operational workload.',
+    'Manage employee records linked to tasks.',
+    'Scalable foundation for future operational expansion.'
   ]
 };
 
 const deliverables: LocalizedList = {
   ar: [
-    'تطبيق الطالب على Android و iOS.',
-    'تطبيق المدرس على Android و iOS.',
-    'تطبيق الأدمن على Android.',
-    'منصة ويب للطالب.',
-    'إطلاق متجر Google Play و Apple App Store.',
-    'ربط بوابة الدفع Fawaterk.'
+    'تطبيق Windows Desktop مخصص للإدارة فقط.',
+    'وحدة إدارة المهام وتوزيعها على الموظفين.',
+    'وحدة حالات التنفيذ (Pending -> Process -> Done) مع متابعة الحالة.',
+    'فلاتر متقدمة للبحث والاستعلام.',
+    'تصدير تقارير Excel حسب الشروط المطلوبة.',
+    'تهيئة أولية لاستيراد بيانات الشيت الحالي.'
   ],
   en: [
-    'Student app on Android & iOS.',
-    'Teacher app on Android & iOS.',
-    'Admin app on Android.',
-    'Student web platform.',
-    'Publishing to Google Play & Apple App Store.',
-    'Fawaterk payment gateway integration.'
+    'Windows desktop application for management only.',
+    'Task creation and employee assignment module.',
+    'Status workflow tracking (Pending -> Process -> Done).',
+    'Advanced search and filtering module.',
+    'Excel report export based on selected criteria.',
+    'Initial setup for migration from the current Excel sheet.'
   ]
 };
 
 const includedInPrice: LocalizedList = {
   ar: [
-    'تحليل وتجهيز البنية التعليمية للمنصة.',
-    'تصميم وتجهيز الواجهات المطلوبة للتطبيقات والمنصة.',
-    'تطوير تطبيقات الطالب والمدرس والأدمن.',
-    'تطوير منصة ويب الطالب.',
-    'تنفيذ الشات والتعليقات والبث المباشر.',
-    'تنفيذ أدوات البث المباشر (Whiteboard + Raise Hand) كخدمة Open Source على سيرفرنا.',
-    'تنفيذ الحماية (منع تسجيل الشاشة + علامة مائية على PDF).'
+    'تحليل دورة العمل الحالية وتحويلها لنظام رقمي.',
+    'تصميم واجهة تشغيل عملية وسهلة للمدير.',
+    'تطوير التطبيق كاملًا على Windows.',
+    'بناء workflow لمراحل التنفيذ بشكل مرن.',
+    'تطوير الفلاتر والتقارير وتصدير Excel.',
+    'تفعيل خدمة النسخ الاحتياطي (Backup) يدويًا على جهاز العميل + دوريًا على السيرفر.',
+    'اختبارات تشغيل شاملة قبل التسليم.',
+    'جلسة تسليم وتدريب مبدئي على النظام.'
   ],
   en: [
-    'Educational platform architecture and analysis.',
-    'UI/UX implementation for apps and web platform.',
-    'Development of student, teacher, and admin apps.',
-    'Development of student web platform.',
-    'Implementation of chat, comments, and live streaming.',
-    'Implementation of open-source live class tools (Whiteboard + Raise Hand) on our server.',
-    'Protection layer (screen recording prevention + PDF watermarking).'
+    'Current process analysis and digital workflow mapping.',
+    'Practical manager-focused UI implementation.',
+    'Full Windows application development.',
+    'Flexible stage-based workflow implementation.',
+    'Advanced filtering, reporting, and Excel export.',
+    'Enable backup service: manual backup on client device + periodic backup on server.',
+    'Comprehensive QA and operational testing.',
+    'Handover and initial admin training session.'
   ]
 };
 
 const technologies: TechCard[] = [
   {
-    name: 'Flutter',
+    name: 'Flutter (Windows Desktop)',
     details: {
-      ar: 'تطوير تطبيقات الطالب والمدرس (Android و iOS) + تطبيق الأدمن (Android).',
-      en: 'Student and Teacher apps (Android/iOS) + Admin app (Android).'
+      ar: 'تطوير تطبيق ويندوز Desktop سريع ومرن بواجهة حديثة.',
+      en: 'Building a modern, responsive Windows desktop application.'
     }
   },
   {
     name: 'Node.js Backend',
     details: {
-      ar: 'إدارة الحسابات، الاشتراكات، الكورسات، الشات، والتعليقات.',
-      en: 'Backend for accounts, subscriptions, courses, chat, and comments.'
+      ar: 'API لإدارة بيانات المهام والموظفين والتقارير.',
+      en: 'API layer for tasks, employee records, and reporting data.'
     }
   },
   {
-    name: 'Web Platform',
+    name: 'Database (PostgreSQL / SQLite)',
     details: {
-      ar: 'منصة ويب للطالب لعرض الكورسات والاشتراك والمتابعة.',
-      en: 'Student web platform for course browsing, subscription, and tracking.'
+      ar: 'قاعدة بيانات منظمة للمهام والحالات وسجل التحديثات.',
+      en: 'Structured storage for tasks, statuses, and update history.'
     }
   },
   {
     name: 'Hostinger Server',
     details: {
-      ar: 'استضافة النظام وقاعدة البيانات والخدمات المساندة.',
-      en: 'Hosting backend, database, and supporting services.'
+      ar: 'استضافة اختيارية عند تشغيل النظام أونلاين ومشاركة أكثر من جهاز.',
+      en: 'Optional hosting when running online across multiple devices.'
     }
   },
   {
-    name: 'Open-Source Live Classroom Stack',
+    name: 'Excel Engine',
     details: {
-      ar: 'تشغيل أدوات البث المباشر (Whiteboard + Raise Hand) على سيرفرنا بدون رسوم ترخيص.',
-      en: 'Running live classroom tools (Whiteboard + Raise Hand) on our server with no license fees.'
+      ar: 'تصدير التقارير بصيغة Excel حسب الفلاتر والحقول المطلوبة.',
+      en: 'Excel export engine based on selected filters and required columns.'
     }
   },
   {
-    name: 'Fawaterk Gateway',
+    name: 'Backup & Restore',
     details: {
-      ar: 'بوابة الدفع المعتمدة للاشتراكات داخل المنصة.',
-      en: 'Approved payment gateway for course subscriptions.'
+      ar: 'نسخة احتياطية يدويًا من التطبيق على جهاز العميل + نسخ احتياطي دوري على السيرفر.',
+      en: 'Manual backup from the app to client device + periodic server-side backup.'
     }
   }
 ];
 
 const paymentGateways: PaymentGateway[] = [
   {
-    title: 'Fawaterk',
+    title: 'Excel Reporting',
     points: {
-      ar: ['بوابة الدفع المعتمدة للمشروع.', 'العمولة حسب الشريحة المتفق عليها مع Fawaterk.', 'تُضاف ضريبة القيمة المضافة عند التطبيق.'],
-      en: ['Approved payment gateway for this project.', 'Commission depends on the agreed Fawaterk package.', 'VAT applies when activated.']
+      ar: [
+        'تصدير البيانات المطلوبة إلى Excel حسب الفلاتر المختارة.',
+        'إمكانية تجهيز أكثر من نموذج تقرير (يومي / أسبوعي / شهري).',
+        'سهولة مشاركة التقارير مع الإدارة بنفس تنسيق العمل الحالي.'
+      ],
+      en: [
+        'Export required data to Excel based on selected filters.',
+        'Support multiple report templates (daily / weekly / monthly).',
+        'Easy sharing with management in familiar spreadsheet format.'
+      ]
     }
   }
 ];
 
 const externalCosts: ExternalCost[] = [
   {
-    title: { ar: 'Google Play Subscription', en: 'Google Play Subscription' },
-    amount: { ar: '600 جنيه', en: 'EGP 600' },
-    subtitle: { ar: 'سنويًا', en: 'Yearly' }
-  },
-  {
-    title: { ar: 'Apple Developer Subscription', en: 'Apple Developer Subscription' },
-    amount: { ar: '2,000 جنيه', en: 'EGP 2,000' },
-    subtitle: { ar: 'سنويًا', en: 'Yearly' }
-  },
-  {
-    title: { ar: 'خطة سيرفر 1 (خيار اقتصادي - غير مُحبذ)', en: 'Server Plan 1 (Budget Option - Not Recommended)' },
-    amount: { ar: '2,500 جنيه', en: 'EGP 2,500' },
+    title: { ar: 'اشتراك السيرفر', en: 'Server Subscription' },
+    amount: { ar: '1,500 جنيه', en: 'EGP 1,500' },
     subtitle: { ar: 'سنويًا', en: 'Yearly' },
     note: {
-      ar: 'خطة تشغيل أساسية، لكنها ليست الخيار المفضل للمشروع عند زيادة الأحمال.',
-      en: 'Basic hosting plan, not the preferred option as load grows.'
-    }
-  },
-  {
-    title: { ar: 'خطة سيرفر 2 (سيرفر خاص بالكامل)', en: 'Server Plan 2 (Dedicated Private Server)' },
-    amount: { ar: '6,000 جنيه', en: 'EGP 6,000' },
-    subtitle: { ar: 'شهريًا', en: 'Monthly' },
-    note: {
-      ar: 'سيرفر مستقل مخصص للمشروع لضمان كفاءة التشغيل وجودة البث المباشر.',
-      en: 'A fully dedicated server for the project to ensure stable performance and live streaming quality.'
-    }
-  },
-  {
-    title: { ar: 'خطة سيرفر 3 (الخيار الأفضل)', en: 'Server Plan 3 (Recommended Best Value)' },
-    amount: { ar: '11,000 جنيه', en: 'EGP 11,000' },
-    subtitle: { ar: 'سنويًا', en: 'Yearly' },
-    note: {
-      ar: 'أفضل توازن بين التكلفة والكفاءة مع أداء عالٍ جدًا للمشروع.',
-      en: 'Best balance between cost and performance with very high operational efficiency.'
-    }
-  },
-  {
-    title: { ar: 'Video Storage Server (Object Storage)', en: 'Video Storage Server (Object Storage)' },
-    amount: { ar: 'حسب الاستهلاك', en: 'Usage-based' },
-    subtitle: { ar: 'بعد الشريحة المجانية', en: 'After free tier' },
-    note: {
-      ar: 'مجاني: 10GB شهريًا. المدفوع: Standard Storage $0.015/GB-month، Class A $4.50/مليون، Class B $0.36/مليون، IA Storage $0.01/GB-month، IA Class A $9.00/مليون، IA Class B $0.90/مليون، Data Retrieval $0.01/GB.',
-      en: 'Free tier: 10GB/month. Paid: Standard Storage $0.015/GB-month, Class A $4.50/million, Class B $0.36/million, IA Storage $0.01/GB-month, IA Class A $9.00/million, IA Class B $0.90/million, Data Retrieval $0.01/GB.'
-    }
-  },
-  {
-    title: { ar: 'Technical Support Subscription', en: 'Technical Support Subscription' },
-    amount: { ar: '5,000 جنيه', en: 'EGP 5,000' },
-    subtitle: { ar: 'سنويًا', en: 'Yearly' },
-    note: {
-      ar: 'يشمل كل عناصر الدعم الفني التشغيلي الموضحة في قسم \"خدمة الدعم الفني تشمل\". يتم اختيار خطة السيرفر المناسبة حسب عدد المستخدمين، مع إمكانية النقل بين الخطط عند الحاجة.',
-      en: 'Covers all operational support items listed under \"Technical Support Scope\". Server plan selection depends on active user volume, with upgrade/downgrade flexibility when needed.'
+      ar: 'رسوم تشغيل سنوية للسيرفر عند تشغيل النظام أونلاين.',
+      en: 'Annual server operating fee for online deployment.'
     }
   }
 ];
@@ -472,42 +442,50 @@ const externalCosts: ExternalCost[] = [
 const technicalSupportScope: LocalizedList = {
   ar: [
     'متابعة السيرفر الأساسي وكفاءته واستقراره بشكل مستمر.',
-    'متابعة سيرفر تخزين الفيديوهات (Object Storage) والأداء والاستهلاك.',
-    'متابعة منصات Google Play و Apple App Store.',
-    'تنفيذ تحديثات التوافق المطلوبة من Google و Apple على التطبيقات.',
-    'متابعة أدوات البث المباشر Open Source (Whiteboard + Raise Hand) على سيرفرنا.',
-    'إصلاح الأعطال والأخطاء التشغيلية لضمان عمل التطبيق والمنصة بكفاءة.'
+    'متابعة قاعدة البيانات ونسخ احتياطي دوري للبيانات على السيرفر.',
+    'دعم استرجاع النسخ الاحتياطية (Restore) عند الحاجة.',
+    'إصلاح الأعطال والأخطاء التشغيلية في التطبيق.',
+    'تحسين الأداء عند زيادة حجم البيانات والمستخدمين.',
+    'متابعة استقرار نظام التقارير والتصدير إلى Excel.',
+    'دعم فني تشغيلي مستمر للإدارة أثناء فترة الاشتراك.'
   ],
   en: [
     'Continuous monitoring of the main production server performance and stability.',
-    'Monitoring of the video storage server (Object Storage), including usage and performance.',
-    'Ongoing follow-up for Google Play and Apple App Store platforms.',
-    'Applying required compliance updates from Google and Apple.',
-    'Maintaining open-source live class tools (Whiteboard + Raise Hand) on our server.',
-    'Fixing operational issues and bugs to keep apps and web platform running reliably.'
+    'Database monitoring and periodic server-side backup routines.',
+    'Restore support when backup recovery is needed.',
+    'Fixing operational bugs and runtime issues in the app.',
+    'Performance tuning as data and usage scale increases.',
+    'Maintaining reporting and Excel export stability.',
+    'Ongoing operational support for management during subscription period.'
+  ]
+};
+
+const futureEnhancements: LocalizedList = {
+  ar: [
+    'تطوير تطبيق خاص بالموظفين لمعرفة المهام المطلوبة، مواعيد التسليم، تفاصيل كل مهمة، وسهولة التواصل بما يحقق تنظيمًا أوتوماتيكيًا أدق.',
+    'تفعيل نظام إشعارات فورية أولًا بأول لكل مهمة يتم تسليمها أو تحديث حالتها داخل النظام.',
+    'تطوير تطبيق للعملاء لمتابعة الأعمال الخاصة بهم، الاشتراكات، الأسعار، والخدمات المقدمة من الشركة.'
+  ],
+  en: [
+    'Build a dedicated employee app to view assigned tasks, due dates, task details, and communication flow with more accurate automated task organization.',
+    'Enable real-time notifications for every delivered task and every status update in the system.',
+    'Build a client app to track their own jobs, subscriptions, pricing, and company-provided services.'
   ]
 };
 
 const paymentMilestones: PaymentMilestone[] = [
   {
-    amount: { ar: '20,000 جنيه', en: 'EGP 20,000' },
+    amount: { ar: '5,000 جنيه', en: 'EGP 5,000' },
     title: { ar: 'دفعة مقدمة عند التعاقد', en: 'Advance payment at contract signing' }
   },
   {
-    amount: { ar: '20,000 جنيه', en: 'EGP 20,000' },
-    title: { ar: 'عند تسليم تطبيق الطالب', en: 'Upon student app delivery' }
-  },
-  {
-    amount: { ar: '20,000 جنيه', en: 'EGP 20,000' },
-    title: { ar: 'عند تسليم تطبيق المدرس والأدمن', en: 'Upon teacher and admin app delivery' }
-  },
-  {
-    amount: { ar: '20,000 جنيه', en: 'EGP 20,000' },
-    title: { ar: 'عند تسليم منصة الويب', en: 'Upon web platform delivery' }
+    amount: { ar: '10,000 جنيه', en: 'EGP 10,000' },
+    title: { ar: 'عند التسليم النهائي والتشغيل', en: 'Upon final delivery and go-live' }
   }
+  
 ];
 
-const projectName = 'منصة السادات';
+const projectName = 'Task System';
 
 export default function App() {
   const [lang, setLang] = React.useState<Lang>('ar');
@@ -701,7 +679,7 @@ export default function App() {
 
         <FeatureSection
           title={labels[lang].studentFeatures}
-          subtitle="Student App & Web"
+          subtitle="Task Operations"
           icon={<Users className="w-7 h-7 text-blue-600" />}
           color="blue"
           items={studentFeatures[lang]}
@@ -709,7 +687,7 @@ export default function App() {
 
         <FeatureSection
           title={labels[lang].teacherFeatures}
-          subtitle="Teacher App"
+          subtitle="Workflow Engine"
           icon={<Package className="w-7 h-7 text-green-600" />}
           color="green"
           items={teacherFeatures[lang]}
@@ -717,7 +695,7 @@ export default function App() {
 
         <FeatureSection
           title={labels[lang].adminFeatures}
-          subtitle="Admin App"
+          subtitle="Manager Dashboard"
           icon={<Monitor className="w-7 h-7 text-purple-600" />}
           color="purple"
           items={adminFeatures[lang]}
@@ -755,7 +733,7 @@ export default function App() {
             <h2 className="text-2xl font-bold">{labels[lang].totalCost}</h2>
           </div>
           <div className="text-center mb-6">
-            <div className="text-6xl font-bold mb-2">80,000 جنيه مصري</div>
+            <div className="text-6xl font-bold mb-2">15,000 جنيه مصري</div>
             <div className={`text-lg ${isDark ? 'text-blue-100' : 'text-emerald-100'}`}>{labels[lang].totalCostNote}</div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
@@ -768,7 +746,7 @@ export default function App() {
           </div>
           <div className="bg-white/10 rounded-xl p-5 border border-white/20">
             <h3 className="text-xl font-bold mb-4">{labels[lang].paymentPlanTitle}</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="grid md:grid-cols-2 gap-3">
               {paymentMilestones.map((milestone) => (
                 <div key={milestone.title.en} className="bg-white/10 rounded-lg p-4 border border-white/20">
                   <div className="text-2xl font-bold mb-1">{milestone.amount[lang]}</div>
@@ -783,7 +761,7 @@ export default function App() {
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border border-slate-200">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-3 bg-slate-100 rounded-lg">
-              <CreditCard className="w-7 h-7 text-slate-700" />
+              <FileText className="w-7 h-7 text-slate-700" />
             </div>
             <h2 className="text-2xl font-bold text-slate-900">{labels[lang].paymentGatewaysTitle}</h2>
           </div>
@@ -812,19 +790,19 @@ export default function App() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'سيرفر مجاني' : 'Free Server'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة 6 شهور بعد التسليم' : 'For 6 months after delivery'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة شهر بعد التسليم (عند التشغيل أونلاين)' : 'For 1 month after delivery (for online deployment)'}</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'رفع على المتاجر' : 'Store Publishing'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'Google Play & Apple مجاناً' : 'Google Play & Apple free publishing'}</div>
+              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'تهيئة بيانات البداية' : 'Initial Data Setup'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'مساعدة في إدخال/ترتيب أول دفعة بيانات' : 'Assistance with initial data structuring/import'}</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'دعم فني مجاني' : 'Free Technical Support'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة 6 شهور' : 'For 6 months'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة 30 يوم بعد التسليم' : 'For 30 days after delivery'}</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'متابعة المنصات' : 'Store & Server Follow-up'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'تحديثات توافق Google و iOS' : 'Google & iOS compliance updates'}</div>
+              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'متابعة التشغيل' : 'Operational Follow-up'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'تحسين الأداء واستقرار التقارير خلال فترة الضمان' : 'Performance and reporting stability follow-up during warranty period'}</div>
             </div>
           </div>
         </div>
@@ -865,18 +843,32 @@ export default function App() {
               </div>
             ))}
           </div>
-          <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-            <h3 className="font-bold text-slate-900 mb-3">
-              {lang === 'ar' ? 'خدمة الدعم الفني تشمل' : 'Technical Support Scope'}
-            </h3>
-            <ul className="space-y-2 text-sm text-slate-700">
-              {technicalSupportScope[lang].map((item) => (
-                <li key={item} className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+          
+        </div>
+
+        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-orange-200">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
+            <div className="p-3 bg-orange-100 rounded-lg">
+              <TrendingUp className="w-7 h-7 text-orange-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900">
+                {lang === 'ar' ? 'تطويرات مستقبلية يمكن النظر فيها' : 'Future Enhancements (Optional Next Phase)'}
+              </h2>
+              <p className="text-sm text-slate-600">
+                {lang === 'ar'
+                  ? 'هذه البنود اختيارية للمرحلة القادمة ويمكن إضافتها حسب خطة التوسع.'
+                  : 'These items are optional for a later phase and can be added based on expansion plans.'}
+              </p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-1 gap-4">
+            {futureEnhancements[lang].map((item) => (
+              <div key={item} className="p-4 bg-orange-50 rounded-lg border border-orange-200 flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-orange-600 mt-0.5" />
+                <p className="text-slate-700">{item}</p>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -894,7 +886,7 @@ export default function App() {
             <ValueCard
               icon={<TrendingUp className="w-8 h-8 mb-3" />}
               title={lang === 'ar' ? 'قابلية التوسع' : 'Scalability'}
-              text={lang === 'ar' ? 'منصة قابلة للتوسع والنمو مع عدد الطلاب.' : 'Platform built to scale with student growth.'}
+              text={lang === 'ar' ? 'النظام قابل للتوسع مع زيادة فرق العمل وحجم المهام.' : 'The system scales with team size and task volume growth.'}
             />
             <ValueCard
               icon={<Clock className="w-8 h-8 mb-3" />}
@@ -906,8 +898,8 @@ export default function App() {
               title={lang === 'ar' ? 'سهولة الإدارة' : 'Easy Management'}
               text={
                 lang === 'ar'
-                  ? 'لوحة أدمن واضحة لإدارة النظام التعليمي بالكامل.'
-                  : 'Clear admin control for full learning operations.'
+                  ? 'لوحة مدير واضحة لإدارة فرق التنفيذ والمهام اليومية.'
+                  : 'Clear manager panel for daily operational task control.'
               }
             />
             <ValueCard
