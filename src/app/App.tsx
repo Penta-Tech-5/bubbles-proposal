@@ -101,7 +101,7 @@ const labels: Record<
     totalCostNote: 'سعر شراء النظام بكامل المميزات (الحضور والانصراف + الإجازات + المرتبات والخصومات)',
     paymentPlanTitle: 'طريقة الدفع',
     externalNote:
-      'ملاحظة: في حالة الشراء، يتم تطبيق 20 موظف مجانًا ثم 175 جنيه لكل موظف إضافي، مع 7,000 جنيه سنويًا للسيرفر والدعم.',
+      'ملاحظة: في حالة الشراء، يتم تطبيق 20 موظف مجانًا ثم 175 جنيه لكل موظف إضافي، مع 7000 جنيه سنويًا للسيرفر والدعم.',
     paymentGatewaysTitle: 'باقات الاشتراك',
     freeServices: 'Free Services - مميزات مقدمة من شركة Penta-k',
     technologies: 'Technologies & Development Standards',
@@ -417,8 +417,7 @@ const paymentGateways: PaymentGateway[] = [
     title: { ar: 'اشتراك 6 شهور', en: '6-Month Subscription' },
     points: {
       ar: [
-        'اشتراك 6 شهور: 10,000 جنيه.',
-        'عدد لا نهائي من الموظفين ضمن الباقة.'
+        'اشتراك 6 شهور 10000 = عدد لا نهائي من الموظفين'
       ],
       en: [
         '6-month subscription: EGP 10,000.',
@@ -430,8 +429,7 @@ const paymentGateways: PaymentGateway[] = [
     title: { ar: 'اشتراك سنوي', en: 'Yearly Subscription' },
     points: {
       ar: [
-        'اشتراك سنوي: 20,000 جنيه.',
-        'عدد لا نهائي من الموظفين ضمن الباقة.'
+        'اشتراك سنوي 20000 = عدد لا نهائي من الموظفين'
       ],
       en: [
         'Yearly subscription: EGP 20,000.',
@@ -442,7 +440,7 @@ const paymentGateways: PaymentGateway[] = [
   {
     title: { ar: 'اشتراك شهري', en: 'Monthly Subscription' },
     points: {
-      ar: ['اشتراك شهر بشهر: 2,000 جنيه.'],
+      ar: ['لو شهر بشهر ب 2000'],
       en: ['Month-by-month subscription: EGP 2,000.']
     }
   },
@@ -450,9 +448,8 @@ const paymentGateways: PaymentGateway[] = [
     title: { ar: 'شراء السيستم', en: 'System Purchase Option' },
     points: {
       ar: [
-        'شراء السيستم بعد التعديلات: 47,000 جنيه.',
-        'تفصيل الشراء: 8,000 تطويرات + 20 موظف مجاني + 175 جنيه لكل موظف إضافي + 7,000 جنيه سيرفر ودعم سنويًا.',
-        'ملحوظة: سعر الموظف الإضافي (175 جنيه) يُدفع مرة واحدة فقط في حالة البيع.'
+        'شراء بعد تعديلاته ليكم 8000 + 175 جنيه للموظف + 20 موظف مجانا + 7000 جنيه سيرفر ودعم سنويا = 47000',
+        '(ملحوظه سعر الموظف يدفع مره واحده فقط في البيع)'
       ],
       en: [
         'System purchase after requested modifications: EGP 47,000.',
@@ -466,7 +463,7 @@ const paymentGateways: PaymentGateway[] = [
 const externalCosts: ExternalCost[] = [
   {
     title: { ar: 'اشتراك السيرفر + الدعم الفني', en: 'Server + Support Subscription' },
-    amount: { ar: '7,000 جنيه', en: 'EGP 7,000' },
+    amount: { ar: '7000 جنيه', en: 'EGP 7,000' },
     subtitle: { ar: 'سنويًا', en: 'Yearly' },
     note: {
       ar: 'رسوم سنوية للتشغيل والاستضافة والمتابعة الفنية.',
@@ -755,7 +752,7 @@ export default function App() {
             <h2 className="text-2xl font-bold">{labels[lang].totalCost}</h2>
           </div>
           <div className="text-center mb-6">
-            <div className="text-6xl font-bold mb-2">47,000 جنيه مصري</div>
+            <div className="text-6xl font-bold mb-2">47000 جنيه مصري</div>
             <div className={`text-lg ${isDark ? 'text-blue-100' : 'text-emerald-100'}`}>{labels[lang].totalCostNote}</div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
