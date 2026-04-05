@@ -777,6 +777,27 @@ export default function App() {
           <p className={`text-sm mt-4 ${isDark ? 'text-blue-100' : 'text-emerald-100'}`}>{labels[lang].externalNote}</p>
         </div>
 
+        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border border-slate-200">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-3 bg-slate-100 rounded-lg">
+              <FileText className="w-7 h-7 text-slate-700" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].paymentGatewaysTitle}</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {paymentGateways.map((gateway) => (
+              <div key={gateway.title.en} className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <h3 className="font-bold text-slate-900 mb-2">{gateway.title[lang]}</h3>
+                <ul className="space-y-1 text-sm text-slate-700">
+                  {gateway.points[lang].map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-green-200">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
             <div className="p-3 bg-green-100 rounded-lg">
@@ -884,27 +905,6 @@ export default function App() {
               title={lang === 'ar' ? 'خبرة احترافية' : 'Professional Experience'}
               text={lang === 'ar' ? 'فريق متخصص بخبرة عملية في حلول الإنتاج.' : 'Specialized team with real production experience.'}
             />
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border border-slate-200">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-slate-100 rounded-lg">
-              <FileText className="w-7 h-7 text-slate-700" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].paymentGatewaysTitle}</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {paymentGateways.map((gateway) => (
-              <div key={gateway.title.en} className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-                <h3 className="font-bold text-slate-900 mb-2">{gateway.title[lang]}</h3>
-                <ul className="space-y-1 text-sm text-slate-700">
-                  {gateway.points[lang].map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
           </div>
         </div>
 
