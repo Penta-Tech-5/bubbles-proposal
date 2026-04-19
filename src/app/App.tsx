@@ -89,20 +89,20 @@ const labels: Record<
     companyTitle: 'شركة Penta-k',
     companyText:
       'شركة متخصصة في تصميم وتطوير حلول البرمجيات والتطبيقات الذكية، وتقديم أنظمة متكاملة بجودة عالية وتجربة استخدام احترافية.',
-    overviewTitle: 'وصف عام لمشروع Pyramids Pharmacies',
+    overviewTitle: 'وصف عام لمشروع منصة خدمات السيارات عند الطلب',
     overviewText:
-      'سيستم متكامل للحضور والانصراف وإدارة الإجازات والتقارير والمرتبات والخصومات لصيدليات Pyramids Pharmacies، مع تطبيق Android + لوحة ويب للإدارة. يدعم تعدد الفروع، تحديد نطاقات الحضور لكل موقع، وتقارير Excel.',
-    studentFeatures: 'مميزات النظام الأساسية',
-    teacherFeatures: 'مميزات الحضور والانصراف',
+      'منصة رقمية لطلب خدمات السيارات عند الطلب (غسيل، كفرات، بطاريات، صيانة خفيفة) حيث يطلب العميل الخدمة ويستقبل عروض أسعار من مقدمي الخدمة القريبين، مع نظام تشغيل وإدارة متكامل.',
+    studentFeatures: 'مميزات تطبيق العملاء',
+    teacherFeatures: 'مميزات تطبيق مقدمي الخدمة',
     adminFeatures: 'مميزات لوحة الإدارة',
     deliveryTitle: 'مدة التنفيذ والتسليم',
-    projectDuration: 'المدة النهائية تُحدد بعد اعتماد عدد الفروع وعدد الموظفين الفعلي.',
+    projectDuration: 'مدة المشروع: 4 شهور',
     totalCost: 'التكلفة الإجمالية للمشروع',
-    totalCostNote: 'سعر شراء النظام بكامل المميزات (الحضور والانصراف + الإجازات + المرتبات والخصومات)',
+    totalCostNote: 'شاملة تطبيقات العميل + مقدم الخدمة + الإدارة (موبايل + ديسكتوب) مع الربط الكامل',
     paymentPlanTitle: 'طريقة الدفع',
     externalNote:
-      'ملاحظة: في حالة الشراء، يتم تطبيق 20 موظف مجانًا ثم 175 جنيه لكل موظف إضافي، مع 7000 جنيه سنويًا للسيرفر والدعم.',
-    paymentGatewaysTitle: 'باقات الاشتراك',
+      'ملاحظة: المنصة تدعم الدفع الإلكتروني والنقدي، ونموذج الربح يعتمد على العمولات والاشتراكات.',
+    paymentGatewaysTitle: 'طرق الدفع ونموذج الربح',
     freeServices: 'Free Services - مميزات مقدمة من شركة Penta-k',
     technologies: 'Technologies & Development Standards',
     externalCosts: 'External Running Costs - التكاليف التشغيلية',
@@ -110,7 +110,7 @@ const labels: Record<
     whyUsSub: 'نحن لا نكتب كود فقط، نبني حلول قابلة للنمو والتطور',
     contact: 'للتواصل والاستفسار',
     thanks: 'شكرًا لثقتكم في',
-    projectFooter: 'نتطلع للعمل معكم على مشروع Pyramids Pharmacies.',
+    projectFooter: 'نتطلع للعمل معكم على مشروع منصة خدمات السيارات عند الطلب.',
     logoAlt: 'شعار Penta-k',
     arBtn: 'العربية',
     enBtn: 'English'
@@ -120,20 +120,20 @@ const labels: Record<
     companyTitle: 'Penta-k Company',
     companyText:
       'A software house specialized in building smart digital solutions and integrated systems with high quality and professional user experience.',
-    overviewTitle: 'Pyramids Pharmacies System Overview',
+    overviewTitle: 'On-Demand Car Services Platform Overview',
     overviewText:
-      'An integrated attendance, leave, payroll, deductions, and reporting system for Pyramids Pharmacies with Android app + web admin dashboard. It supports multi-branch geofence attendance and editable Excel exports.',
-    studentFeatures: 'Core System Features',
-    teacherFeatures: 'Attendance Workflow Features',
+      'A digital on-demand car services platform (car wash, tires, batteries, light maintenance) where customers request services and receive competitive offers from nearby service providers.',
+    studentFeatures: 'Customer App Features',
+    teacherFeatures: 'Service Provider App Features',
     adminFeatures: 'Admin Dashboard Features',
     deliveryTitle: 'Timeline & Deliverables',
-    projectDuration: 'Final timeline is confirmed after approving actual branch and employee counts.',
+    projectDuration: 'Project duration: 4 months',
     totalCost: 'Total Project Cost',
-    totalCostNote: 'Full purchase price including all features (attendance, leave, payroll, and deductions)',
+    totalCostNote: 'Includes customer, provider, and admin apps (mobile + desktop) with full integration',
     paymentPlanTitle: 'Payment Plan',
     externalNote:
-      'Note: For purchase model, first 20 employees are free, then EGP 175 per additional employee, plus EGP 7,000 yearly for server & support.',
-    paymentGatewaysTitle: 'Subscription Packages',
+      'Note: Platform supports both electronic and cash payments, with revenue generated from commissions and subscriptions.',
+    paymentGatewaysTitle: 'Payment Methods & Revenue Model',
     freeServices: 'Free Services by Penta-k',
     technologies: 'Technologies & Development Standards',
     externalCosts: 'External Operating Costs',
@@ -141,7 +141,7 @@ const labels: Record<
     whyUsSub: 'We do not just write code, we build scalable solutions',
     contact: 'Contact & Inquiries',
     thanks: 'Thank you for trusting',
-    projectFooter: 'We look forward to delivering Pyramids Pharmacies system with you.',
+    projectFooter: 'We look forward to delivering your on-demand car services platform.',
     logoAlt: 'Penta-k Logo',
     arBtn: 'العربية',
     enBtn: 'English'
@@ -151,103 +151,101 @@ const labels: Record<
 const mainSections: SectionCard[] = [
   {
     title: {
-      ar: 'إدارة الموظفين والفروع',
-      en: 'Employees & Branches Management'
+      ar: 'فكرة المنصة',
+      en: 'Platform Concept'
     },
     description: {
-      ar: 'تسجيل الموظفين وتعريف جميع الفروع ومواقعها مع ربط كل فرع بنطاق حضور وانصراف.',
-      en: 'Register employees and all branches with locations and attendance ranges per branch.'
+      ar: 'العميل يطلب خدمة سيارات ويستقبل عروض أسعار تنافسية من مقدمي الخدمة القريبين.',
+      en: 'Customers request car services and receive competitive offers from nearby providers.'
     },
     icon: FileText,
     points: {
       ar: [
-        'إنشاء وتحديث بيانات الموظفين بسهولة.',
-        'تسجيل كل أماكن العمل وتحديد موقع كل فرع.',
-        'تعريف نطاق جغرافي للحضور والانصراف لكل مكان.',
-        'ربط الموظف بفروع العمل المصرح له بها.'
+        'خدمات عند الطلب: غسيل، كفرات، بطاريات، صيانة خفيفة.',
+        'استقبال عروض متعددة لنفس الطلب.',
+        'الاعتماد على القرب الجغرافي لسرعة الاستجابة.',
+        'اختيار أفضل عرض حسب السعر والتقييم.'
       ],
       en: [
-        'Create and update employee profiles easily.',
-        'Register all work locations and branch data.',
-        'Define geofence attendance range per location.',
-        'Link employees to allowed work branches.'
+        'On-demand services: wash, tires, batteries, light maintenance.',
+        'Multiple offers per customer request.',
+        'Geo-proximity matching for faster service.',
+        'Choose best offer by price and rating.'
       ]
     }
   },
   {
     title: {
-      ar: 'الحضور والانصراف بالموقع',
-      en: 'Location-Based Attendance'
+      ar: 'أهداف المشروع',
+      en: 'Project Goals'
     },
     description: {
-      ar: 'الموظف يسجل حضور/انصراف من أي فرع ضمن النطاق المسموح، مع قيود أمان التسجيل.',
-      en: 'Employees can check in/out from any allowed branch within range, with secure login rules.'
+      ar: 'رفع جودة الخدمة وزيادة كفاءة التشغيل وتحقيق دخل مستدام للمنصة.',
+      en: 'Improve service quality, operational efficiency, and sustainable platform revenue.'
     },
     icon: Users,
     points: {
       ar: [
-        'تسجيل الحضور والانصراف عبر الموقع الجغرافي.',
-        'منع التسجيل خارج النطاق المحدد للفرع.',
-        'كل موظف يسجل جهاز واحد فقط للحماية.',
-        'الأدمن يمكنه إعادة فتح تسجيل جهاز لموظف محدد.'
+        'تسهيل الوصول لخدمات السيارات في أي وقت.',
+        'خلق منافسة بين مقدمي الخدمة لتحسين الجودة.',
+        'الاعتماد على نظام تقييمات فعال.',
+        'تشغيل المنصة بكفاءة عبر لوحة إدارة مركزية.'
       ],
       en: [
-        'Check in/out using geo-location validation.',
-        'Block attendance actions outside branch range.',
-        'Single-device registration per employee for security.',
-        'Admin can re-enable login for selected employees.'
+        'Easier access to car services at any time.',
+        'Competitive provider market for better quality.',
+        'Ratings-driven quality improvement.',
+        'Efficient platform operations via central admin.'
       ]
     }
   },
   {
     title: {
-      ar: 'إدارة الإجازات والطلبات',
-      en: 'Leave Requests Workflow'
+      ar: 'تطبيق العملاء',
+      en: 'Customer App'
     },
     description: {
-      ar: 'الموظف يقدم طلب إجازة من التطبيق، والإدارة توافق أو ترفض مع تتبع كامل للحالة، وربط ذلك بسياسات الخصم.',
-      en: 'Employees submit leave requests and admin can approve/reject with full tracking, linked to deduction policies.'
+      ar: 'تجربة عميل متكاملة من تسجيل الحساب حتى الطلب والدفع والتقييم.',
+      en: 'End-to-end customer journey from signup to service request, payment, and rating.'
     },
     icon: TrendingUp,
     points: {
       ar: [
-        'رفع طلب إجازة من الموظف بسهولة.',
-        'موافقة أو رفض الطلب من الأدمن.',
-        'حفظ تاريخ جميع الطلبات وقراراتها.',
-        'عرض حالة الطلبات لكل موظف.'
+        'تسجيل حساب وتحديد الموقع.',
+        'طلب الخدمة واستقبال عروض متعددة.',
+        'تتبع مقدم الخدمة لحظيًا.',
+        'دردشة مباشرة + دفع + تقييم.'
       ],
       en: [
-        'Simple leave request submission by employee.',
-        'Admin approval or rejection workflow.',
-        'Full log of requests and decisions.',
-        'Request status visibility per employee.'
+        'Account signup and location selection.',
+        'Request service and receive multiple offers.',
+        'Real-time provider tracking.',
+        'Live chat, payment, and rating.'
       ]
     }
   },
   {
     title: {
-      ar: 'التقارير والرواتب وملفات Excel',
-      en: 'Reports, Payroll & Excel Export'
+      ar: 'تطبيق مقدمي الخدمة',
+      en: 'Service Provider App'
     },
     description: {
-      ar: 'تقارير حضور وغياب ورواتب شاملة مع فلاتر دقيقة واستخراج Excel قابل للتعديل.',
-      en: 'Comprehensive attendance, deductions, and payroll reports with editable Excel export.'
+      ar: 'تطبيق متكامل لمقدمي الخدمة لإدارة الطلبات والعروض والأرباح.',
+      en: 'A complete provider app for handling requests, offers, execution, and earnings.'
     },
     icon: Code,
     points: {
       ar: [
-        'فلترة حسب موظف معين أو فرع معين أو تاريخ محدد.',
-        'تجميع بيانات الحضور والغياب لجميع الموظفين.',
-        'حساب الرواتب والخصومات تلقائيًا حسب اللائحة المعتمدة.',
-        'تصدير التقارير بصيغة Excel لإمكانية التعديل.',
-        'دعم اللغتين العربية والإنجليزية داخل النظام.'
+        'تسجيل الحساب وتفعيل الاشتراك.',
+        'استقبال الطلبات وتقديم عروض أسعار.',
+        'تنفيذ الطلبات ومتابعة الأرباح.',
+        'GPS + تقييمات + دردشة متكاملة + تعدد لغات.'
       ],
       en: [
-        'Filter by employee, branch, or specific date.',
-        'Aggregate attendance and absence records for all staff.',
-        'Automatic payroll and deductions calculation based on policy rules.',
-        'Export reports to editable Excel format.',
-        'Arabic and English language support.'
+        'Account registration and subscription activation.',
+        'Receive requests and submit price offers.',
+        'Execute orders and track earnings.',
+        'GPS, ratings, integrated chat, and multilingual support.'
       ]
     }
   }
@@ -255,206 +253,192 @@ const mainSections: SectionCard[] = [
 
 const studentFeatures: LocalizedList = {
   ar: [
-    'تسجيل الموظفين وتعريف فروع العمل ومواقعها.',
-    'تحديد نطاق الحضور والانصراف لكل مكان عمل.',
-    'دعم Android + Web ضمن نفس المنظومة.',
-    'دعم اللغة العربية والإنجليزية.',
-    'إدارة صلاحيات الدخول والتحكم الأمني للمستخدمين.',
-    'نظام واضح وقابل للتوسع حسب زيادة الفروع والموظفين.'
+    'تسجيل حساب العميل بسرعة.',
+    'طلب الخدمة وتحديد الموقع بسهولة.',
+    'استقبال عروض أسعار من مقدمي خدمة متعددين.',
+    'اختيار العرض المناسب حسب السعر والتقييم.',
+    'تتبع مقدم الخدمة على الخريطة.',
+    'دردشة مباشرة مع مقدم الخدمة.',
+    'دعم الدفع الإلكتروني والنقدي.',
+    'نظام تقييم بعد إتمام الخدمة.'
   ],
   en: [
-    'Employee registration with branch and location setup.',
-    'Attendance geofence range per work location.',
-    'Android + Web integrated system.',
-    'Arabic and English language support.',
-    'Controlled user access and security rules.',
-    'Scalable architecture for branch and staff growth.'
+    'Fast customer account registration.',
+    'Service request with location selection.',
+    'Receive offers from multiple providers.',
+    'Choose offer based on price and rating.',
+    'Track provider on map.',
+    'Direct chat with provider.',
+    'Electronic and cash payment support.',
+    'Post-service rating workflow.'
   ]
 };
 
 const teacherFeatures: LocalizedList = {
   ar: [
-    'تسجيل حضور وانصراف الموظف من أي مكان عمل مصرح.',
-    'تأكيد الموقع الفعلي وقت التسجيل.',
-    'قفل التسجيل على جهاز واحد لكل موظف.',
-    'إتاحة إعادة تسجيل جهاز جديد من خلال الأدمن.',
-    'إدارة طلبات الإجازة (تقديم + موافقة/رفض).',
-    'متابعة دورية لالتزام الموظفين بالحضور والانصراف.',
-    'ربط نتائج الحضور بقواعد الخصم والمرتبات.'
+    'تسجيل وتفعيل حساب مقدم الخدمة.',
+    'استقبال طلبات العملاء القريبة.',
+    'تقديم عروض أسعار تنافسية.',
+    'إدارة تنفيذ الطلبات خطوة بخطوة.',
+    'متابعة الأرباح وحركة الطلبات.',
+    'تحديد الموقع GPS أثناء التشغيل.',
+    'نظام تقييمات لتحسين الثقة والجودة.',
+    'دعم الدفع الإلكتروني والنقدي.',
+    'دردشة متكاملة وتعدد اللغات.'
   ],
   en: [
-    'Check-in and check-out from authorized locations.',
-    'Geo-location validation during attendance action.',
-    'Single-device lock per employee account.',
-    'Admin-controlled device reset for specific employee.',
-    'Leave request flow (submit + approve/reject).',
-    'Continuous attendance compliance monitoring.',
-    'Attendance outcomes linked to payroll and deduction rules.'
+    'Provider account registration and activation.',
+    'Receive nearby customer requests.',
+    'Submit competitive pricing offers.',
+    'Manage order execution lifecycle.',
+    'Track earnings and order history.',
+    'GPS positioning during operation.',
+    'Ratings system for trust and quality.',
+    'Electronic and cash payment support.',
+    'Integrated chat and multilingual support.'
   ]
 };
 
 const adminFeatures: LocalizedList = {
   ar: [
-    'لوحة ويب للإدارة والتحكم الكامل في النظام.',
-    'اعتماد أو رفض طلبات الإجازات.',
-    'تقارير حضور وغياب تفصيلية حسب الفلاتر.',
-    'استخراج Excel قابل للتعديل.',
-    'إدارة الرواتب ولائحة الخصومات من لوحة الأدمن.',
-    'حساب خصومات التأخير والغياب تلقائيًا لكل موظف.',
-    'إمكانية فتح تسجيل الدخول مرة أخرى لموظف محدد.',
-    'نسخ احتياطي يدوي على جهاز العميل + نسخ دوري على السيرفر.'
+    'إدارة المستخدمين ومقدمي الخدمة.',
+    'إدارة الخدمات والعمولات.',
+    'متابعة الطلبات في الوقت الفعلي.',
+    'إدارة المدفوعات.',
+    'التقارير والتحليلات التشغيلية.',
+    'إدارة الاشتراكات والباقات.',
+    'لوحة تحكم موبايل Android + ديسكتوب Windows.'
   ],
   en: [
-    'Web admin dashboard with full system control.',
-    'Approve or reject employee leave requests.',
-    'Detailed attendance reports with filters.',
-    'Editable Excel export for all report outputs.',
-    'Payroll and deduction policy management from admin dashboard.',
-    'Automatic delay/absence deduction calculation per employee.',
-    'Re-enable login for a specific employee when needed.',
-    'Manual client-device backup + periodic server backup.'
+    'Manage customers and service providers.',
+    'Services and commissions management.',
+    'Real-time order monitoring.',
+    'Payments management.',
+    'Operational reports and analytics.',
+    'Subscriptions and plans management.',
+    'Android mobile admin app + Windows desktop app.'
   ]
 };
 
 const deliverables: LocalizedList = {
   ar: [
-    'تطبيق Android للموظفين.',
-    'لوحة Web Admin للإدارة.',
-    'إدارة الموظفين والفروع ونطاقات الحضور.',
-    'تسجيل الحضور والانصراف عبر الموقع.',
-    'إدارة طلبات الإجازات.',
-    'إدارة الرواتب والخصومات التلقائية.',
-    'تقارير + تصدير Excel + دعم عربي/إنجليزي.'
+    'تطبيق العميل: Android + iOS.',
+    'تطبيق مقدم الخدمة: Android.',
+    'تطبيق الإدارة: Android.',
+    'تطبيق ديسكتوب Windows للإدارة.',
+    'تطبيق ديسكتوب Windows لمقدمي الخدمة.',
+    'نظام الطلبات والعروض والتقييمات والدردشة.',
+    'الدفع الإلكتروني والنقدي + تعدد اللغات.'
   ],
   en: [
-    'Android app for employees.',
-    'Web admin dashboard.',
-    'Employees, branches, and geofence management.',
-    'Location-based check-in/check-out.',
-    'Leave request management flow.',
-    'Payroll management and automated deductions.',
-    'Reports + Excel export + bilingual support.'
+    'Customer app: Android + iOS.',
+    'Service provider app: Android.',
+    'Admin app: Android.',
+    'Windows desktop app for admin.',
+    'Windows desktop app for service providers.',
+    'Orders, offers, ratings, and chat system.',
+    'Electronic/cash payments with multilingual support.'
   ]
 };
 
 const includedInPrice: LocalizedList = {
   ar: [
-    'تحليل المتطلبات وبناء هيكل النظام.',
-    'تطوير تطبيق Android + لوحة Web Admin.',
-    'تفعيل التسجيل بالموقع ونطاقات الفروع.',
-    'إدارة طلبات الإجازات.',
-    'تنفيذ نظام المرتبات + لائحة الخصومات التلقائية.',
-    'تقارير الحضور والغياب مع تصدير Excel.',
-    'تجهيز النظام بالعربي والإنجليزي.',
-    'اختبارات تشغيل وتسليم نهائي.'
+    'تحليل المتطلبات وتخطيط تجربة المستخدم.',
+    'تطوير تطبيقات العميل/مقدم الخدمة/الإدارة.',
+    'تطوير نسخ ديسكتوب Windows للإدارة ومقدمي الخدمة.',
+    'تنفيذ نظام الطلبات والعروض والتتبع والدردشة.',
+    'تنفيذ نظام تقييمات متعدد الأطراف.',
+    'الربط مع الدفع الإلكتروني + النقدي.',
+    'الاختبارات الشاملة والجودة والأمان.',
+    'النشر والتسليم النهائي.'
   ],
   en: [
-    'Requirements analysis and system architecture.',
-    'Android app + web admin development.',
-    'Geo-attendance and branch-range setup.',
-    'Leave requests workflow implementation.',
-    'Payroll module + automatic deductions policy engine.',
-    'Attendance reports with Excel export.',
-    'Arabic/English bilingual setup.',
-    'QA testing and final delivery.'
+    'Requirements analysis and UX planning.',
+    'Development of customer/provider/admin apps.',
+    'Windows desktop apps for admin and providers.',
+    'Order, offer, tracking, and chat workflows.',
+    'Multi-party rating system.',
+    'Electronic + cash payment integration.',
+    'Comprehensive QA, stability, and security checks.',
+    'Deployment and final delivery.'
   ]
 };
 
 const technologies: TechCard[] = [
   {
-    name: 'Flutter (Android)',
+    name: 'Flutter Mobile',
     details: {
-      ar: 'تطوير تطبيق الموظفين على Android للحضور والانصراف وطلبات الإجازات.',
-      en: 'Android employee app for attendance and leave workflows.'
+      ar: 'تطوير تطبيقات العميل ومقدم الخدمة والإدارة على Android و iOS حسب النطاق.',
+      en: 'Mobile development for customer, provider, and admin apps (Android/iOS by scope).'
     }
   },
   {
-    name: 'Web Admin Dashboard',
+    name: 'Flutter Windows Desktop',
     details: {
-      ar: 'لوحة ويب لإدارة الموظفين والفروع والتقارير والطلبات.',
-      en: 'Web dashboard for employees, branches, reports, and requests management.'
+      ar: 'نسخ Windows للإدارة ومقدمي الخدمة لمتابعة التشغيل وإدارة الطلبات.',
+      en: 'Windows desktop apps for admin and service providers operations.'
     }
   },
   {
     name: 'Node.js Backend',
     details: {
-      ar: 'خدمات API لإدارة الحضور والانصراف والإجازات والتقارير.',
-      en: 'API services for attendance, leave requests, and reporting.'
+      ar: 'خدمات API لإدارة الطلبات والعروض والدردشة والمدفوعات والتقييمات.',
+      en: 'API services for requests, offers, chat, payments, and ratings.'
     }
   },
   {
     name: 'Database (PostgreSQL)',
     details: {
-      ar: 'قاعدة بيانات مركزية للموظفين، الفروع، والسجلات اليومية.',
-      en: 'Centralized database for employees, branches, and daily records.'
+      ar: 'قاعدة بيانات مركزية لإدارة المستخدمين والطلبات وحركة المنصة.',
+      en: 'Centralized data layer for users, orders, and platform operations.'
     }
   },
   {
-    name: 'GPS / Geofence Engine',
+    name: 'Maps & GPS',
     details: {
-      ar: 'التحقق من موقع الموظف ونطاق الفرع أثناء الحضور والانصراف.',
-      en: 'Location and geofence validation during attendance actions.'
+      ar: 'تحديد المواقع وربط العملاء بمقدمي الخدمة القريبين وتتبع التنفيذ.',
+      en: 'Location mapping, nearby provider matching, and live tracking.'
     }
   },
   {
-    name: 'Payroll & Excel Reporting Engine',
+    name: 'Realtime Chat & Notifications',
     details: {
-      ar: 'حساب الرواتب والخصومات + استخراج تقارير Excel قابلة للتعديل حسب الموظف/الفرع/التاريخ.',
-      en: 'Payroll/deductions calculations with editable Excel exports by employee/branch/date.'
+      ar: 'مراسلة فورية بين العميل ومقدم الخدمة مع تنبيهات لحالة الطلب.',
+      en: 'Live chat between customer and provider with real-time order notifications.'
     }
   },
   {
-    name: 'Backup & Restore',
+    name: 'Payment Integrations',
     details: {
-      ar: 'نسخة احتياطية يدويًا من التطبيق على جهاز العميل + نسخ احتياطي دوري على السيرفر.',
-      en: 'Manual backup from the app to client device + periodic server-side backup.'
+      ar: 'دعم الدفع الإلكتروني والنقدي ضمن دورة الطلب.',
+      en: 'Electronic and cash payment flows in the order lifecycle.'
     }
   }
 ];
 
 const paymentGateways: PaymentGateway[] = [
   {
-    title: { ar: 'اشتراك 6 شهور', en: '6-Month Subscription' },
+    title: { ar: 'طرق الدفع داخل المنصة', en: 'Supported Payment Methods' },
     points: {
-      ar: [
-        'اشتراك 6 شهور 10000 = عدد لا نهائي من الموظفين'
-      ],
+      ar: ['الدفع الإلكتروني.', 'الدفع النقدي.'],
       en: [
-        '6-month subscription: EGP 10,000.',
-        'Unlimited employees included in this package.'
+        'Electronic payments.',
+        'Cash payments.'
       ]
     }
   },
   {
-    title: { ar: 'اشتراك سنوي', en: 'Yearly Subscription' },
+    title: { ar: 'نموذج الربح التشغيلي', en: 'Platform Revenue Model' },
     points: {
       ar: [
-        'اشتراك سنوي 20000 = عدد لا نهائي من الموظفين'
+        'عمولات على الطلبات المنفذة.',
+        'اشتراكات لمقدمي الخدمة.',
+        'تحسين جودة الخدمة عبر المنافسة والتقييمات.'
       ],
       en: [
-        'Yearly subscription: EGP 20,000.',
-        'Unlimited employees included in this package.'
-      ]
-    }
-  },
-  {
-    title: { ar: 'اشتراك شهري', en: 'Monthly Subscription' },
-    points: {
-      ar: ['لو شهر بشهر ب 2000'],
-      en: ['Month-by-month subscription: EGP 2,000.']
-    }
-  },
-  {
-    title: { ar: 'شراء السيستم', en: 'System Purchase Option' },
-    points: {
-      ar: [
-        'شراء بعد تعديلاته ليكم 8000 + 175 جنيه للموظف + 20 موظف مجانا + 7000 جنيه سيرفر ودعم سنويا = 47000',
-        '(ملحوظه سعر الموظف يدفع مره واحده فقط في البيع)'
-      ],
-      en: [
-        'System purchase after requested modifications: EGP 47,000.',
-        'Purchase breakdown: EGP 8,000 modifications + 20 free employees + EGP 175 per additional employee + EGP 7,000 yearly for server & support.',
-        'Note: Additional employee fee (EGP 175) is paid once only in the purchase model.'
+        'Commissions on completed orders.',
+        'Subscriptions for service providers.',
+        'Quality uplift through competition and ratings.'
       ]
     }
   }
@@ -462,12 +446,12 @@ const paymentGateways: PaymentGateway[] = [
 
 const externalCosts: ExternalCost[] = [
   {
-    title: { ar: 'اشتراك السيرفر + الدعم الفني', en: 'Server + Support Subscription' },
-    amount: { ar: '7000 جنيه', en: 'EGP 7,000' },
-    subtitle: { ar: 'سنويًا', en: 'Yearly' },
+    title: { ar: 'التجديدات بعد الفترات المجانية', en: 'Post-Free-Period Renewals' },
+    amount: { ar: 'حسب الاستهلاك', en: 'Usage-based' },
+    subtitle: { ar: 'بعد التسليم', en: 'After delivery' },
     note: {
-      ar: 'رسوم سنوية للتشغيل والاستضافة والمتابعة الفنية.',
-      en: 'Annual operations, hosting, and technical follow-up fee.'
+      ar: 'تشمل تجديد السيرفر والدعم الفني بعد انتهاء المجاني وفق حجم التشغيل الفعلي.',
+      en: 'Includes server and support renewals after free period based on actual usage volume.'
     }
   }
 ];
@@ -495,16 +479,24 @@ const technicalSupportScope: LocalizedList = {
 
 const paymentMilestones: PaymentMilestone[] = [
   {
-    amount: { ar: '50%', en: '50%' },
-    title: { ar: 'دفعة مقدمة من قيمة الباقة المختارة', en: 'Advance payment from selected package value' }
+    amount: { ar: '25%', en: '25%' },
+    title: { ar: 'دفعة مقدمة عند التعاقد', en: 'Advance payment at contract signing' }
   },
   {
-    amount: { ar: '50%', en: '50%' },
-    title: { ar: 'عند التسليم النهائي والتشغيل', en: 'Upon final delivery and go-live' }
+    amount: { ar: '25%', en: '25%' },
+    title: { ar: 'بعد تسليم تطبيق الأدمن (موبايل + ديسكتوب)', en: 'After Admin app delivery (Mobile + Desktop)' }
+  },
+  {
+    amount: { ar: '25%', en: '25%' },
+    title: { ar: 'بعد تسليم تطبيق مقدمي الخدمة', en: 'After Service Providers app delivery' }
+  },
+  {
+    amount: { ar: '25%', en: '25%' },
+    title: { ar: 'بعد الانتهاء من تطبيق اليوزر', en: 'After Customer app completion' }
   }
 ];
 
-const projectName = 'Pyramids Pharmacies';
+const projectName = 'منصة خدمات السيارات عند الطلب';
 
 export default function App() {
   const [lang, setLang] = React.useState<Lang>('ar');
@@ -752,7 +744,7 @@ export default function App() {
             <h2 className="text-2xl font-bold">{labels[lang].totalCost}</h2>
           </div>
           <div className="text-center mb-6">
-            <div className="text-6xl font-bold mb-2">47000 جنيه مصري</div>
+            <div className="text-6xl font-bold mb-2">150000 جنيه مصري</div>
             <div className={`text-lg ${isDark ? 'text-blue-100' : 'text-emerald-100'}`}>{labels[lang].totalCostNote}</div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
@@ -809,19 +801,19 @@ export default function App() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'سيرفر مجاني' : 'Free Server'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة شهر بعد التسليم (عند التشغيل أونلاين)' : 'For 1 month after delivery (for online deployment)'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'طوال مدة التنفيذ (4 شهور)' : 'Throughout implementation period (4 months)'}</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'تهيئة بيانات البداية' : 'Initial Data Setup'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'مساعدة في إدخال/ترتيب أول دفعة بيانات' : 'Assistance with initial data structuring/import'}</div>
+              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'نشر التطبيقات' : 'App Publishing'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'تجهيز ورفع تطبيقات العميل على المنصات المطلوبة' : 'Preparing and publishing customer apps to required stores'}</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'دعم فني مجاني' : 'Free Technical Support'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة 30 يوم بعد التسليم' : 'For 30 days after delivery'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة شهر بعد التسليم' : 'For 1 month after delivery'}</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'متابعة التشغيل' : 'Operational Follow-up'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'تحسين الأداء واستقرار التقارير خلال فترة الضمان' : 'Performance and reporting stability follow-up during warranty period'}</div>
+              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'تجهيزات ما قبل الإطلاق' : 'Pre-Launch Setup'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'اختبارات الجودة، مراجعة الأداء، وتجهيز التشغيل الفعلي' : 'QA testing, performance review, and go-live readiness'}</div>
             </div>
           </div>
         </div>
@@ -879,7 +871,7 @@ export default function App() {
             <ValueCard
               icon={<TrendingUp className="w-8 h-8 mb-3" />}
               title={lang === 'ar' ? 'قابلية التوسع' : 'Scalability'}
-              text={lang === 'ar' ? 'النظام قابل للتوسع مع زيادة الفروع وعدد الموظفين.' : 'The system scales as branches and employee count grow.'}
+              text={lang === 'ar' ? 'المنصة قابلة للتوسع مع زيادة العملاء ومقدمي الخدمة.' : 'The platform scales as customers and service providers grow.'}
             />
             <ValueCard
               icon={<Clock className="w-8 h-8 mb-3" />}
@@ -891,8 +883,8 @@ export default function App() {
               title={lang === 'ar' ? 'سهولة الإدارة' : 'Easy Management'}
               text={
                 lang === 'ar'
-                  ? 'لوحة إدارة واضحة لمتابعة الحضور والانصراف والطلبات.'
-                  : 'Clear admin panel for attendance, leave, and reporting control.'
+                  ? 'لوحة إدارة واضحة لمتابعة الطلبات ومقدمي الخدمة والعملاء.'
+                  : 'Clear admin panel for orders, providers, and customers management.'
               }
             />
             <ValueCard
