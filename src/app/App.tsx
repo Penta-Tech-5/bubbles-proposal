@@ -1,9 +1,13 @@
-﻿import {
+﻿/// <reference types="vite/client" />
+import {
   Award,
+  ChevronLeft,
+  ChevronRight,
   CheckCircle,
   Clock,
   Code,
   DollarSign,
+  ExternalLink,
   FileText,
   Globe,
   Languages,
@@ -14,7 +18,8 @@
   Shield,
   Sun,
   TrendingUp,
-  Users
+  Users,
+  X
 } from 'lucide-react';
 import React from 'react';
 
@@ -47,6 +52,20 @@ type ExternalCost = {
   subtitle: Localized;
   note?: Localized;
 };
+
+type SmsPlan = {
+  tier: Localized;
+  price: Localized;
+  volume: Localized;
+  note?: Localized;
+};
+
+type GalleryImage = {
+  src: string;
+  title: Localized;
+};
+
+type GalleryKind = 'mobile' | 'desktop';
 
 type PaymentMilestone = {
   amount: Localized;
@@ -101,7 +120,7 @@ const labels: Record<
     totalCostNote: 'شاملة تطبيقات العميل + مقدم الخدمة + الإدارة (موبايل + ديسكتوب) مع الربط الكامل',
     paymentPlanTitle: 'طريقة الدفع',
     externalNote:
-      'ملاحظة: المنصة تدعم الدفع الإلكتروني والنقدي، ونموذج الربح يعتمد على العمولات والاشتراكات.',
+      'ملاحظة: بعد الفترات المجانية تبدأ اشتراكات التشغيل (الدعم الفني، السيرفر، ومنصات التطبيقات) حسب الخيار المناسب.',
     paymentGatewaysTitle: 'طرق الدفع ونموذج الربح',
     freeServices: 'Free Services - مميزات مقدمة من شركة Penta-k',
     technologies: 'Technologies & Development Standards',
@@ -132,7 +151,7 @@ const labels: Record<
     totalCostNote: 'Includes customer, provider, and admin apps (mobile + desktop) with full integration',
     paymentPlanTitle: 'Payment Plan',
     externalNote:
-      'Note: Platform supports both electronic and cash payments, with revenue generated from commissions and subscriptions.',
+      'Note: After free periods, operations subscriptions start (support, server, and app-store management) based on selected option.',
     paymentGatewaysTitle: 'Payment Methods & Revenue Model',
     freeServices: 'Free Services by Penta-k',
     technologies: 'Technologies & Development Standards',
@@ -446,36 +465,169 @@ const paymentGateways: PaymentGateway[] = [
 
 const externalCosts: ExternalCost[] = [
   {
-    title: { ar: 'التجديدات بعد الفترات المجانية', en: 'Post-Free-Period Renewals' },
-    amount: { ar: 'حسب الاستهلاك', en: 'Usage-based' },
-    subtitle: { ar: 'بعد التسليم', en: 'After delivery' },
+    title: { ar: 'اشتراك الدعم الفني', en: 'Technical Support Subscription' },
+    amount: { ar: '10000 جنيه مصري', en: 'EGP 10,000' },
+    subtitle: { ar: 'سنويًا بعد 6 شهور دعم مجاني', en: 'Yearly after 6 free support months' },
     note: {
-      ar: 'تشمل تجديد السيرفر والدعم الفني بعد انتهاء المجاني وفق حجم التشغيل الفعلي.',
-      en: 'Includes server and support renewals after free period based on actual usage volume.'
+      ar: 'يشمل: صيانة السيرفر بشكل مستمر، تحديثات أمنية على السيرفر والسيستم، إصلاح أي أخطاء، أولوية الرد على الاستفسارات، وإخطاركم بالتحديثات والتطويرات أولًا بأول.',
+      en: 'Includes continuous server maintenance, full security updates, bug fixing, priority response, and proactive updates/enhancement notices.'
+    }
+  },
+  {
+    title: { ar: 'باقة السيرفر الخاص (Dedicated)', en: 'Dedicated Server Package' },
+    amount: { ar: '6000 جنيه مصري', en: 'EGP 6,000' },
+    subtitle: { ar: 'سنويًا (تكلفة السيرفر فقط)', en: 'Yearly (server cost only)' },
+    note: {
+      ar: 'مخصص للعميل على سيرفر منفصل خاص به بالكامل.',
+      en: 'For clients who require a fully dedicated private server.'
+    }
+  },
+  {
+    title: { ar: 'باقة السيرفر المشترك (Shared)', en: 'Shared Server Package' },
+    amount: { ar: '3000 جنيه مصري', en: 'EGP 3,000' },
+    subtitle: { ar: 'سنويًا', en: 'Yearly' },
+    note: {
+      ar: 'في حالة الاستضافة على سيرفر مشترك مع عميل آخر.',
+      en: 'For hosting on a shared server with another client.'
+    }
+  },
+  {
+    title: { ar: 'سياسة الترقية والنقل', en: 'Upgrade & Migration Policy' },
+    amount: { ar: 'مجانًا', en: 'Free' },
+    subtitle: { ar: 'عند الحاجة لشريحة أعلى', en: 'When higher tier is needed' },
+    note: {
+      ar: 'يتم إخطار العميل عند الحاجة لمساحة أكبر أو شريحة أعلى، وعملية النقل أو الترقية تتم مجانًا.',
+      en: 'Client is notified if larger capacity/higher tier is required, and migration/upgrade to higher tier is performed free of charge.'
+    }
+  },
+  {
+    title: { ar: 'رفع التطبيقات على منصات الشركة', en: 'Publishing on Company Store Accounts' },
+    amount: { ar: 'Apple: 60$ سنويًا + Google: 20$ سنويًا', en: 'Apple: $60/year + Google: $20/year' },
+    subtitle: { ar: 'مع متابعة دورية كاملة من الشركة', en: 'With full periodic follow-up by company' },
+    note: {
+      ar: 'يشمل الصيانة الدورية، الإخطار بأي تحديثات أو إنذارات من Google/Apple، ويمكن نقل التطبيقات لاحقًا إلى حساب العميل مجانًا في أي وقت.',
+      en: 'Includes periodic maintenance and alerts for Google/Apple requirements. Apps can be transferred later to client-owned accounts for free anytime.'
+    }
+  },
+  {
+    title: { ar: 'رفع التطبيقات على حساب العميل', en: 'Publishing on Client-Owned Accounts' },
+    amount: { ar: 'اشتراك دعم فني للمنصات: 50$ سنويًا', en: 'Store technical support: $50/year' },
+    subtitle: { ar: 'لمنصتي Google و Apple', en: 'For both Google and Apple platforms' },
+    note: {
+      ar: 'إذا كانت التطبيقات على حسابات الشركة تكون المتابعة الكاملة مسؤولية الشركة، أما على حساب العميل فيتوفر اشتراك دعم المنصات السنوي المذكور.',
+      en: 'When apps stay on company accounts, platform follow-up is fully handled by the company. On client accounts, the above yearly store-support plan applies.'
     }
   }
 ];
 
 const technicalSupportScope: LocalizedList = {
   ar: [
-    'متابعة السيرفر الأساسي وكفاءته واستقراره بشكل مستمر.',
-    'متابعة قاعدة البيانات ونسخ احتياطي دوري للبيانات على السيرفر.',
-    'دعم استرجاع النسخ الاحتياطية (Restore) عند الحاجة.',
-    'إصلاح الأعطال والأخطاء التشغيلية في التطبيق.',
-    'تحسين الأداء عند زيادة حجم البيانات والمستخدمين.',
-    'متابعة استقرار نظام التقارير والتصدير إلى Excel.',
-    'دعم فني تشغيلي مستمر للإدارة أثناء فترة الاشتراك.'
+    'صيانة السيرفر بشكل مستمر طوال فترة الاشتراك.',
+    'تحديثات أمنية دورية على السيرفر والسيستم كاملًا.',
+    'إصلاح أي أخطاء تشغيلية تظهر أثناء الاستخدام.',
+    'أولوية في الرد على الاستفسارات وطلبات الدعم.',
+    'إخطار العميل بأي تحديثات مهمة تخص النظام أو المنصات.',
+    'عرض فرص التطوير والتحسين بشكل دوري.'
   ],
   en: [
-    'Continuous monitoring of the main production server performance and stability.',
-    'Database monitoring and periodic server-side backup routines.',
-    'Restore support when backup recovery is needed.',
-    'Fixing operational bugs and runtime issues in the app.',
-    'Performance tuning as data and usage scale increases.',
-    'Maintaining reporting and Excel export stability.',
-    'Ongoing operational support for management during subscription period.'
+    'Continuous server maintenance during subscription period.',
+    'Periodic security updates for both server and full system.',
+    'Fixing any operational errors that appear in production.',
+    'Priority response for support questions and incidents.',
+    'Client notifications for important system/store updates.',
+    'Regular recommendations for enhancements and improvements.'
   ]
 };
+
+const smsPlans: SmsPlan[] = [
+  {
+    tier: { ar: 'الفئة الأولى', en: 'Tier 1' },
+    price: { ar: '130 ريال', en: 'SAR 130' },
+    volume: { ar: '1,000 رسالة', en: '1,000 messages' }
+  },
+  {
+    tier: { ar: 'الفئة الثانية', en: 'Tier 2' },
+    price: { ar: '500 ريال', en: 'SAR 500' },
+    volume: { ar: '5,000 رسالة', en: '5,000 messages' }
+  },
+  {
+    tier: { ar: 'الفئة الثالثة', en: 'Tier 3' },
+    price: { ar: '900 ريال', en: 'SAR 900' },
+    volume: { ar: '10,000 رسالة', en: '10,000 messages' }
+  },
+  {
+    tier: { ar: 'الفئة الرابعة', en: 'Tier 4' },
+    price: { ar: '3700 ريال', en: 'SAR 3,700' },
+    volume: { ar: '50,000 رسالة', en: '50,000 messages' }
+  },
+  {
+    tier: { ar: 'الفئة الخامسة', en: 'Tier 5' },
+    price: { ar: '6900 ريال', en: 'SAR 6,900' },
+    volume: { ar: '100,000 رسالة', en: '100,000 messages' }
+  },
+  {
+    tier: { ar: 'الفئة الخاصة', en: 'Custom Tier' },
+    price: { ar: 'حسب الاتفاق', en: 'Custom pricing' },
+    volume: { ar: 'للكميات الكبيرة والجهات الخيرية', en: 'For high-volume and charitable entities' }
+  }
+];
+
+const bubblesBasePath = `${import.meta.env.BASE_URL}bubbles/`;
+const bubblesDesktopBasePath = `${import.meta.env.BASE_URL}bubbles-desktop/`;
+
+const bubblesGalleryImages: GalleryImage[] = [
+  {
+    src: `${bubblesBasePath}bubbles-home.png`,
+    title: { ar: 'الصفحة الرئيسية', en: 'Home Screen' }
+  },
+  {
+    src: `${bubblesBasePath}bubbles-orders.png`,
+    title: { ar: 'الطلبات', en: 'Orders' }
+  },
+  {
+    src: `${bubblesBasePath}bubbles-on-the-way.png`,
+    title: { ar: 'في الطريق', en: 'On The Way' }
+  },
+  {
+    src: `${bubblesBasePath}bubbles-pay.png`,
+    title: { ar: 'الدفع', en: 'Payment' }
+  },
+  {
+    src: `${bubblesBasePath}bubbles-payment-success.png`,
+    title: { ar: 'نجاح الدفع', en: 'Payment Success' }
+  },
+  {
+    src: `${bubblesBasePath}bubbles-chat-typing.png`,
+    title: { ar: 'الدردشة', en: 'Chat' }
+  }
+];
+
+const bubblesDesktopGalleryImages: GalleryImage[] = [
+  {
+    src: `${bubblesDesktopBasePath}desktop-dashboard.png`,
+    title: { ar: 'لوحة القيادة', en: 'Dashboard' }
+  },
+  {
+    src: `${bubblesDesktopBasePath}desktop-orders.png`,
+    title: { ar: 'الطلبات', en: 'Orders' }
+  },
+  {
+    src: `${bubblesDesktopBasePath}desktop-pending.png`,
+    title: { ar: 'الطلبات المعلقة', en: 'Pending Orders' }
+  },
+  {
+    src: `${bubblesDesktopBasePath}desktop-delivery.png`,
+    title: { ar: 'المندوب', en: 'Delivery Agent' }
+  },
+  {
+    src: `${bubblesDesktopBasePath}desktop-late-orders.png`,
+    title: { ar: 'الطلبات المتأخرة', en: 'Late Orders' }
+  },
+  {
+    src: `${bubblesDesktopBasePath}desktop-overview.jpeg`,
+    title: { ar: 'عرض عام للنظام', en: 'System Overview' }
+  }
+];
 
 const paymentMilestones: PaymentMilestone[] = [
   {
@@ -503,7 +655,32 @@ export default function App() {
   const [theme, setTheme] = React.useState<Theme>('dark');
   const logoCandidates = ['/logo.png', 'logo.png', './logo.png', '/public/logo.png'];
   const [logoIndex, setLogoIndex] = React.useState(0);
+  const [bubblesSlideIndex, setBubblesSlideIndex] = React.useState(0);
+  const [bubblesDesktopSlideIndex, setBubblesDesktopSlideIndex] = React.useState(0);
+  const [lightboxState, setLightboxState] = React.useState<{ kind: GalleryKind; index: number } | null>(null);
   const isDark = theme === 'dark';
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setBubblesSlideIndex((prev) => (prev + 1) % bubblesGalleryImages.length);
+    }, 2800);
+    return () => clearInterval(timer);
+  }, []);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setBubblesDesktopSlideIndex((prev) => (prev + 1) % bubblesDesktopGalleryImages.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextBubblesSlide = () => {
+    setBubblesSlideIndex((prev) => (prev + 1) % bubblesGalleryImages.length);
+  };
+
+  const prevBubblesSlide = () => {
+    setBubblesSlideIndex((prev) => (prev - 1 + bubblesGalleryImages.length) % bubblesGalleryImages.length);
+  };
 
   return (
     <div
@@ -809,7 +986,7 @@ export default function App() {
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'دعم فني مجاني' : 'Free Technical Support'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة شهر بعد التسليم' : 'For 1 month after delivery'}</div>
+              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة 6 شهور بعد التسليم' : 'For 6 months after delivery'}</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'تجهيزات ما قبل الإطلاق' : 'Pre-Launch Setup'}</div>
@@ -854,7 +1031,243 @@ export default function App() {
               </div>
             ))}
           </div>
-          
+
+          <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+            <h3 className="font-bold text-slate-900 mb-3">
+              {lang === 'ar' ? 'خدمة الدعم الفني تشمل' : 'Technical Support Scope'}
+            </h3>
+            <ul className="space-y-2 text-sm text-slate-700">
+              {technicalSupportScope[lang].map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-indigo-200">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
+            <div className="p-3 bg-indigo-100 rounded-lg">
+              <FileText className="w-7 h-7 text-indigo-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900">{lang === 'ar' ? 'أسعار خدمة الرسائل (SMS)' : 'SMS Service Pricing'}</h2>
+              <p className="text-sm text-slate-600">
+                {lang === 'ar'
+                  ? 'الأسعار المرجعية حسب مزود الخدمة، ويمكن للعميل مراجعة التفاصيل الرسمية عبر الرابط.'
+                  : 'Reference pricing based on provider tiers. Official details are available via the link.'}
+              </p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-5">
+            {smsPlans.map((plan) => (
+              <div key={plan.tier.en} className="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                <h3 className="font-bold text-slate-900 mb-2">{plan.tier[lang]}</h3>
+                <div className="text-xl font-bold text-indigo-700 mb-1">{plan.price[lang]}</div>
+                <p className="text-sm text-slate-700">{plan.volume[lang]}</p>
+                {plan.note ? <p className="text-xs text-slate-500 mt-2">{plan.note[lang]}</p> : null}
+              </div>
+            ))}
+          </div>
+          <a
+            href="https://oursms.com/pricing/"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-white text-sm font-semibold hover:bg-indigo-700"
+          >
+            {lang === 'ar' ? 'عرض تفاصيل الأسعار الرسمية' : 'View Official Pricing Details'}
+          </a>
+        </div>
+
+        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-blue-200">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
+            <div className="p-3 bg-blue-100 rounded-lg">
+              <Users className="w-7 h-7 text-blue-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900">{lang === 'ar' ? 'عملاؤنا من السعودية' : 'Our Clients in Saudi Arabia'}</h2>
+              <p className="text-sm text-slate-600">
+                {lang === 'ar'
+                  ? 'نماذج من المشاريع التي تم تنفيذها أو يجري العمل عليها.'
+                  : 'Sample projects delivered or currently in progress.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div className="p-5 rounded-xl border border-slate-200 bg-slate-50">
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">{lang === 'ar' ? 'تطبيق استقرار' : 'Istiqrar App'}</h3>
+                  <p className="text-sm text-slate-600">{lang === 'ar' ? 'متوفر على Google Play و Apple App Store' : 'Available on Google Play and Apple App Store'}</p>
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  <a
+                    href="https://play.google.com/store/search?q=%D8%A7%D8%B3%D8%AA%D9%82%D8%B1%D8%A7%D8%B1&c=apps"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-md bg-green-600 px-3 py-2 text-white text-sm font-semibold hover:bg-green-700"
+                  >
+                    Google Play <ExternalLink className="w-4 h-4" />
+                  </a>
+                  <a
+                    href="https://apps.apple.com/us/app/%D8%A7%D8%B3%D8%AA%D9%82%D8%B1%D8%A7%D8%B1/id1593169684"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-md bg-slate-900 px-3 py-2 text-white text-sm font-semibold hover:bg-slate-800"
+                  >
+                    Apple Store <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-5 rounded-xl border border-slate-200 bg-slate-50">
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">{lang === 'ar' ? 'ويب سايت راكان للعقارات' : 'Rakan Real Estate Website'}</h3>
+                  <p className="text-sm text-slate-600">{lang === 'ar' ? 'منصة ويب عقارية' : 'Real-estate web platform'}</p>
+                </div>
+                <a
+                  href="https://rakan-dev.penta-k.com/ar"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-3 py-2 text-white text-sm font-semibold hover:bg-blue-700"
+                >
+                  {lang === 'ar' ? 'فتح المشروع' : 'Open Project'} <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            <div className="p-5 rounded-xl border border-slate-200 bg-slate-50">
+              <div className="flex items-center justify-between gap-4 flex-wrap mb-4">
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">{lang === 'ar' ? 'سيستم Bubbles' : 'Bubbles System'}</h3>
+                  <p className="text-sm text-slate-600">{lang === 'ar' ? 'قيد التطوير (Under Development)' : 'Under Development'}</p>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6 items-start">
+                <div>
+                  <div className="relative w-[240px] h-[500px] rounded-[28px] border-8 border-slate-900 bg-black shadow-xl overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setLightboxState({ kind: 'mobile', index: bubblesSlideIndex })}
+                      className="block w-full h-full bg-black"
+                      title={lang === 'ar' ? 'اضغط لفتح الصورة' : 'Click to open image'}
+                    >
+                      <img
+                        src={bubblesGalleryImages[bubblesSlideIndex].src}
+                        alt={bubblesGalleryImages[bubblesSlideIndex].title[lang]}
+                        className="w-full h-full object-contain bg-black"
+                      />
+                    </button>
+                    <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-1.5 rounded-full bg-slate-700" />
+                  </div>
+
+                  <div className="mt-4 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={prevBubblesSlide}
+                      className="rounded-full bg-white border border-slate-200 p-2 text-slate-700 hover:bg-slate-100"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <div className="text-sm font-semibold text-slate-700">{bubblesGalleryImages[bubblesSlideIndex].title[lang]}</div>
+                    <button
+                      type="button"
+                      onClick={nextBubblesSlide}
+                      className="rounded-full bg-white border border-slate-200 p-2 text-slate-700 hover:bg-slate-100"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="relative w-full max-w-[620px] h-[360px] rounded-2xl border-8 border-slate-900 bg-black shadow-xl overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setLightboxState({ kind: 'desktop', index: bubblesDesktopSlideIndex })}
+                      className="block w-full h-full bg-black"
+                      title={lang === 'ar' ? 'اضغط لفتح الصورة' : 'Click to open image'}
+                    >
+                      <img
+                        src={bubblesDesktopGalleryImages[bubblesDesktopSlideIndex].src}
+                        alt={bubblesDesktopGalleryImages[bubblesDesktopSlideIndex].title[lang]}
+                        className="w-full h-full object-contain bg-black"
+                      />
+                    </button>
+                  </div>
+
+                  <div className="mt-4 rounded-lg border border-slate-200 bg-white p-3">
+                    <p className="text-sm font-semibold text-slate-900">
+                      {lang === 'ar' ? 'السيستم تحت الإنشاء حاليًا.' : 'System is currently under development.'}
+                    </p>
+                    <p className="text-sm text-slate-600 mt-1">
+                      {lang === 'ar'
+                        ? 'سيتم تسليم: Admin + User + Delivery.'
+                        : 'Planned delivery: Admin + User + Delivery.'}
+                    </p>
+                  </div>
+
+                  <div className="mt-3 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setBubblesDesktopSlideIndex(
+                          (prev) => (prev - 1 + bubblesDesktopGalleryImages.length) % bubblesDesktopGalleryImages.length
+                        )
+                      }
+                      className="rounded-full bg-white border border-slate-200 p-2 text-slate-700 hover:bg-slate-100"
+                      aria-label="Previous desktop image"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <div className="text-sm font-semibold text-slate-700">{bubblesDesktopGalleryImages[bubblesDesktopSlideIndex].title[lang]}</div>
+                    <button
+                      type="button"
+                      onClick={() => setBubblesDesktopSlideIndex((prev) => (prev + 1) % bubblesDesktopGalleryImages.length)}
+                      className="rounded-full bg-white border border-slate-200 p-2 text-slate-700 hover:bg-slate-100"
+                      aria-label="Next desktop image"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div className="mt-3 grid grid-cols-3 md:grid-cols-6 gap-2 max-w-[620px]">
+                    {bubblesDesktopGalleryImages.map((img, idx) => (
+                      <button
+                        key={img.src}
+                        type="button"
+                        onClick={() => setBubblesDesktopSlideIndex(idx)}
+                        className={`overflow-hidden rounded-md border-2 ${idx === bubblesDesktopSlideIndex ? 'border-blue-600' : 'border-slate-200'}`}
+                      >
+                        <img src={img.src} alt={img.title[lang]} className="w-full h-14 object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-3 grid grid-cols-3 md:grid-cols-6 gap-2 max-w-[520px]">
+                {bubblesGalleryImages.map((img, idx) => (
+                  <button
+                    key={img.src}
+                    type="button"
+                    onClick={() => setBubblesSlideIndex(idx)}
+                    className={`overflow-hidden rounded-md border-2 ${idx === bubblesSlideIndex ? 'border-blue-600' : 'border-slate-200'}`}
+                  >
+                    <img src={img.src} alt={img.title[lang]} className="w-full h-16 object-cover" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="bg-gradient-to-l from-blue-600 to-indigo-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
@@ -923,6 +1336,55 @@ export default function App() {
             <p className="text-sm text-slate-500 mt-2">{labels[lang].projectFooter}</p>
           </div>
         </div>
+
+        {lightboxState !== null ? (
+          <div className="fixed inset-0 z-[70] bg-black/85 flex items-center justify-center p-4">
+            <button
+              type="button"
+              onClick={() => setLightboxState(null)}
+              className="absolute top-4 right-4 rounded-full bg-white/10 text-white p-2 hover:bg-white/20"
+              aria-label="Close"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <button
+              type="button"
+              onClick={() =>
+                setLightboxState((prev) => {
+                  if (!prev) return prev;
+                  const gallery = prev.kind === 'mobile' ? bubblesGalleryImages : bubblesDesktopGalleryImages;
+                  return { ...prev, index: (prev.index - 1 + gallery.length) % gallery.length };
+                })
+              }
+              className="absolute left-4 md:left-8 rounded-full bg-white/10 text-white p-3 hover:bg-white/20"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-7 h-7" />
+            </button>
+
+            <img
+              src={(lightboxState.kind === 'mobile' ? bubblesGalleryImages : bubblesDesktopGalleryImages)[lightboxState.index].src}
+              alt={(lightboxState.kind === 'mobile' ? bubblesGalleryImages : bubblesDesktopGalleryImages)[lightboxState.index].title[lang]}
+              className="max-h-[85vh] max-w-[90vw] object-contain rounded-lg"
+            />
+
+            <button
+              type="button"
+              onClick={() =>
+                setLightboxState((prev) => {
+                  if (!prev) return prev;
+                  const gallery = prev.kind === 'mobile' ? bubblesGalleryImages : bubblesDesktopGalleryImages;
+                  return { ...prev, index: (prev.index + 1) % gallery.length };
+                })
+              }
+              className="absolute right-4 md:right-8 rounded-full bg-white/10 text-white p-3 hover:bg-white/20"
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-7 h-7" />
+            </button>
+          </div>
+        ) : null}
       </main>
     </div>
   );
@@ -1001,3 +1463,4 @@ function FeatureItem({
     </div>
   );
 }
+
