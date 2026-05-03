@@ -113,7 +113,7 @@ const labels: Record<
 const heroStats: Array<{ title: Localized; value: Localized }> = [
   {
     title: { ar: 'التطبيقات', en: 'Apps' },
-    value: { ar: 'موبايل + ويب', en: 'Mobile + Web' }
+    value: { ar: "اندرويد + ios", en: 'Android + ios' }
   },
   {
     title: { ar: 'لوحة الطبيب', en: 'Doctor Dashboard' },
