@@ -1,29 +1,28 @@
-﻿/// <reference types="vite/client" />
+/// <reference types="vite/client" />
 import React from 'react';
 import {
-  BarChart3,
   Bell,
   CheckCircle,
   Clock,
   DollarSign,
   ExternalLink,
-  FilePenLine,
   FileText,
+  Filter,
   Globe,
   Languages,
+  LayoutDashboard,
+  MessageCircle,
   Monitor,
-  Moon,
+  Package,
   PhoneCall,
-  Shield,
+  Search,
   ShieldCheck,
-  Smartphone,
-  Sun,
-  Truck,
-  Users
+  ShoppingBag,
+  Store,
+  Tags
 } from 'lucide-react';
 
 type Lang = 'ar' | 'en';
-type Theme = 'dark' | 'light';
 type Localized = Record<Lang, string>;
 type LocalizedList = Record<Lang, string[]>;
 
@@ -34,558 +33,613 @@ type FeatureBlock = {
   points: LocalizedList;
 };
 
-type CostBlock = {
+type PriceCard = {
   title: Localized;
   amount: Localized;
   note: Localized;
 };
 
-const labels: Record<
-  Lang,
-  {
-    offerTitle: string;
-    companyTitle: string;
-    companyText: string;
-    projectName: string;
-    overviewTitle: string;
-    overviewText: string;
-    featuresTitle: string;
-    priceTitle: string;
-    freeServerTitle: string;
-    externalCostsTitle: string;
-    appPublishingTitle: string;
-    paymentMethodsTitle: string;
-    contactTitle: string;
-    footerText: string;
-    arBtn: string;
-    enBtn: string;
-    themeDark: string;
-    themeLight: string;
-    simpleSiteTitle: string;
-  }
-> = {
+const labels: Record<Lang, Record<string, string>> = {
   ar: {
-    offerTitle: 'عرض سعر تفصيلي',
-    companyTitle: 'شركة Penta-k',
-    companyText: 'شركة متخصصة في تصميم وتطوير الحلول الرقمية والأنظمة الذكية بجودة تنفيذ احترافية.',
-    projectName: 'منصة طبية لإدارة المرضى والروشتات',
-    overviewTitle: 'نظرة عامة على النظام المقترح',
-    overviewText:
-      'منصة طبية متكاملة تشمل Mobile App للمرضى على iOS و Android، وWeb Dashboard للدكتور، مع صفحة ويب بسيطة للتشغيل اليدوي بدل Google Forms وWhatsApp.',
-    featuresTitle: 'المتطلبات الأساسية',
-    priceTitle: 'التكلفة الإجمالية',
-    freeServerTitle: 'الخدمات المجانية',
-    externalCostsTitle: 'التكاليف الخارجية بعد الإطلاق',
-    appPublishingTitle: 'رفع التطبيقات على المتاجر',
-    paymentMethodsTitle: 'طرق الدفع داخل النظام',
+    company: 'شركة Penta-k',
+    offer: 'عرض سعر تفصيلي',
+    project: 'منصة رقمية لعرض المنتجات',
+    target: 'السوق المستهدف: العراق',
+    overviewTitle: 'فكرة المشروع',
+    overview:
+      'منصة رقمية لعرض المنتجات وربط المشترين بالبائعين مباشرة عبر واتساب. المنصة ليست متجرًا إلكترونيًا ولا تستقبل المدفوعات أو تدير الشحن أو الطلبات، وجميع عمليات البيع تتم خارج النظام.',
+    includedTitle: 'نطاق التنفيذ',
+    featuresTitle: 'المميزات الرئيسية',
+    outOfScopeTitle: 'خارج نطاق الإصدار الأول',
+    timelineTitle: 'مدة التنفيذ والتصميم',
+    priceTitle: 'التكلفة وطريقة الدفع',
+    costsTitle: 'التشغيل والاستضافة',
+    deliverablesTitle: 'مخرجات التسليم',
+    futureTitle: 'خارطة التطوير المستقبلية',
     contactTitle: 'للتواصل والاستفسار',
-    footerText: 'نتطلع للعمل معكم على المشروع الجديد.',
-    arBtn: 'العربية',
-    enBtn: 'English',
-    themeDark: 'داكن',
-    themeLight: 'فاتح',
-    simpleSiteTitle: 'الويب البسيط للتشغيل اليدوي'
+    footer: 'نتطلع لتنفيذ منصة عرض المنتجات بالصورة المطلوبة وقابلية التوسع المستقبلية.',
+    ar: 'العربية',
+    en: 'English'
   },
   en: {
-    offerTitle: 'Detailed Quote',
-    companyTitle: 'Penta-k Company',
-    companyText: 'A company specialized in designing and developing digital solutions and smart systems with professional delivery quality.',
-    projectName: 'Medical Patient & Prescription Platform',
-    overviewTitle: 'Proposed System Overview',
-    overviewText:
-      'An integrated medical platform with a patient mobile app for iOS and Android, a doctor web dashboard, and a simple frontend website for manual operations instead of Google Forms and WhatsApp.',
-    featuresTitle: 'Core Requirements',
-    priceTitle: 'Total Cost',
-    freeServerTitle: 'Included Free Service',
-    externalCostsTitle: 'Post-Launch External Costs',
-    appPublishingTitle: 'App Store Publishing',
-    paymentMethodsTitle: 'In-System Payment Methods',
+    company: 'Penta-k Company',
+    offer: 'Detailed Quote',
+    project: 'Digital Product Listing Platform',
+    target: 'Target market: Iraq',
+    overviewTitle: 'Project Concept',
+    overview:
+      'A digital platform for listing products and connecting buyers directly with sellers through WhatsApp. It is not an e-commerce store, does not collect payments, and does not manage orders or shipping.',
+    includedTitle: 'Implementation Scope',
+    featuresTitle: 'Key Features',
+    outOfScopeTitle: 'Out Of Scope For Version 1',
+    timelineTitle: 'Timeline & UI Design',
+    priceTitle: 'Cost & Payment Plan',
+    costsTitle: 'Hosting & Operations',
+    deliverablesTitle: 'Final Deliverables',
+    futureTitle: 'Future Roadmap',
     contactTitle: 'Contact & Inquiries',
-    footerText: 'We look forward to working with you on this new project.',
-    arBtn: 'العربية',
-    enBtn: 'English',
-    themeDark: 'Dark',
-    themeLight: 'Light',
-    simpleSiteTitle: 'Simple Frontend Operations Site'
+    footer: 'We look forward to delivering the product listing platform with the required scope and future scalability.',
+    ar: 'العربية',
+    en: 'English'
   }
 };
 
-const heroStats: Array<{ title: Localized; value: Localized }> = [
+const heroStats: Array<{ label: Localized; value: Localized }> = [
   {
-    title: { ar: 'التطبيقات', en: 'Apps' },
-    value: { ar: "اندرويد + ios", en: 'Android + ios' }
+    label: { ar: 'التكلفة', en: 'Cost' },
+    value: { ar: '1200 دولار', en: '$1,200' }
   },
   {
-    title: { ar: 'لوحة الطبيب', en: 'Doctor Dashboard' },
-    value: { ar: 'ويب', en: 'Web' }
+    label: { ar: 'مدة التنفيذ', en: 'Timeline' },
+    value: { ar: '60 يوم', en: '60 days' }
   },
   {
-    title: { ar: 'التكلفة', en: 'Price' },
-    value: { ar: '60,000 جنيه', en: 'EGP 60,000' }
+    label: { ar: 'المنصات', en: 'Platforms' },
+    value: { ar: 'Android + iOS + Web', en: 'Android + iOS + Web' }
   },
   {
-    title: { ar: 'رفع أول سنة', en: 'First Year Publishing' },
-    value: { ar: 'مجانًا', en: 'Free' }
+    label: { ar: 'الدعم المجاني', en: 'Free Support' },
+    value: { ar: '60 يوم', en: '60 days' }
   }
 ];
 
 const featureBlocks: FeatureBlock[] = [
   {
-    title: { ar: 'تطبيق المريض', en: 'Patient App' },
+    title: { ar: 'تطبيق المشتري', en: 'Buyer App' },
     description: {
-      ar: 'واجهة سهلة للمريض لمتابعة حالته وخدماته اليومية.',
-      en: 'An easy patient interface for daily health and service follow-up.'
+      ar: 'تصفح منظم للمنتجات والمتاجر مع بحث وفلاتر ومفضلة.',
+      en: 'Organized product and store browsing with search, filters, and favorites.'
     },
-    icon: Smartphone,
+    icon: ShoppingBag,
     points: {
-      ar: ['تخزين بيانات طبية آمن.', 'نظام روشتة إلكترونية.', 'تنبيهات مواعيد الجرعات.', 'متابعة حالة الطلبات والتوصيل.'],
-      en: ['Secure medical data storage.', 'Electronic prescription system.', 'Dosage schedule notifications.', 'Order and delivery status tracking.']
+      ar: [
+        'إنشاء حساب وتسجيل دخول واستعادة كلمة المرور.',
+        'تصفح المنتجات والمتاجر المعتمدة والنشطة فقط.',
+        'البحث حسب الاسم والتصنيف والمتجر والبائع والمدينة والسعر.',
+        'حفظ المنتجات في المفضلة ومتابعة المتاجر.',
+        'تقييم البائعين والمنتجات والإبلاغ عن المحتوى المخالف.'
+      ],
+      en: [
+        'Account registration, login, and password recovery.',
+        'Browse only active and approved products and stores.',
+        'Search by name, category, store, seller, city, and price.',
+        'Save favorites and follow stores.',
+        'Rate sellers/products and report inappropriate content.'
+      ]
     }
   },
   {
-    title: { ar: 'لوحة الطبيب', en: 'Doctor Dashboard' },
+    title: { ar: 'وظائف البائع', en: 'Seller Features' },
     description: {
-      ar: 'لوحة ويب للطبيب لإدارة المرضى والروشتات بسرعة.',
-      en: 'A web dashboard for doctors to manage patients and prescriptions quickly.'
+      ar: 'إدارة متجر البائع ومنتجاته واشتراكه من داخل التطبيق.',
+      en: 'Seller store, products, and subscription management from the app.'
     },
-    icon: Monitor,
+    icon: Store,
     points: {
-      ar: ['مراجعة بيانات المرضى.', 'إصدار ومتابعة الروشتات.', 'إدارة الحالات والزيارات.', 'صلاحيات حسب الدور الوظيفي.'],
-      en: ['Review patient records.', 'Create and manage prescriptions.', 'Handle cases and visits.', 'Role-based permissions.']
+      ar: [
+        'التسجيل كبائع وإرسال بيانات النشاط التجاري.',
+        'إنشاء متجر وإضافة الشعار والغلاف والوصف والتصنيف والمدينة.',
+        'إضافة المنتجات ورفع الصور وتعديل البيانات والحالة.',
+        'تغيير حالة المنتج إلى Available أو Reserved أو Sold أو Hidden.',
+        'مشاهدة إحصائيات المتجر والمنتجات وضغطات واتساب.'
+      ],
+      en: [
+        'Seller registration with business information.',
+        'Create store with logo, cover, description, category, and city.',
+        'Add products, upload images, update details and status.',
+        'Set product status as Available, Reserved, Sold, or Hidden.',
+        'View store/product analytics and WhatsApp click statistics.'
+      ]
     }
   },
   {
-    title: { ar: 'الأمان والصلاحيات', en: 'Security & Roles' },
+    title: { ar: 'لوحة تحكم الإدارة', en: 'Admin Web Dashboard' },
     description: {
-      ar: 'تخزين محكم مع تحكم واضح في الأدوار والصلاحيات.',
-      en: 'Locked-down storage with clear control over roles and permissions.'
+      ar: 'تحكم كامل في المستخدمين والبائعين والمتاجر والمنتجات والاشتراكات.',
+      en: 'Full control over users, sellers, stores, products, and subscriptions.'
+    },
+    icon: LayoutDashboard,
+    points: {
+      ar: [
+        'Dashboard لإدارة المستخدمين والبائعين والمتاجر والمنتجات.',
+        'إدارة التصنيفات والتصنيفات الفرعية والأيقونات والصور.',
+        'إدارة الاشتراكات والباقات Trial وBronze وSilver وGold.',
+        'مراجعة المنتجات والموافقة أو الرفض أو الإخفاء أو طلب التعديل.',
+        'إدارة المحتوى: الشروط، الخصوصية، من نحن، المساعدة، الأسئلة الشائعة.'
+      ],
+      en: [
+        'Dashboard for users, sellers, stores, and products.',
+        'Manage categories, subcategories, icons, and images.',
+        'Manage Trial, Bronze, Silver, and Gold subscription plans.',
+        'Approve, reject, hide, delete, or request product edits.',
+        'Manage terms, privacy policy, about, help center, and FAQs.'
+      ]
+    }
+  },
+  {
+    title: { ar: 'تكامل واتساب', en: 'WhatsApp Integration' },
+    description: {
+      ar: 'التواصل بين المشتري والبائع يتم خارج المنصة عبر واتساب فقط.',
+      en: 'Buyer and seller communication happens outside the platform through WhatsApp only.'
+    },
+    icon: MessageCircle,
+    points: {
+      ar: [
+        'زر تواصل مع البائع داخل صفحة المنتج.',
+        'فتح واتساب مباشرة برسالة تلقائية قابلة للتعديل.',
+        'الرسالة تتضمن رابط المنتج وصورته ونص عربي قابل للتعديل.',
+        'المنصة لا تحفظ المحادثات ولا تراقبها ولا تتدخل في البيع.',
+        'جميع المدفوعات والاتفاقات والشحن تتم خارج المنصة.'
+      ],
+      en: [
+        'Contact seller button on product details.',
+        'Open WhatsApp directly with editable auto-message.',
+        'Message includes product link, image, and editable Arabic text.',
+        'The platform does not store or monitor conversations.',
+        'Payments, agreements, and shipping remain outside the platform.'
+      ]
+    }
+  },
+  {
+    title: { ar: 'الاشتراكات', en: 'Subscriptions' },
+    description: {
+      ar: 'مصدر دخل المنصة هو اشتراكات البائعين مع فترة تجريبية قابلة للتعديل.',
+      en: 'The platform revenue model is seller subscriptions with configurable trial period.'
+    },
+    icon: Tags,
+    points: {
+      ar: [
+        'المشتري يستخدم المنصة مجانًا.',
+        'اشتراكات البائعين فقط مع فترة تجريبية افتراضية 30 يومًا.',
+        'الاشتراك يتم يدويًا في الإصدار الأول والدفع خارج التطبيق.',
+        'الإدارة تفعل الاشتراك بعد التأكد من الدفع.',
+        'إشعارات قبل انتهاء التجربة أو الاشتراك.'
+      ],
+      en: [
+        'Buyers use the platform for free.',
+        'Seller-only subscriptions with a default 30-day trial.',
+        'Manual subscriptions in version 1 with offline payment.',
+        'Admin activates subscription after payment confirmation.',
+        'Notifications before trial or subscription expiry.'
+      ]
+    }
+  },
+  {
+    title: { ar: 'الأمان والإشراف', en: 'Security & Moderation' },
+    description: {
+      ar: 'حماية الحسابات والملفات وإدارة البلاغات وسجلات العمليات.',
+      en: 'Account protection, file safety, reports management, and audit logs.'
     },
     icon: ShieldCheck,
     points: {
-      ar: ['تخزين آمن للبيانات الطبية.', 'Role-based access.', 'حماية الوصول حسب المستخدم.', 'تنظيم كامل للصلاحيات.'],
-      en: ['Secure medical storage.', 'Role-based access.', 'User-specific access control.', 'Structured permission management.']
-    }
-  },
-  {
-    title: { ar: 'الإشعارات الطبية', en: 'Medical Notifications' },
-    description: {
-      ar: 'تنبيهات دقيقة للجرعات والمواعيد والمتابعة.',
-      en: 'Precise notifications for doses, appointments, and follow-up.'
-    },
-    icon: Bell,
-    points: {
-      ar: ['مواعيد الجرعات.', 'تذكير بالمواعيد الطبية.', 'تنبيهات حالة الطلب.', 'إشعارات المتابعة.'],
-      en: ['Dose reminders.', 'Medical appointment alerts.', 'Order status notifications.', 'Follow-up reminders.']
-    }
-  },
-  {
-    title: { ar: 'المدفوعات والتوصيل', en: 'Payments & Delivery' },
-    description: {
-      ar: 'تجربة دفع ومتابعة توصيل منظمة داخل المنصة.',
-      en: 'A structured payment and delivery tracking flow inside the platform.'
-    },
-    icon: Truck,
-    points: {
-      ar: ['Instapay.', 'Fawry.', 'كروت الدفع البنكية.', 'تتبع التوصيل ومراحل الحالة.'],
-      en: ['Instapay.', 'Fawry.', 'Bank card payments.', 'Delivery tracking and status stages.']
-    }
-  },
-  {
-    title: { ar: 'التحليلات والتقارير', en: 'Analytics & Reports' },
-    description: {
-      ar: 'لوحات واضحة لمتابعة الاستخدام والعمليات.',
-      en: 'Clear dashboards for usage and operational insights.'
-    },
-    icon: BarChart3,
-    points: {
-      ar: ['إحصائيات الاستخدام.', 'تحليلات تشغيلية.', 'تقارير متابعة.', 'رؤية أعمق لأداء المنصة.'],
-      en: ['Usage statistics.', 'Operational analytics.', 'Monitoring reports.', 'Deeper platform performance insights.']
-    }
-  },
-  {
-    title: { ar: 'الويب اليدوي', en: 'Manual Frontend Website' },
-    description: {
-      ar: 'بديل بسيط لـ Google Forms وWhatsApp لتشغيل الطلبات يدويًا.',
-      en: 'A simple alternative to Google Forms and WhatsApp for manual processing.'
-    },
-    icon: Globe,
-    points: {
-      ar: ['صفحة ويب Frontend فقط.', 'تشغيل يدوي بالكامل.', 'استقبال وتسجيل الطلبات بشكل أبسط.', 'بديل واضح للواتساب والنماذج الخارجية.'],
-      en: ['Frontend-only website.', 'Fully manual operations.', 'Simplified request capture and processing.', 'Clear alternative to WhatsApp and external forms.']
+      ar: [
+        'تشفير كلمات المرور وجلسات آمنة.',
+        'حماية رفع الصور والملفات وحماية API.',
+        'النسخ الاحتياطي وسجل العمليات Audit Logs.',
+        'نظام بلاغات للمنتجات والمتاجر والحسابات والتقييمات.',
+        'حالات البلاغ: New وUnder Review وResolved وRejected وClosed.'
+      ],
+      en: [
+        'Password encryption and secure sessions.',
+        'Secure image/file uploads and API protection.',
+        'Backups and audit logs.',
+        'Reports for products, stores, accounts, images, and reviews.',
+        'Report states: New, Under Review, Resolved, Rejected, Closed.'
+      ]
     }
   }
 ];
 
 const includedItems: LocalizedList = {
   ar: [
-    'Mobile App للمرضى على iOS و Android.',
-    'Web Dashboard للطبيب.',
-    'تخزين بيانات طبية آمن.',
-    'نظام روشتة إلكترونية.',
-    'Notifications لمواعيد الجرعات.',
-    'Payment عبر Instapay و Fawry والكروت.',
-    'Delivery tracking.',
-    'Analytics وتقارير تشغيلية.',
-    'Role-based access.',
-    'صفحة ويب بسيطة للتشغيل اليدوي.'
+    'تطبيق Android للمشتري والبائع.',
+    'تطبيق iOS للمشتري والبائع.',
+    'لوحة تحكم ويب للإدارة.',
+    'Backend API وقاعدة بيانات قابلة للتوسع.',
+    'File Storage آمن لصور المنتجات والمتاجر.',
+    'Notification Service للإشعارات داخل التطبيق وPush Notifications.',
+    'نظام بحث وفلاتر وترتيب حسب الأحدث والسعر والمشاهدات والتقييم.',
+    'نظام تقييمات وبلاغات وإشراف على المحتوى.',
+    'تصميمات UI قبل بدء التطوير لضمان اعتماد احتياجات العميل.',
+    'تدريب الإدارة على استخدام النظام بعد التسليم.'
   ],
   en: [
-    'Patient mobile app for iOS and Android.',
-    'Doctor web dashboard.',
-    'Secure medical data storage.',
-    'Electronic prescription system.',
-    'Dosage schedule notifications.',
-    'Payment via Instapay, Fawry, and cards.',
-    'Delivery tracking.',
-    'Analytics and operational reports.',
-    'Role-based access.',
-    'Simple frontend operations website.'
+    'Android app for buyers and sellers.',
+    'iOS app for buyers and sellers.',
+    'Web admin dashboard.',
+    'Scalable Backend API and database.',
+    'Secure file storage for product and store images.',
+    'Notification service for in-app and push notifications.',
+    'Search, filters, and sorting by latest, price, views, and rating.',
+    'Ratings, reports, and content moderation.',
+    'UI designs before development to validate client needs.',
+    'Admin training after delivery.'
   ]
 };
 
-const paymentMethods: LocalizedList = {
-  ar: ['Instapay', 'Fawry', 'البطاقات البنكية'],
-  en: ['Instapay', 'Fawry', 'Bank cards']
+const outOfScope: LocalizedList = {
+  ar: [
+    'الدفع الإلكتروني أو الدفع داخل التطبيق.',
+    'سلة التسوق وCheckout.',
+    'إدارة الطلبات أو الشحن أو التوصيل.',
+    'الدردشة الداخلية داخل التطبيق.',
+    'العمولات على عمليات البيع.',
+    'ضمان عمليات البيع أو حل النزاعات بين البائع والمشتري.'
+  ],
+  en: [
+    'Online payment or in-app payment.',
+    'Cart and checkout.',
+    'Order, shipping, or delivery management.',
+    'Internal in-app chat.',
+    'Sales commissions.',
+    'Sales guarantee or buyer/seller dispute handling.'
+  ]
 };
 
-const externalCosts: CostBlock[] = [
+const deliverables: LocalizedList = {
+  ar: [
+    'الكود المصدري الكامل.',
+    'Backend API.',
+    'تطبيق Android.',
+    'تطبيق iOS.',
+    'لوحة التحكم.',
+    'قاعدة البيانات.',
+    'API Documentation.',
+    'Deployment Documentation.',
+    'ملفات البناء والإعدادات.',
+    'نشر التطبيقات على Google Play وApp Store عند اختيار الرفع على حساباتنا.'
+  ],
+  en: [
+    'Full source code.',
+    'Backend API.',
+    'Android app.',
+    'iOS app.',
+    'Admin dashboard.',
+    'Database.',
+    'API documentation.',
+    'Deployment documentation.',
+    'Build and configuration files.',
+    'Publishing to Google Play and App Store when using our accounts.'
+  ]
+};
+
+const futureRoadmap: LocalizedList = {
+  ar: [
+    'الدفع الإلكتروني والدفع داخل التطبيق.',
+    'الإعلانات والمنتجات المميزة والمتاجر المميزة.',
+    'لغات إضافية.',
+    'تحليلات متقدمة ولوحات ذكاء أعمال.',
+    'توصيات بالذكاء الاصطناعي.',
+    'حملات تسويقية وتكاملات خارجية.'
+  ],
+  en: [
+    'Online and in-app payments.',
+    'Ads, featured products, and featured stores.',
+    'Additional languages.',
+    'Advanced analytics and BI dashboards.',
+    'AI recommendations.',
+    'Marketing campaigns and external integrations.'
+  ]
+};
+
+const paymentPlan: PriceCard[] = [
   {
-    title: { ar: 'رفع أول سنة', en: 'First Year Publishing' },
-    amount: { ar: 'مجانًا', en: 'Free' },
-    note: {
-      ar: 'أول مرة للرفع على المتاجر تكون مجانًا لمدة سنة كاملة.',
-      en: 'The first publishing year on app stores is free for a full year.'
-    }
+    title: { ar: 'دفعة مقدمة', en: 'Advance Payment' },
+    amount: { ar: '360 دولار', en: '$360' },
+    note: { ar: '30% عند الاتفاق وبدء مرحلة التصميم.', en: '30% at agreement and UI design kickoff.' }
   },
   {
-    title: { ar: 'رفع Apple بعد السنة الأولى', en: 'Apple After Year 1' },
+    title: { ar: 'بعد تسليم تطبيق المشتري والبائع', en: 'After Buyer/Seller App Delivery' },
+    amount: { ar: '280 دولار', en: '$280' },
+    note: { ar: 'تسليم التطبيق الذي يشمل وظائف المشتري والبائع.', en: 'Delivery of the app that includes buyer and seller features.' }
+  },
+  {
+    title: { ar: 'بعد تسليم لوحة التحكم', en: 'After Dashboard Delivery' },
+    amount: { ar: '280 دولار', en: '$280' },
+    note: { ar: 'لوحة تحكم ويب للإدارة والتقارير والاشتراكات.', en: 'Web admin dashboard for management, reports, and subscriptions.' }
+  },
+  {
+    title: { ar: 'بعد نشر التطبيق على المتاجر', en: 'After App Store Publishing' },
+    amount: { ar: '280 دولار', en: '$280' },
+    note: { ar: 'بعد رفع التطبيقات على Google Play وApp Store.', en: 'After publishing the apps to Google Play and App Store.' }
+  }
+];
+
+const operatingCosts: PriceCard[] = [
+  {
+    title: { ar: 'الدعم الفني', en: 'Technical Support' },
+    amount: { ar: '60 يوم مجانًا', en: '60 days free' },
+    note: { ar: 'يشمل إصلاح الأخطاء والمساعدة في النشر والاستشارات التشغيلية.', en: 'Includes bug fixes, publishing help, and operational consultation.' }
+  },
+  {
+    title: { ar: 'رفع التطبيقات', en: 'App Publishing' },
+    amount: { ar: 'مشمول', en: 'Included' },
+    note: { ar: 'السعر شامل رفع التطبيقات إذا أراد العميل الرفع على حساباتنا.', en: 'Included when the client chooses publishing on our store accounts.' }
+  },
+  {
+    title: { ar: 'السيرفر', en: 'Server' },
     amount: { ar: '60 دولار سنويًا', en: '$60 / year' },
-    note: {
-      ar: 'الاشتراك السنوي الرسمي بعد انتهاء سنة الرفع المجانية.',
-      en: 'Official annual renewal after the free publishing year ends.'
-    }
+    note: { ar: 'عند الاشتراك معنا، حسب كوتا الاستهلاك والمساحة المطلوبة.', en: 'When hosted with us, based on usage quota and required capacity.' }
   },
   {
-    title: { ar: 'رفع Google بعد السنة الأولى', en: 'Google After Year 1' },
-    amount: { ar: '20 دولار سنويًا', en: '$20 / year' },
-    note: {
-      ar: 'الاشتراك السنوي الرسمي بعد انتهاء سنة الرفع المجانية.',
-      en: 'Official annual renewal after the free publishing year ends.'
-    }
+    title: { ar: 'الدومين', en: 'Domain' },
+    amount: { ar: 'حسب سعر المزود', en: 'Provider pricing' },
+    note: { ar: 'نقوم بتجهيز وربط الدومين ضمن عملية النشر حسب الاسم المتاح.', en: 'We configure and connect the domain during deployment based on available domain name.' }
   }
 ];
 
 export default function App() {
   const [lang, setLang] = React.useState<Lang>('ar');
-  const [theme, setTheme] = React.useState<Theme>('dark');
-
-  const isDark = theme === 'dark';
-  const shellClass = isDark ? 'bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900';
-  const headerClass = isDark ? 'bg-slate-950/90 border-slate-800 text-slate-50' : 'bg-white/90 border-slate-200 text-slate-900';
-  const panelClass = isDark ? 'bg-slate-900 border-slate-700 shadow-[0_24px_80px_rgba(2,6,23,0.35)]' : 'bg-white border-slate-200 shadow-[0_24px_80px_rgba(15,23,42,0.08)]';
-  const softClass = isDark ? 'bg-slate-800/70 border-slate-700' : 'bg-slate-50 border-slate-200';
-  const textPrimary = isDark ? 'text-white' : 'text-slate-900';
-  const textSecondary = isDark ? 'text-slate-300' : 'text-slate-600';
-  const textMuted = isDark ? 'text-slate-400' : 'text-slate-500';
+  const textDir = lang === 'ar' ? 'rtl' : 'ltr';
+  const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
   return (
-    <div className={`${shellClass} min-h-screen`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      <header className={`sticky top-0 z-50 border-b backdrop-blur ${headerClass}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-between gap-4 flex-wrap">
-            <div className="flex items-center gap-3 min-w-0">
-              <img src="/logo.png" alt={labels[lang].companyTitle} className="h-12 w-auto object-contain shrink-0" />
-              <div className="min-w-0">
-                <h1 className={`text-xl sm:text-2xl font-bold truncate ${textPrimary}`}>{labels[lang].projectName}</h1>
-                <p className={`text-sm ${textSecondary}`}>{labels[lang].offerTitle}</p>
-              </div>
+    <div className="min-h-screen bg-slate-950 text-white" dir={textDir}>
+      <header className="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
+          <div className="flex items-center gap-3">
+            <img src={logoSrc} alt="Penta-k" className="h-11 w-auto object-contain" />
+            <div>
+              <p className="text-sm text-cyan-300">{labels[lang].offer}</p>
+              <h1 className="text-xl font-bold text-white sm:text-2xl">{labels[lang].project}</h1>
             </div>
-
-            <div className="flex items-center gap-2 flex-wrap">
-              <div className={`inline-flex items-center gap-2 rounded-2xl border px-2 py-1 ${softClass}`}>
-                <Languages className={`w-4 h-4 ${textSecondary}`} />
-                <button
-                  type="button"
-                  onClick={() => setLang('ar')}
-                  className={`rounded-xl px-3 py-2 text-sm font-semibold transition-colors ${
-                    lang === 'ar'
-                      ? 'bg-cyan-600 text-white'
-                      : isDark
-                        ? 'text-slate-200 hover:bg-slate-700'
-                        : 'text-slate-700 hover:bg-slate-200'
-                  }`}
-                >
-                  {labels[lang].arBtn}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLang('en')}
-                  className={`rounded-xl px-3 py-2 text-sm font-semibold transition-colors ${
-                    lang === 'en'
-                      ? 'bg-cyan-600 text-white'
-                      : isDark
-                        ? 'text-slate-200 hover:bg-slate-700'
-                        : 'text-slate-700 hover:bg-slate-200'
-                  }`}
-                >
-                  {labels[lang].enBtn}
-                </button>
-              </div>
-
-              <div className={`inline-flex items-center gap-2 rounded-2xl border px-2 py-1 ${softClass}`}>
-                <button
-                  type="button"
-                  onClick={() => setTheme('dark')}
-                  className={`rounded-xl px-3 py-2 text-sm font-semibold transition-colors ${
-                    isDark ? 'bg-cyan-600 text-white' : 'text-slate-700 hover:bg-slate-200'
-                  }`}
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <Moon className="w-4 h-4" />
-                    {labels[lang].themeDark}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setTheme('light')}
-                  className={`rounded-xl px-3 py-2 text-sm font-semibold transition-colors ${
-                    !isDark ? 'bg-cyan-600 text-white' : 'text-slate-200 hover:bg-slate-700'
-                  }`}
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <Sun className="w-4 h-4" />
-                    {labels[lang].themeLight}
-                  </span>
-                </button>
-              </div>
-            </div>
+          </div>
+          <div className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900 p-1">
+            <Languages className="h-4 w-4 text-slate-300" />
+            <button
+              type="button"
+              onClick={() => setLang('ar')}
+              className={`rounded-lg px-3 py-2 text-sm font-semibold ${lang === 'ar' ? 'bg-cyan-500 text-slate-950' : 'text-slate-200'}`}
+            >
+              {labels[lang].ar}
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang('en')}
+              className={`rounded-lg px-3 py-2 text-sm font-semibold ${lang === 'en' ? 'bg-cyan-500 text-slate-950' : 'text-slate-200'}`}
+            >
+              {labels[lang].en}
+            </button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        <section className="rounded-[2rem] bg-gradient-to-br from-cyan-700 via-blue-800 to-slate-950 text-white p-8 sm:p-10 shadow-2xl overflow-hidden">
-          <div className="grid lg:grid-cols-[1.35fr_0.65fr] gap-8 items-start">
+      <main>
+        <section className="border-b border-slate-800 bg-slate-950">
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.4fr_0.6fr] lg:py-16">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-4 py-2 text-sm mb-5">
-                <Shield className="w-4 h-4" />
-                <span>{labels[lang].companyTitle}</span>
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-200">
+                <Globe className="h-4 w-4" />
+                {labels[lang].target}
               </div>
-              <h2 className="text-3xl sm:text-5xl font-black leading-tight mb-4">{labels[lang].projectName}</h2>
-              <p className="text-white/85 text-lg sm:text-xl leading-relaxed max-w-3xl">{labels[lang].overviewText}</p>
-
-              <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-3 mt-8">
+              <h2 className="max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl">{labels[lang].project}</h2>
+              <p className="mt-5 max-w-4xl text-lg leading-8 text-slate-300">{labels[lang].overview}</p>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 {heroStats.map((stat) => (
-                  <div key={stat.title.en} className="rounded-2xl bg-white/10 border border-white/15 p-4 backdrop-blur-sm">
-                    <p className="text-sm text-white/70 mb-2">{stat.title[lang]}</p>
-                    <p className="text-lg font-bold">{stat.value[lang]}</p>
+                  <div key={stat.label.en} className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+                    <p className="text-sm text-slate-400">{stat.label[lang]}</p>
+                    <p className="mt-2 text-xl font-bold text-white">{stat.value[lang]}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-[1.75rem] bg-white/10 border border-white/15 p-6 backdrop-blur-sm">
-              <p className="text-sm text-white/70 mb-2">{labels[lang].priceTitle}</p>
-              <div className="text-5xl font-black mb-3">60,000</div>
-              <div className="text-lg text-white/85 mb-5">جنيه مصري / EGP</div>
-              <div className="space-y-3 text-sm text-white/90">
-                <p className="rounded-2xl bg-white/10 border border-white/10 p-4">
+            <div className="rounded-2xl border border-cyan-400/30 bg-cyan-400/10 p-6">
+              <p className="text-sm font-semibold text-cyan-200">{labels[lang].priceTitle}</p>
+              <p className="mt-4 text-5xl font-black text-white">$1,200</p>
+              <p className="mt-2 text-slate-300">{lang === 'ar' ? 'شاملة التصميم والتطوير والنشر حسب النطاق.' : 'Includes design, development, and publishing based on scope.'}</p>
+              <div className="mt-6 rounded-xl border border-slate-700 bg-slate-950/60 p-4">
+                <p className="font-bold text-white">{lang === 'ar' ? 'تصميمات UI قبل التطوير' : 'UI designs before development'}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-300">
                   {lang === 'ar'
-                    ? 'السعر يشمل تطبيق المريض، لوحة الطبيب، والويب البسيط للتشغيل اليدوي.'
-                    : 'The price includes the patient app, doctor dashboard, and the simple manual operations website.'}
-                </p>
-                <p className="rounded-2xl bg-white/10 border border-white/10 p-4">
-                  {lang === 'ar'
-                    ? 'طريقة السداد: يتم الاتفاق عليها مع العميل بعد اعتماد التفاصيل النهائية.'
-                    : 'Payment method: to be agreed with the client after final scope approval.'}
-                </p>
-                <p className="rounded-2xl bg-white/10 border border-white/10 p-4">
-                  {lang === 'ar'
-                    ? 'أول سنة لرفع التطبيقات على المتاجر مجانية بالكامل.'
-                    : 'The first publishing year on app stores is completely free.'}
+                    ? 'نقدم تصميمات واجهات قبل بدء التطوير للتأكد من احتياجات العميل واعتماد شكل الرحلة قبل التنفيذ.'
+                    : 'We provide UI designs before development to validate client needs and approve the user journey before implementation.'}
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="grid lg:grid-cols-[1.1fr_0.9fr] gap-6 mt-8">
-          <div className={`rounded-[1.75rem] border p-7 ${panelClass}`}>
-            <div className="flex items-center gap-3 mb-5">
-              <div className={`p-3 rounded-xl ${isDark ? 'bg-cyan-500/15 text-cyan-300' : 'bg-cyan-100 text-cyan-700'}`}>
-                <FileText className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className={`text-2xl font-bold ${textPrimary}`}>{labels[lang].overviewTitle}</h3>
-                <p className={textSecondary}>{labels[lang].overviewText}</p>
-              </div>
-            </div>
-            <div className={`rounded-2xl border p-5 ${softClass}`}>
-              <p className={`text-sm leading-8 ${textSecondary}`}>
-                {lang === 'ar'
-                  ? 'المنصة تعمل بشكل منظم بين المريض والطبيب، مع صفحة ويب Frontend فقط لتسجيل الطلبات وتوزيعها يدويًا بدل الاعتماد على Google Forms و WhatsApp. الفكرة هنا هي تقليل التعقيد وتحويل التشغيل إلى واجهة بسيطة وواضحة.'
-                  : 'The platform is organized around the patient and doctor workflow, with a frontend-only website for manual request capture and distribution instead of relying on Google Forms and WhatsApp. The goal is to simplify operations and keep the workflow clear and controlled.'}
-              </p>
-            </div>
-          </div>
-
-          <div className={`rounded-[1.75rem] border p-7 ${panelClass}`}>
-            <div className="flex items-center gap-3 mb-5">
-              <div className={`p-3 rounded-xl ${isDark ? 'bg-emerald-500/15 text-emerald-300' : 'bg-emerald-100 text-emerald-700'}`}>
-                <DollarSign className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className={`text-2xl font-bold ${textPrimary}`}>{labels[lang].freeServerTitle}</h3>
-                <p className={textSecondary}>{lang === 'ar' ? 'الخدمة الوحيدة المجانية خلال التنفيذ' : 'The only free service during implementation'}</p>
-              </div>
-            </div>
-            <div className={`rounded-2xl border p-5 ${softClass}`}>
-              <p className={`text-lg font-bold mb-2 ${textPrimary}`}>{lang === 'ar' ? 'سيرفر مجاني' : 'Free server'}</p>
-              <p className={textSecondary}>
-                {lang === 'ar'
-                  ? 'السيرفر يكون مجانيًا طوال مدة التنفيذ فقط، بدون إدراج أي خدمات مجانية إضافية أخرى.'
-                  : 'The server is free only during the implementation period, with no additional free services included.'}
-              </p>
-            </div>
+        <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+          <SectionHeader icon={FileText} title={labels[lang].includedTitle} subtitle={lang === 'ar' ? 'الإصدار الأول 1.0' : 'Version 1.0'} />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {includedItems[lang].map((item) => (
+              <InfoPill key={item} text={item} />
+            ))}
           </div>
         </section>
 
-        <section className={`rounded-[1.75rem] border p-7 mt-8 ${panelClass}`}>
-          <div className="flex items-center gap-3 mb-6">
-            <div className={`p-3 rounded-xl ${isDark ? 'bg-cyan-500/15 text-cyan-300' : 'bg-cyan-100 text-cyan-700'}`}>
-              <Users className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className={`text-2xl font-bold ${textPrimary}`}>{labels[lang].featuresTitle}</h3>
-              <p className={textSecondary}>{labels[lang].projectName}</p>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {featureBlocks.map((block) => {
-              const Icon = block.icon;
-              return (
-                <article key={block.title.en} className={`rounded-2xl border p-5 ${softClass}`}>
-                  <div className="flex items-start gap-3 mb-4">
-                    <div className={`p-3 rounded-xl ${isDark ? 'bg-cyan-500/15 text-cyan-300' : 'bg-cyan-100 text-cyan-700'}`}>
-                      <Icon className="w-5 h-5" />
+        <section className="border-y border-slate-800 bg-slate-900/50">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+            <SectionHeader icon={Package} title={labels[lang].featuresTitle} subtitle={lang === 'ar' ? 'مشتري، بائع، وإدارة' : 'Buyer, seller, and admin'} />
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {featureBlocks.map((feature) => {
+                const Icon = feature.icon;
+                return (
+                  <article key={feature.title.en} className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+                    <div className="mb-4 flex items-start gap-3">
+                      <div className="rounded-xl bg-cyan-400/10 p-3 text-cyan-300">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white">{feature.title[lang]}</h3>
+                        <p className="mt-1 text-sm leading-6 text-slate-400">{feature.description[lang]}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className={`text-lg font-bold ${textPrimary}`}>{block.title[lang]}</h4>
-                      <p className={`text-sm mt-1 ${textSecondary}`}>{block.description[lang]}</p>
-                    </div>
-                  </div>
-                  <ul className="space-y-2 text-sm">
-                    {block.points[lang].map((point) => (
-                      <li key={point} className={`flex items-start gap-2 ${textSecondary}`}>
-                        <CheckCircle className="w-4 h-4 mt-0.5 text-cyan-500 shrink-0" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              );
-            })}
+                    <ul className="space-y-2">
+                      {feature.points[lang].map((point) => (
+                        <li key={point} className="flex items-start gap-2 text-sm leading-6 text-slate-300">
+                          <CheckCircle className="mt-1 h-4 w-4 shrink-0 text-cyan-400" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                );
+              })}
+            </div>
           </div>
         </section>
 
-        <section className={`rounded-[1.75rem] border p-7 mt-8 ${panelClass}`}>
-          <div className="flex items-center gap-3 mb-6">
-            <div className={`p-3 rounded-xl ${isDark ? 'bg-blue-500/15 text-blue-300' : 'bg-blue-100 text-blue-700'}`}>
-              <Clock className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className={`text-2xl font-bold ${textPrimary}`}>{labels[lang].priceTitle}</h3>
-              <p className={textSecondary}>{lang === 'ar' ? 'يشمل جميع العناصر الأساسية الموضحة بالأسفل.' : 'Includes all core items listed below.'}</p>
-            </div>
-          </div>
-
-          <div className={`rounded-2xl border p-5 mb-6 ${softClass}`}>
-            <div className="grid md:grid-cols-2 xl:grid-cols-5 gap-3">
-              {includedItems[lang].map((item) => (
-                <div key={item} className={`flex items-start gap-2 rounded-xl border p-3 ${isDark ? 'border-cyan-500/20 bg-cyan-500/10' : 'border-cyan-100 bg-cyan-50'}`}>
-                  <CheckCircle className="w-4 h-4 mt-1 text-cyan-500 shrink-0" />
-                  <span className={`text-sm ${textSecondary}`}>{item}</span>
-                </div>
+        <section className="mx-auto grid max-w-7xl gap-6 px-4 py-10 sm:px-6 lg:grid-cols-2">
+          <div>
+            <SectionHeader icon={Filter} title={labels[lang].outOfScopeTitle} subtitle={lang === 'ar' ? 'لتوضيح حدود الإصدار الأول' : 'Version 1 boundaries'} />
+            <div className="grid gap-3">
+              {outOfScope[lang].map((item) => (
+                <InfoPill key={item} text={item} muted />
               ))}
             </div>
           </div>
-
-          <p className={`text-sm ${textMuted}`}>{lang === 'ar' ? 'الطريقة النهائية للسداد يتم الاتفاق عليها مع العميل بعد اعتماد التفاصيل النهائية.' : 'Final payment terms will be agreed with the client after scope approval.'}</p>
-        </section>
-
-        <section className={`rounded-[1.75rem] border p-7 mt-8 ${panelClass}`}>
-          <div className="flex items-center gap-3 mb-6">
-            <div className={`p-3 rounded-xl ${isDark ? 'bg-emerald-500/15 text-emerald-300' : 'bg-emerald-100 text-emerald-700'}`}>
-              <Monitor className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className={`text-2xl font-bold ${textPrimary}`}>{labels[lang].appPublishingTitle}</h3>
-              <p className={textSecondary}>{lang === 'ar' ? 'أول سنة رفع مجاني ثم الرسوم السنوية الرسمية.' : 'First year free, then official annual renewal fees apply.'}</p>
+          <div>
+            <SectionHeader icon={Bell} title={labels[lang].futureTitle} subtitle={lang === 'ar' ? 'طلبات تطوير لاحقة' : 'Later development items'} />
+            <div className="grid gap-3">
+              {futureRoadmap[lang].map((item) => (
+                <InfoPill key={item} text={item} />
+              ))}
             </div>
           </div>
+        </section>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            {externalCosts.map((cost) => (
-              <div key={cost.title.en} className={`rounded-2xl border p-5 ${softClass}`}>
-                <h4 className={`text-lg font-bold ${textPrimary}`}>{cost.title[lang]}</h4>
-                <p className="text-3xl font-black text-cyan-600 mt-3" dir="ltr">
-                  {cost.amount[lang]}
-                </p>
-                <p className={`text-sm mt-3 ${textSecondary}`}>{cost.note[lang]}</p>
-              </div>
+        <section className="border-y border-slate-800 bg-slate-900/50">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+            <SectionHeader
+              icon={Clock}
+              title={labels[lang].timelineTitle}
+              subtitle={lang === 'ar' ? '60 يوم بعد تنفيذ التصميمات وموافقة العميل عليها' : '60 days after UI designs are completed and approved by the client'}
+            />
+            <div className="grid gap-4 md:grid-cols-3">
+              <TimelineItem title={lang === 'ar' ? 'مرحلة التصميم' : 'Design phase'} text={lang === 'ar' ? 'تصميم UI واعتماد رحلة المستخدم قبل التطوير.' : 'UI design and user journey approval before development.'} />
+              <TimelineItem title={lang === 'ar' ? 'مرحلة التطوير' : 'Development phase'} text={lang === 'ar' ? 'تطوير التطبيقات، لوحة التحكم، Backend، وقاعدة البيانات.' : 'Build apps, dashboard, backend, and database.'} />
+              <TimelineItem title={lang === 'ar' ? 'الاختبار والنشر' : 'Testing & publishing'} text={lang === 'ar' ? 'اختبار النظام، تجهيز النشر، وتدريب الإدارة.' : 'System testing, deployment preparation, and admin training.'} />
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+          <SectionHeader icon={DollarSign} title={labels[lang].priceTitle} subtitle={lang === 'ar' ? 'المقدم 30% والباقي على مراحل التسليم' : '30% upfront and the rest by delivery milestones'} />
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {paymentPlan.map((item) => (
+              <PriceBox key={item.title.en} item={item} lang={lang} />
             ))}
           </div>
         </section>
 
-        <section className={`rounded-[1.75rem] border p-7 mt-8 ${panelClass}`}>
-          <div className="flex items-center gap-3 mb-6">
-            <div className={`p-3 rounded-xl ${isDark ? 'bg-amber-500/15 text-amber-300' : 'bg-amber-100 text-amber-700'}`}>
-              <FilePenLine className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className={`text-2xl font-bold ${textPrimary}`}>{labels[lang].paymentMethodsTitle}</h3>
-              <p className={textSecondary}>{lang === 'ar' ? 'المنصة ستدعم وسائل الدفع الموضحة بالأسفل.' : 'The platform will support the payment methods below.'}</p>
+        <section className="border-y border-slate-800 bg-slate-900/50">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+            <SectionHeader icon={Monitor} title={labels[lang].costsTitle} subtitle={lang === 'ar' ? 'الدعم، الرفع، السيرفر، والدومين' : 'Support, publishing, server, and domain'} />
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {operatingCosts.map((item) => (
+                <PriceBox key={item.title.en} item={item} lang={lang} />
+              ))}
             </div>
           </div>
+        </section>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            {paymentMethods[lang].map((method) => (
-              <div key={method} className={`rounded-2xl border px-5 py-4 text-center font-semibold ${softClass} ${textPrimary}`}>
-                {method}
-              </div>
+        <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+          <SectionHeader icon={Search} title={labels[lang].deliverablesTitle} subtitle={lang === 'ar' ? 'بعد السداد تنتقل ملكية الكود والوثائق حسب الاتفاق' : 'Source and documentation ownership transfers after full payment'} />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {deliverables[lang].map((item) => (
+              <InfoPill key={item} text={item} />
             ))}
           </div>
         </section>
 
-        <section className={`rounded-[1.75rem] border p-7 mt-8 ${panelClass}`}>
-          <div className="flex items-center gap-3 mb-4">
-            <div className={`p-3 rounded-xl ${isDark ? 'bg-slate-700 text-slate-200' : 'bg-slate-100 text-slate-700'}`}>
-              <PhoneCall className="w-6 h-6" />
+        <section className="border-t border-slate-800 bg-slate-950">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-white">{labels[lang].contactTitle}</h2>
+                  <p className="mt-2 text-slate-400">{labels[lang].footer}</p>
+                </div>
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <a href="https://penta-k.com" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-500 px-4 py-3 font-semibold text-slate-950">
+                    <Globe className="h-5 w-5" />
+                    penta-k.com
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                  <a href="tel:+201061942646" dir="ltr" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 px-4 py-3 font-semibold text-white">
+                    <PhoneCall className="h-5 w-5" />
+                    +20 10 61942646
+                  </a>
+                </div>
+              </div>
             </div>
-            <div>
-              <h3 className={`text-2xl font-bold ${textPrimary}`}>{labels[lang].contactTitle}</h3>
-              <p className={textSecondary}>{labels[lang].companyTitle}</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
-            <a href="https://penta-k.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-cyan-500 font-semibold hover:underline">
-              <Globe className="w-5 h-5" />
-              penta-k.com
-              <ExternalLink className="w-4 h-4" />
-            </a>
-            <a href="tel:+201061942646" dir="ltr" className="inline-flex items-center gap-2 text-emerald-500 font-semibold hover:underline">
-              <PhoneCall className="w-5 h-5" />
-              +20 10 61942646
-            </a>
-          </div>
-
-          <div className={`mt-8 pt-6 border-t ${isDark ? 'border-slate-700' : 'border-slate-200'}`}>
-            <p className={textSecondary}>{labels[lang].footerText}</p>
           </div>
         </section>
       </main>
+    </div>
+  );
+}
+
+function SectionHeader({
+  icon: Icon,
+  title,
+  subtitle
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <div className="mb-6 flex items-center gap-3">
+      <div className="rounded-xl bg-cyan-400/10 p-3 text-cyan-300">
+        <Icon className="h-6 w-6" />
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold text-white">{title}</h2>
+        <p className="text-sm text-slate-400">{subtitle}</p>
+      </div>
+    </div>
+  );
+}
+
+function InfoPill({ text, muted = false }: { text: string; muted?: boolean }) {
+  return (
+    <div className={`flex items-start gap-2 rounded-xl border p-3 text-sm leading-6 ${muted ? 'border-amber-400/20 bg-amber-400/10 text-amber-100' : 'border-slate-800 bg-slate-900 text-slate-300'}`}>
+      <CheckCircle className={`mt-1 h-4 w-4 shrink-0 ${muted ? 'text-amber-300' : 'text-cyan-400'}`} />
+      <span>{text}</span>
+    </div>
+  );
+}
+
+function TimelineItem({ title, text }: { title: string; text: string }) {
+  return (
+    <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+      <h3 className="text-lg font-bold text-white">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-400">{text}</p>
+    </div>
+  );
+}
+
+function PriceBox({ item, lang }: { item: PriceCard; lang: Lang }) {
+  return (
+    <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+      <h3 className="text-lg font-bold text-white">{item.title[lang]}</h3>
+      <p className="mt-3 text-3xl font-black text-cyan-300" dir="ltr">
+        {item.amount[lang]}
+      </p>
+      <p className="mt-3 text-sm leading-6 text-slate-400">{item.note[lang]}</p>
     </div>
   );
 }
