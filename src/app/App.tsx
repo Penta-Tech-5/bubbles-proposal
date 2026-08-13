@@ -84,7 +84,7 @@ export default function App() {
     <div className="min-h-screen bg-[#f8fafc] text-slate-800" dir={isArabic ? 'rtl' : 'ltr'}>
       <header className="border-b border-slate-200/80 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-          <img src="/logo.png" alt="Penta-k" className="h-10 w-auto object-contain" />
+          <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Penta-k" className="h-10 w-auto object-contain" />
           <div className={isArabic ? 'text-left' : 'text-right'}>
             <button type="button" onClick={() => setLanguage(isArabic ? 'en' : 'ar')} className="mb-2 rounded-lg border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 transition hover:bg-sky-100">
               {isArabic ? 'English' : 'العربية'}
