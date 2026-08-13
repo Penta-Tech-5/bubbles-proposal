@@ -1,18 +1,25 @@
 import {
   BarChart3,
   Building2,
+  CalendarDays,
   Check,
+  Code2,
   ChevronLeft,
   ChevronRight,
+  Clock3,
+  CreditCard,
   FileText,
   Globe2,
   LayoutDashboard,
   Mail,
   MessageCircle,
+  MapPinned,
   MousePointerClick,
   Phone,
   ShieldCheck,
+  Smartphone,
   Sparkles,
+  Server,
   UsersRound,
 } from 'lucide-react';
 import { useState } from 'react';
@@ -23,7 +30,7 @@ type PhaseItem = { title: string; text: string };
 
 const copy = {
   en: {
-    proposal: 'Business Proposal', date: 'August 2026', platform: 'Digital real-estate platform', preparedFor: 'Prepared exclusively for', company: 'Mr. Mohamed Elaraby Company',
+    proposal: 'Business Proposal', date: 'August 2026', platform: 'Digital real-estate platform', preparedFor: 'Prepared exclusively for', company: 'Bricks by Bricks Real Estate L.L.C.',
     hero: 'A focused real-estate website designed to showcase properties, capture qualified leads and give your marketing team control of every key touchpoint.',
     phaseOne: 'Phase 1', maxViews: 'Up to 10 views', noLogin: 'No login required',
     phaseOneInvestment: 'Phase 1 investment', websiteViews: 'Website views',
@@ -32,7 +39,7 @@ const copy = {
     websiteEyebrow: 'Website experience', websiteTitle: 'Built for discovery, enquiries and campaigns',
     cmsEyebrow: 'CMS dashboard', cmsTitle: 'Everything your team needs to keep the website current', dashboardTitle: 'One dashboard, clear ownership.', dashboardText: 'Designed for non-technical users to manage site content and property information without depending on a developer for routine updates.', dashboardIncluded: 'Included with the Phase 1 website.',
     marketingEyebrow: 'Marketing integrations', marketingTitle: 'Connect every enquiry to your marketing workflow',
-    futureEyebrow: 'Future vision', futureTitle: 'Phase 2: scale sales operations with CRM',
+    futureEyebrow: 'Future-ready foundation', futureTitle: 'Built to grow with Bricks by Bricks',
     commercialEyebrow: 'Commercial summary', commercialTitle: 'Investment & scope notes', phaseOnePackage: 'Phase 1 — Website + CMS', phaseOneSummary: 'Includes the public website, up to 10 views, property data and PDF brochures, dashboard CMS, email automation, WhatsApp API integration and pixel analytics setup.', appPackage: 'Optional — Website + CMS + mobile app', appSummary: 'Includes all Phase 1 scope plus the mobile-app features outlined above, including notifications and saved properties.',
     noteOne: 'No login or authentication is included in Phase 1.', noteTwo: 'The client provides property content, imagery, brochures and access to third-party marketing accounts.', noteThree: 'Third-party fees, including WhatsApp provider, email service and advertising-platform charges, are not included unless agreed separately.', thanks: 'Thank you for considering this proposal.',
     websiteFeatures: [
@@ -42,13 +49,14 @@ const copy = {
       { title: 'Marketing integrations', description: 'Email automation, WhatsApp API and marketing pixels connected to the lead journey.', icon: MessageCircle },
       { title: 'Analytics readiness', description: 'Pixel-based tracking to help measure campaigns, audience behaviour and conversion activity.', icon: BarChart3 },
       { title: 'Responsive website', description: 'A polished experience that works seamlessly across desktop, tablet and mobile browsers.', icon: Globe2 },
+      { title: 'Performance optimized', description: 'WebP images, lazy loading and lightweight pages targeting 80+ PageSpeed Mobile and LCP under 2.5 seconds on 4G.', icon: Sparkles },
     ] as Feature[],
-    dashboardFeatures: ['Manage up to 10 website views and their content.', 'Add, edit and archive property listings.', 'Upload property PDF brochures and update listing data.', 'Manage media, text, calls-to-action and contact details.', 'Review incoming enquiries in one central place.', 'Control pixel, WhatsApp and email automation settings.'],
+    dashboardFeatures: ['Manage projects, areas and blog content without a developer.', 'Add, edit and archive property listings.', 'Upload property PDF brochures and update listing data.', 'Manage media, text, calls-to-action and contact details.', 'Review incoming enquiries in one central place.', 'Update SEO titles, descriptions and sharing images.'],
     integrations: [{ icon: Mail, title: 'Email automation', description: 'Trigger follow-up email sequences after a website enquiry.' }, { icon: MessageCircle, title: 'WhatsApp API', description: 'Enable direct, fast conversations with property prospects.' }, { icon: BarChart3, title: 'Pixel analytics', description: 'Track campaign performance and optimise marketing spend.' }] as Feature[],
-    phaseTwo: [{ title: 'CRM', text: 'A dedicated lead pipeline to track each opportunity from first enquiry to close.' }, { title: 'Broker roles', text: 'Role-based access for brokers, team leaders and administrators.' }, { title: 'Lead assignment', text: 'Assign, follow up and measure broker activity across the sales funnel.' }] as PhaseItem[],
+    phaseTwo: [{ title: 'SEO growth', text: 'Add new area, project and blog pages to build long-term search visibility.' }, { title: 'Campaign landing pages', text: 'Create focused pages for new launches, services and marketing campaigns.' }, { title: 'Smarter insights', text: 'Expand reporting around enquiries, campaigns and website performance.' }] as PhaseItem[],
   },
   ar: {
-    proposal: 'عرض فني ومالي', date: 'أغسطس ٢٠٢٦', platform: 'منصة عقارية رقمية', preparedFor: 'أُعِدّ خصيصاً لصالح', company: 'شركة الأستاذ محمد العربي',
+    proposal: 'عرض فني ومالي', date: 'أغسطس ٢٠٢٦', platform: 'منصة عقارية رقمية', preparedFor: 'أُعِدّ خصيصاً لصالح', company: 'Bricks by Bricks Real Estate L.L.C.',
     hero: 'موقع عقاري متكامل لعرض العقارات، جذب العملاء المحتملين، ومنح فريق التسويق التحكم الكامل في جميع نقاط التواصل مع العملاء.',
     phaseOne: 'المرحلة الأولى', maxViews: 'حتى ١٠ صفحات', noLogin: 'بدون تسجيل دخول',
     phaseOneInvestment: 'استثمار المرحلة الأولى', websiteViews: 'عدد صفحات الموقع',
@@ -57,7 +65,7 @@ const copy = {
     websiteEyebrow: 'تجربة الموقع', websiteTitle: 'مصمم للاستكشاف، الاستفسارات والحملات التسويقية',
     cmsEyebrow: 'لوحة إدارة المحتوى', cmsTitle: 'كل ما يحتاجه فريقكم لتحديث الموقع باستمرار', dashboardTitle: 'لوحة واحدة، وتحكم واضح.', dashboardText: 'مصممة لتمكين المستخدمين غير التقنيين من إدارة محتوى الموقع وبيانات العقارات دون الحاجة إلى مطور في التحديثات اليومية.', dashboardIncluded: 'متضمنة ضمن موقع المرحلة الأولى.',
     marketingEyebrow: 'التكاملات التسويقية', marketingTitle: 'اربط كل استفسار بمسار عملك التسويقي',
-    futureEyebrow: 'الرؤية المستقبلية', futureTitle: 'المرحلة الثانية: تطوير عمليات المبيعات عبر CRM',
+    futureEyebrow: 'أساس قابل للتطوير', futureTitle: 'موقع ينمو مع Bricks by Bricks',
     commercialEyebrow: 'الملخص التجاري', commercialTitle: 'الاستثمار وملاحظات نطاق العمل', phaseOnePackage: 'المرحلة الأولى — الموقع ولوحة الإدارة', phaseOneSummary: 'يشمل الموقع المتاح للزوار، وحتى ١٠ صفحات، وبيانات العقارات وبروشورات PDF، ولوحة إدارة المحتوى، وأتمتة البريد الإلكتروني، وتكامل WhatsApp API، وإعداد تحليلات Pixel.', appPackage: 'اختياري — الموقع ولوحة الإدارة وتطبيق الموبايل', appSummary: 'يشمل جميع بنود المرحلة الأولى إضافة إلى مزايا تطبيق الموبايل الموضحة أعلاه، بما فيها الإشعارات والعقارات المفضلة.',
     noteOne: 'لا تتضمن المرحلة الأولى تسجيل دخول أو مصادقة للمستخدمين.', noteTwo: 'يوفر العميل محتوى العقارات والصور والبروشورات وصلاحيات الوصول إلى حسابات أدوات التسويق الخارجية.', noteThree: 'لا تشمل الأسعار رسوم الجهات الخارجية، مثل مزود WhatsApp وخدمة البريد الإلكتروني ومنصات الإعلانات، ما لم يتم الاتفاق على ذلك بشكل منفصل.', thanks: 'شكراً لثقتكم ودراسة هذا العرض.',
     websiteFeatures: [
@@ -70,7 +78,7 @@ const copy = {
     ] as Feature[],
     dashboardFeatures: ['إدارة محتوى ما يصل إلى ١٠ صفحات بالموقع.', 'إضافة العقارات وتعديلها وأرشفتها.', 'رفع بروشورات العقارات بصيغة PDF وتحديث بياناتها.', 'إدارة الصور والنصوص ودعوات اتخاذ الإجراء وبيانات التواصل.', 'مراجعة الاستفسارات الواردة من مكان مركزي واحد.', 'التحكم في إعدادات Pixel وWhatsApp وأتمتة البريد الإلكتروني.'],
     integrations: [{ icon: Mail, title: 'أتمتة البريد الإلكتروني', description: 'تشغيل رسائل متابعة تلقائية بعد إرسال استفسار من الموقع.' }, { icon: MessageCircle, title: 'WhatsApp API', description: 'إتاحة محادثات مباشرة وسريعة مع العملاء المهتمين بالعقارات.' }, { icon: BarChart3, title: 'تحليلات Pixels', description: 'متابعة أداء الحملات وتحسين الإنفاق التسويقي.' }] as Feature[],
-    phaseTwo: [{ title: 'CRM', text: 'مسار متكامل لإدارة العملاء المحتملين ومتابعة كل فرصة من أول استفسار حتى الإغلاق.' }, { title: 'صلاحيات الوسطاء', text: 'صلاحيات حسب الدور للوسطاء وقادة الفريق والمديرين.' }, { title: 'توزيع العملاء المحتملين', text: 'توزيع العملاء ومتابعتهم وقياس نشاط الوسطاء ضمن مسار المبيعات.' }] as PhaseItem[],
+    phaseTwo: [{ title: 'نمو SEO', text: 'إضافة صفحات جديدة للمشاريع والمناطق والمدونة لزيادة الظهور في البحث.' }, { title: 'صفحات الحملات', text: 'إنشاء صفحات مخصصة للمشاريع الجديدة والخدمات والحملات التسويقية.' }, { title: 'تحليلات أعمق', text: 'توسيع التقارير حول الاستفسارات والحملات وأداء الموقع.' }] as PhaseItem[],
   },
 };
 
@@ -96,6 +104,7 @@ export default function App() {
       </header>
 
       <main className="mx-auto max-w-6xl px-6 py-10 md:py-14">
+        <PentaKIntro isArabic={isArabic} />
         <section className="relative overflow-hidden rounded-[2rem] bg-slate-950 px-7 py-12 text-white shadow-2xl md:px-12 md:py-16">
           <div className="absolute -right-16 -top-20 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
           <div className="absolute -bottom-24 left-1/3 h-60 w-60 rounded-full bg-indigo-500/20 blur-3xl" />
@@ -126,11 +135,32 @@ export default function App() {
 
         <section className="mb-10"><SectionTitle eyebrow={t.futureEyebrow} title={t.futureTitle} /><div className="grid gap-4 md:grid-cols-3">{t.phaseTwo.map((item, index) => <article key={item.title} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><span className="text-sm font-semibold text-sky-600">0{index + 1}</span><h3 className="mt-5 text-xl font-semibold text-slate-950">{item.title}</h3><p className="mt-2 leading-7 text-slate-600">{item.text}</p><DirectionChevron className="mt-5 h-5 w-5 text-slate-400" /></article>)}</div></section>
 
+        <ProposalExtras isArabic={isArabic} />
+
         <section className="rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-10"><SectionTitle eyebrow={t.commercialEyebrow} title={t.commercialTitle} /><div className="grid gap-6 lg:grid-cols-2"><div className="rounded-2xl bg-slate-950 p-7 text-white"><p className="text-sm font-medium text-sky-300">{t.phaseOnePackage}</p><p className="mt-3 text-4xl font-semibold">75,000 <span className="text-xl text-slate-300">L.E</span></p><p className="mt-5 text-sm leading-6 text-slate-300">{t.phaseOneSummary}</p></div><div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-7"><p className="text-sm font-medium text-emerald-700">{t.appPackage}</p><p className="mt-3 text-4xl font-semibold text-slate-950">95,000 <span className="text-xl text-slate-500">L.E</span></p><p className="mt-5 text-sm leading-6 text-slate-600">{t.appSummary}</p></div></div><div className="mt-7 grid gap-3 text-sm leading-6 text-slate-600"><Note icon={ShieldCheck} text={t.noteOne} /><Note icon={UsersRound} text={t.noteTwo} /><Note icon={Phone} text={t.noteThree} /></div></section>
       </main>
-      <footer className="border-t border-slate-200 bg-white px-6 py-8 text-center text-sm text-slate-500"><p className="font-semibold text-slate-800">Penta-k</p><p className="mt-1">{t.thanks}</p></footer>
+      <footer className="border-t border-slate-200 bg-white px-6 py-8 text-center text-sm text-slate-500"><p className="font-semibold text-slate-800">{t.thanks}</p><a href="https://penta-k.com/" target="_blank" rel="noreferrer" className="mt-2 inline-block font-semibold text-sky-700 hover:text-sky-900">Penta-k.com</a><p className="mt-2 text-xs">Powered by Penta-k · Proposal date: August 2026</p></footer>
     </div>
   );
+}
+
+function PentaKIntro({ isArabic }: { isArabic: boolean }) {
+  return <section className="mb-8 rounded-[2rem] bg-gradient-to-r from-blue-700 to-indigo-700 p-7 text-white shadow-xl md:p-10" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between"><div><p className="text-sm font-semibold text-blue-100">{isArabic ? 'شركة Penta-k' : 'Penta-k'}</p><h2 className="mt-2 text-3xl font-bold">{isArabic ? 'حلول رقمية تبني نمواً مستداماً' : 'Digital solutions built for sustainable growth'}</h2><p className="mt-3 max-w-3xl leading-7 text-blue-100">{isArabic ? 'شركة متخصصة في تصميم وتطوير حلول البرمجيات والتطبيقات الذكية، مع اهتمام حقيقي بجودة الكود والأداء وتجربة المستخدم.' : 'A software and smart-app development company focused on code quality, performance and a polished user experience.'}</p></div><a href="https://penta-k.com/" target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center gap-2 font-semibold text-white underline decoration-blue-200 underline-offset-4 hover:text-blue-100">penta-k.com <Globe2 className="h-5 w-5" /></a></div>
+  </section>;
+}
+
+function ProposalExtras({ isArabic }: { isArabic: boolean }) {
+  const timeline = isArabic ? [['الانطلاق والهيكلة', '3 أيام', 'اعتماد هيكل الصفحات'], ['التصميم', 'أسبوعان', 'اعتماد التصميم بالعربية والإنجليزية'], ['التطوير', '3 أسابيع', 'نسخة تشغيلية على رابط تجريبي'], ['إضافة المحتوى والاختبار', 'أسبوع', 'إضافة المحتوى واختبار checklist'], ['الإطلاق', 'يومان', 'الإطلاق وتسليم الحسابات']] : [['Kickoff & structure', '3 days', 'Sitemap and page structure approved'], ['Design', '2 weeks', 'All page designs approved in Arabic and English'], ['Build', '3 weeks', 'Functional site on a staging URL'], ['Content load & QA', '1 week', 'Content loaded and full checklist tested'], ['Launch', '2 days', 'Live on production and accounts handed over']];
+  const payments = isArabic ? [['25%', 'عند توقيع الاتفاق'], ['25%', 'بعد اعتماد التصميم'], ['25%', 'بعد تسليم النسخة التجريبية'], ['25%', 'عند الإطلاق والتسليم النهائي']] : [['25%', 'On agreement signature'], ['25%', 'After design approval'], ['25%', 'After staging website handover'], ['25%', 'On launch and final handover']];
+  const freeServices = isArabic ? [['ضمان جودة الكود', 'ضمان مدى الحياة لجودة الكود والتسليم المتفق عليه.'], ['استضافة مجانية', '3 أشهر استضافة مجانية بعد الإطلاق.'], ['تجهيز الإطلاق', 'مراجعة الأداء والجودة قبل الإطلاق.']] : [['Lifetime code-quality guarantee', 'A lifetime guarantee for code quality and agreed deliverables.'], ['3 months free hosting', 'Free server hosting for 3 months after launch.'], ['Launch readiness', 'Final performance and quality review before launch.']];
+  const technologies = ['Next.js', 'NestJS', 'PostgreSQL', 'AMP', 'Google Maps & GPS', 'Flutter mobile app'];
+  return <div className="space-y-10" dir={isArabic ? 'rtl' : 'ltr'}>
+    <section className="rounded-[2rem] bg-slate-900 p-7 text-white shadow-xl md:p-10"><SectionTitle dark eyebrow={isArabic ? 'المدة والتنفيذ والتسليم' : 'Timeline'} title={isArabic ? 'مدة التنفيذ: 6–7 أسابيع' : 'Delivery timeline: 6–7 weeks'} /><div className="grid gap-3 md:grid-cols-2">{timeline.map(([phase, duration, deliverable], index) => <div key={phase} className="rounded-2xl border border-blue-500/60 bg-blue-950/50 p-5"><div className="flex items-center justify-between gap-3"><span className="text-sm font-bold text-blue-300">0{index + 1}</span><span className="rounded-full bg-blue-500/20 px-3 py-1 text-sm font-semibold text-blue-100">{duration}</span></div><h3 className="mt-4 text-lg font-semibold">{phase}</h3><p className="mt-2 text-sm leading-6 text-slate-300">{deliverable}</p></div>)}</div><p className="mt-5 text-sm text-slate-300">{isArabic ? 'الإجمالي: 6–7 أسابيع من تاريخ الانطلاق.' : 'Total: 6–7 weeks from kickoff.'}</p></section>
+    <section className="rounded-[2rem] bg-gradient-to-br from-indigo-700 to-blue-600 p-7 text-white shadow-xl md:p-10"><SectionTitle dark eyebrow={isArabic ? 'طريقة الدفع' : 'Payment schedule'} title={isArabic ? 'دفعات واضحة على مراحل' : 'Clear milestone payments'} /><div className="grid gap-4 sm:grid-cols-2">{payments.map(([percent, label]) => <div key={label} className="rounded-2xl border border-white/20 bg-white/10 p-6"><p className="text-4xl font-bold">{percent}</p><p className="mt-2 text-sm text-blue-100">{label}</p></div>)}</div></section>
+    <section className="rounded-[2rem] border border-emerald-500/70 bg-slate-900 p-7 text-white shadow-xl md:p-10"><SectionTitle dark eyebrow={isArabic ? 'خدمات مجانية من Penta-k' : 'Free services from Penta-k'} title={isArabic ? 'قيمة إضافية بعد التسليم' : 'Extra value after delivery'} /><div className="grid gap-4 md:grid-cols-3">{freeServices.map(([title, text]) => <div key={title} className="rounded-2xl border border-emerald-500/40 bg-emerald-950/40 p-5"><ShieldCheck className="h-7 w-7 text-emerald-300" /><h3 className="mt-4 font-semibold text-emerald-200">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-300">{text}</p></div>)}</div></section>
+    <section className="rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-10"><SectionTitle eyebrow={isArabic ? 'التقنيات والمعايير' : 'Technologies & development standards'} title={isArabic ? 'تقنيات مناسبة للنمو والأداء' : 'A modern, scalable technology stack'} /><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{technologies.map((technology) => <div key={technology} className="flex items-center gap-3 rounded-xl bg-slate-50 p-4 font-semibold text-slate-800"><Code2 className="h-5 w-5 text-sky-600" />{technology}</div>)}</div></section>
+  </div>;
 }
 
 function Pill({ label }: { label: string }) { return <span className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-slate-100">{label}</span>; }
