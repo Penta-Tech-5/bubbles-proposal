@@ -8,18 +8,21 @@ import {
   ChevronRight,
   Clock3,
   CreditCard,
+  ExternalLink,
   FileText,
   Globe2,
   LayoutDashboard,
   Mail,
   MessageCircle,
   MapPinned,
+  Moon,
   MousePointerClick,
   Phone,
   ShieldCheck,
   Smartphone,
   Sparkles,
   Server,
+  Sun,
   UsersRound,
 } from 'lucide-react';
 import { useState } from 'react';
@@ -84,16 +87,20 @@ const copy = {
 
 export default function App() {
   const [language, setLanguage] = useState<'en' | 'ar'>('ar');
+  const [darkMode, setDarkMode] = useState(true);
   const t = copy[language];
   const isArabic = language === 'ar';
   const DirectionChevron = isArabic ? ChevronLeft : ChevronRight;
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-800" dir={isArabic ? 'rtl' : 'ltr'}>
-      <header className="border-b border-slate-200/80 bg-white">
+    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-[#f8fafc] text-slate-800`} dir={isArabic ? 'rtl' : 'ltr'}>
+      <header dir="ltr" className="sticky top-4 z-50 mx-4 rounded-2xl border border-white/20 bg-white/70 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
           <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Penta-k" className="h-10 w-auto object-contain" />
-          <div className={isArabic ? 'text-left' : 'text-right'}>
+          <div className="text-right">
+            <button type="button" onClick={() => setDarkMode(!darkMode)} aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} className="mr-2 rounded-lg border border-slate-200 bg-slate-50 p-2 text-slate-700 transition hover:bg-slate-100">
+              {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
             <button type="button" onClick={() => setLanguage(isArabic ? 'en' : 'ar')} className="mb-2 rounded-lg border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 transition hover:bg-sky-100">
               {isArabic ? 'English' : 'العربية'}
             </button>
@@ -124,8 +131,6 @@ export default function App() {
           <div className="flex flex-col justify-center"><p className="text-sm font-semibold tracking-[0.14em] text-slate-400">{t.scope}</p><h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">{t.scopeTitle}</h2><p className="mt-4 max-w-2xl leading-7 text-slate-600">{t.scopeText}</p></div>
         </section>
 
-        <section className="mb-10"><SectionTitle eyebrow={t.websiteEyebrow} title={t.websiteTitle} /><div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{t.websiteFeatures.map((feature) => <FeatureCard key={feature.title} feature={feature} />)}</div></section>
-
         <section className="mb-10 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-9"><SectionTitle eyebrow={t.cmsEyebrow} title={t.cmsTitle} compact /><div className="grid gap-3 sm:grid-cols-2">{t.dashboardFeatures.map((item) => <CheckRow key={item} text={item} />)}</div></div>
           <aside className="rounded-[2rem] bg-gradient-to-br from-sky-600 to-blue-700 p-8 text-white shadow-lg"><div className="w-fit rounded-xl bg-white/15 p-3"><LayoutDashboard className="h-7 w-7" /></div><h3 className="mt-6 text-2xl font-semibold">{t.dashboardTitle}</h3><p className="mt-3 leading-7 text-sky-100">{t.dashboardText}</p><div className="mt-7 border-t border-white/20 pt-5 text-sm text-sky-100">{t.dashboardIncluded}</div></aside>
@@ -137,6 +142,8 @@ export default function App() {
 
         <ProposalExtras isArabic={isArabic} />
 
+        <CompanyPortfolio isArabic={isArabic} />
+
         <section className="rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-10"><SectionTitle eyebrow={t.commercialEyebrow} title={t.commercialTitle} /><div className="grid gap-6 lg:grid-cols-2"><div className="rounded-2xl bg-slate-950 p-7 text-white"><p className="text-sm font-medium text-sky-300">{t.phaseOnePackage}</p><p className="mt-3 text-4xl font-semibold">75,000 <span className="text-xl text-slate-300">L.E</span></p><p className="mt-5 text-sm leading-6 text-slate-300">{t.phaseOneSummary}</p></div><div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-7"><p className="text-sm font-medium text-emerald-700">{t.appPackage}</p><p className="mt-3 text-4xl font-semibold text-slate-950">95,000 <span className="text-xl text-slate-500">L.E</span></p><p className="mt-5 text-sm leading-6 text-slate-600">{t.appSummary}</p></div></div><div className="mt-7 grid gap-3 text-sm leading-6 text-slate-600"><Note icon={ShieldCheck} text={t.noteOne} /><Note icon={UsersRound} text={t.noteTwo} /><Note icon={Phone} text={t.noteThree} /></div></section>
       </main>
       <footer className="border-t border-slate-200 bg-white px-6 py-8 text-center text-sm text-slate-500"><p className="font-semibold text-slate-800">{t.thanks}</p><a href="https://penta-k.com/" target="_blank" rel="noreferrer" className="mt-2 inline-block font-semibold text-sky-700 hover:text-sky-900">Penta-k.com</a><p className="mt-2 text-xs">Powered by Penta-k · Proposal date: August 2026</p></footer>
@@ -147,6 +154,18 @@ export default function App() {
 function PentaKIntro({ isArabic }: { isArabic: boolean }) {
   return <section className="mb-8 rounded-[2rem] bg-gradient-to-r from-blue-700 to-indigo-700 p-7 text-white shadow-xl md:p-10" dir={isArabic ? 'rtl' : 'ltr'}>
     <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between"><div><p className="text-sm font-semibold text-blue-100">{isArabic ? 'شركة Penta-k' : 'Penta-k'}</p><h2 className="mt-2 text-3xl font-bold">{isArabic ? 'حلول رقمية تبني نمواً مستداماً' : 'Digital solutions built for sustainable growth'}</h2><p className="mt-3 max-w-3xl leading-7 text-blue-100">{isArabic ? 'شركة متخصصة في تصميم وتطوير حلول البرمجيات والتطبيقات الذكية، مع اهتمام حقيقي بجودة الكود والأداء وتجربة المستخدم.' : 'A software and smart-app development company focused on code quality, performance and a polished user experience.'}</p></div><a href="https://penta-k.com/" target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center gap-2 font-semibold text-white underline decoration-blue-200 underline-offset-4 hover:text-blue-100">penta-k.com <Globe2 className="h-5 w-5" /></a></div>
+  </section>;
+}
+
+function LatestProject({ isArabic }: { isArabic: boolean }) {
+  return <section className="mb-10 overflow-hidden rounded-[2rem] bg-gradient-to-br from-blue-700 via-indigo-700 to-slate-950 p-7 text-white shadow-xl md:p-10" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between"><div className="max-w-2xl"><p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-200">{isArabic ? 'أحدث مشاريعنا' : 'Our latest project'}</p><h2 className="mt-3 text-3xl font-bold">{isArabic ? 'موقع Bricks by Bricks العقاري' : 'Bricks by Bricks Real Estate website'}</h2><p className="mt-4 leading-7 text-blue-100">{isArabic ? 'منصة عقارية ثنائية اللغة مصممة لعرض المشاريع، استقبال الاستفسارات، ودعم نمو العلامة التجارية.' : 'A bilingual real-estate platform designed to showcase projects, capture enquiries and support long-term brand growth.'}</p></div><a href="https://penta-k.com/" target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-blue-700 transition hover:bg-blue-50">{isArabic ? 'اكتشف المزيد من أعمالنا' : 'Visit our website'} <ExternalLink className="h-5 w-5" /></a></div>
+  </section>;
+}
+
+function CompanyPortfolio({ isArabic }: { isArabic: boolean }) {
+  return <section className="mt-14 mb-10 overflow-hidden rounded-[2rem] bg-gradient-to-br from-blue-700 via-indigo-700 to-slate-950 p-7 text-white shadow-xl md:p-10" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between"><div className="max-w-2xl"><p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-200">{isArabic ? 'أعمالنا وخبرتنا' : 'Our work & experience'}</p><h2 className="mt-3 text-3xl font-bold">{isArabic ? 'اكتشف المزيد عن شركة Penta-k' : 'Discover more about Penta-k'}</h2><p className="mt-4 leading-7 text-blue-100">{isArabic ? 'تعرّف على خدماتنا ومشاريعنا وخبرتنا في تصميم وتطوير المواقع والتطبيقات والحلول الرقمية.' : 'Explore our services, experience and portfolio of websites, applications and digital solutions.'}</p></div><a href="https://penta-k.com/" target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-blue-700 transition hover:bg-blue-50">{isArabic ? 'زيارة موقع Penta-k' : 'Visit Penta-k website'} <ExternalLink className="h-5 w-5" /></a></div>
   </section>;
 }
 
