@@ -1,724 +1,168 @@
-﻿import {
-  FileText,
+import {
+  BarChart3,
+  BellRing,
+  Check,
+  ClipboardCheck,
+  FileSearch,
+  Heart,
+  LayoutDashboard,
+  LockKeyhole,
+  MessageCircle,
+  Moon,
+  PackagePlus,
+  Search,
+  ShieldCheck,
   Smartphone,
-  Monitor,
-  Package,
-  DollarSign,
-  Calendar,
-  CheckCircle,
-  Globe,
-  Code,
-  Shield,
-  PhoneCall,
-  Mail,
-  Palette,
-  Clock,
-  CreditCard,
-  Users,
-  Settings,
-  TrendingUp,
-  Award,
-  Server,
-  Database,
-  Zap
+  Sparkles,
+  Store,
+  Sun,
+  UserRound,
+  UsersRound,
 } from 'lucide-react';
-import React from 'react';
+import { useState } from 'react';
+
+type IconType = React.ComponentType<{ className?: string }>;
+type Feature = { title: string; description: string; icon: IconType };
+type Phase = { number: string; title: string; text: string };
+type Payment = { title: string; detail: string; percentage: string; amount: string };
+
+const copy = {
+  ar: {
+    label: 'عرض فني ومالي', date: 'أغسطس ٢٠٢٦', platform: 'منصة إعلانات مبوبة رقمية', preparedFor: 'عرض سعر لتطوير', company: 'تطبيق Marketplace',
+    hero: 'منصة إلكترونية متكاملة للإعلانات المبوبة تُمكّن المستخدمين من نشر منتجاتهم أو خدماتهم، واستكشاف الإعلانات، والبحث والتواصل الآمن مع البائعين.',
+    tags: ['MVP قابل للتوسع', 'تطبيق Android وiOS', 'لوحة تحكم ويب'],
+    priceLabel: 'استثمار المشروع', durationLabel: 'مدة التنفيذ', appLabel: 'منصات التطبيق', rolesLabel: 'أدوار الإدارة', price: '110,000 جنيه', durationValue: '3 شهور', appValue: 'Android + iOS', rolesValue: '3 أدوار',
+    objectiveEyebrow: 'هدف المشروع', objectiveTitle: 'إطلاق Marketplace سريع وموثوق، يبدأ بالأساسيات الصحيحة وقابل للتوسع لاحقاً.', objectiveText: 'يُبنى المشروع كنسخة أولى MVP تركّز على سهولة الاستخدام، سرعة التطبيق، البحث القوي، نشر الإعلانات والتواصل المباشر بين المشتري والبائع، مع إدارة كاملة للمحتوى والأمان.',
+    scopeEyebrow: 'نطاق المرحلة الأولى', scopeTitle: 'تطبيق للمستخدمين ولوحة إدارة مستقلة', scopeItems: ['تطبيق موبايل واحد يعمل على Android وiOS.', 'واجهة عربية RTL كأساس مع دعم اللغة الإنجليزية.', 'Backend وREST API مستقلان وقابلان للتوسع.', 'لوحة تحكم ويب لإدارة المستخدمين والإعلانات والمحتوى.'],
+    userEyebrow: 'تجربة المستخدم', userTitle: 'كل ما يحتاجه المستخدم للبيع والشراء',
+    listingEyebrow: 'نظام الإعلانات', listingTitle: 'نشر منظم، ومراجعة تحافظ على جودة المحتوى', listingText: 'تدخل الإعلانات الجديدة في حالة انتظار المراجعة، ثم يعتمدها المسؤول قبل نشرها. يدعم النظام بيانات مرنة حسب القسم، حتى تتغير الحقول تلقائياً للسيارات أو الموبايلات أو أي قسم آخر.', listingPoints: ['عنوان، وصف، سعر، حالة المنتج والقسم والقسم الفرعي.', 'حتى ١٠ صور للإعلان مع ترتيب الصور وتحديد الصورة الرئيسية.', 'المحافظة والمدينة والمنطقة، مع إمكانية إضافة الخرائط لاحقاً.', 'حالات الإعلان: انتظار، نشط، مباع، منتهي، مرفوض ومحذوف.'],
+    dashboardEyebrow: 'لوحة التحكم', dashboardTitle: 'إدارة شاملة وآمنة للمنصة', dashboardPoints: ['إدارة المستخدمين وتعطيل أو حظر الحسابات عند الحاجة.', 'مراجعة الإعلانات وقبولها أو رفضها مع توضيح السبب.', 'إدارة الأقسام والأقسام الفرعية بشكل ديناميكي.', 'مراجعة البلاغات واتخاذ الإجراء المناسب.', 'إحصائيات للمستخدمين والإعلانات والمشاهدات والبلاغات.', 'صلاحيات Super Admin وModerator وSupport.'],
+    securityEyebrow: 'الأمان وجودة البيانات', securityTitle: 'مصمم لحماية المنصة ومستخدميها من البداية', securityPoints: ['تشفير كلمات المرور ومصادقة API وصلاحيات حسب الدور.', 'تفعيل رقم الهاتف عبر OTP مع Rate Limiting.', 'التحقق من كل البيانات والصور وأحجام الملفات المرفوعة.', 'حماية من Spam ومحاولات الوصول غير المصرح بها.', 'Audit Logs للعمليات الإدارية الحساسة.', 'تخزين الصور على Cloud Storage مع ضغط الصور وإنشاء صور مصغّرة.'],
+    phasesEyebrow: 'خطة التنفيذ', phasesTitle: 'تطوير منظم من الفكرة إلى الإطلاق',
+    investmentEyebrow: 'الاستثمار', investmentTitle: 'سعر تطوير المرحلة الأولى', includedTitle: 'يشمل هذا السعر', included: ['تطبيق Marketplace للمستخدمين على Android وiOS.', 'Backend وREST API وقاعدة بيانات قابلة للتوسع.', 'لوحة تحكم ويب للإدارة.', 'واجهات المستخدم وتجربة الاستخدام للنسخة الأولى.', 'نظام تسجيل الدخول، الإعلانات، البحث، المحادثات، الإشعارات والبلاغات.', 'رفع الصور ومعالجة حالات الإعلانات وإدارة الأقسام.', 'إعدادات الأمان الأساسية والصلاحيات الإدارية.'],
+    paymentEyebrow: 'جدول الدفعات', paymentTitle: 'دفعات مرتبطة بمراحل تسليم واضحة', noteOne: 'المرحلة الأولى لا تشمل بوابات الدفع أو الإعلانات المدفوعة أو الاشتراكات.', noteTwo: 'رسوم الخدمات الخارجية مثل رسائل OTP، الإشعارات، التخزين السحابي وحسابات المتاجر ليست ضمن سعر التطوير.', noteThree: 'المتاجر التجارية، الخرائط، التقييمات، الذكاء الاصطناعي والإعلانات المميزة تُنفذ في مراحل لاحقة.', thanks: 'شكراً لثقتكم ودراسة هذا العرض.',
+    features: [
+      { title: 'التسجيل والملف الشخصي', description: 'إنشاء حساب وتسجيل دخول واستعادة كلمة المرور وتعديل الملف الشخصي، مع تفعيل رقم الهاتف عبر OTP.', icon: UserRound },
+      { title: 'التصفح والأقسام', description: 'أقسام ديناميكية وإعلانات حديثة ومميزة ومقترحة، مع مرونة لإدارة المحتوى من لوحة التحكم.', icon: Store },
+      { title: 'البحث والفلاتر', description: 'بحث بالكلمات المفتاحية مع فلترة بالقسم والسعر والموقع وحالة المنتج، وخيارات ترتيب النتائج.', icon: Search },
+      { title: 'تفاصيل الإعلان', description: 'صور ووصف وسعر وموقع وبيانات البائع وعدد المشاهدات، مع الإعلانات المشابهة والمشاركة.', icon: FileSearch },
+      { title: 'المفضلة', description: 'حفظ الإعلانات ومتابعة حالتها تلقائياً عند البيع أو الحذف أو انتهاء المدة.', icon: Heart },
+      { title: 'المحادثات', description: 'محادثة داخلية مرتبطة بالإعلان بين المشتري والبائع، مع الرسائل وحالة القراءة والإشعارات.', icon: MessageCircle },
+      { title: 'الإشعارات', description: 'تنبيهات للرسائل وحالة الإعلان وقرارات المراجعة والتنبيهات الإدارية.', icon: BellRing },
+      { title: 'البلاغات', description: 'إبلاغ عن الإعلانات المخالفة أو الاحتيال أو المحتوى غير المناسب، مع متابعة من الإدارة.', icon: ClipboardCheck },
+    ] as Feature[],
+    phases: [
+      { number: '01', title: 'التحليل والتصميم', text: 'تحديد المعمارية وقاعدة البيانات والـ API وخطة الأمان، ثم اعتماد واجهات UI/UX.' },
+      { number: '02', title: 'تطوير المنصة', text: 'تنفيذ التطبيق والـ Backend ولوحة التحكم مع جميع وظائف النسخة الأولى.' },
+      { number: '03', title: 'الاختبار والإطلاق', text: 'اختبار الوظائف والأمان والأداء، ثم تجهيز التطبيق للنشر والتشغيل.' },
+    ] as Phase[],
+    payments: [
+      { title: 'الدفعة الأولى', detail: 'مقدم عند بدء المشروع', percentage: '20%', amount: '22,000 جنيه' },
+      { title: 'الدفعة الثانية', detail: 'عند تسليم واعتماد تصميم UI/UX', percentage: '15%', amount: '16,500 جنيه' },
+      { title: 'الدفعة الثالثة', detail: 'عند تسليم لوحة التحكم Dashboard', percentage: '20%', amount: '22,000 جنيه' },
+      { title: 'الدفعة الرابعة', detail: 'عند تسليم تطبيق الموبايل', percentage: '25%', amount: '27,500 جنيه' },
+      { title: 'الدفعة الأخيرة', detail: 'بعد القبول والنشر على Google Play وApple App Store', percentage: '20%', amount: '22,000 جنيه' },
+    ] as Payment[],
+  },
+  en: {
+    label: 'Technical & Commercial Proposal', date: 'August 2026', platform: 'Digital classified marketplace', preparedFor: 'Development proposal for', company: 'Marketplace Application',
+    hero: 'A complete classified marketplace that lets users publish products or services, browse listings, search and communicate securely with sellers.',
+    tags: ['Scalable MVP', 'Android & iOS app', 'Web admin dashboard'],
+    priceLabel: 'Project investment', durationLabel: 'Delivery duration', appLabel: 'Application platforms', rolesLabel: 'Admin roles', price: '110,000 L.E', durationValue: '3 months', appValue: 'Android + iOS', rolesValue: '3 roles',
+    objectiveEyebrow: 'Project objective', objectiveTitle: 'Launch a fast, trusted marketplace that starts with the right essentials and can grow over time.', objectiveText: 'The project is delivered as an MVP focused on ease of use, speed, strong search, listing publication and direct buyer-to-seller communication, backed by complete content management and security.',
+    scopeEyebrow: 'Phase 1 scope', scopeTitle: 'A user mobile app and a separate admin dashboard', scopeItems: ['One mobile application for both Android and iOS.', 'Arabic RTL as the primary experience, with English support.', 'A separate, scalable backend and REST API.', 'A web dashboard for managing users, listings and content.'],
+    userEyebrow: 'User experience', userTitle: 'Everything users need to sell and buy',
+    listingEyebrow: 'Listing system', listingTitle: 'Structured publishing with quality-controlled content', listingText: 'New listings enter a pending state for review, then are approved by an administrator before publishing. The system supports flexible data by category, so fields adapt automatically for cars, mobiles or any other category.', listingPoints: ['Title, description, price, condition, category and subcategory.', 'Up to 10 listing images, ordering and a defined main image.', 'Governorate, city and area, with maps available as a future addition.', 'Listing statuses: pending, active, sold, expired, rejected and deleted.'],
+    dashboardEyebrow: 'Admin dashboard', dashboardTitle: 'Comprehensive and secure platform control', dashboardPoints: ['Manage users and disable or ban accounts when required.', 'Review listings and approve or reject them with a reason.', 'Manage dynamic categories and subcategories.', 'Review reports and take the appropriate action.', 'Statistics for users, listings, views and reports.', 'Super Admin, Moderator and Support roles.'],
+    securityEyebrow: 'Security & data quality', securityTitle: 'Designed to protect the platform and its users from day one', securityPoints: ['Password hashing, API authentication and role-based access.', 'Phone verification through OTP with rate limiting.', 'Validation of all data, images and uploaded file sizes.', 'Protection against spam and unauthorised access attempts.', 'Audit logs for sensitive administrative actions.', 'Cloud image storage with compression and thumbnails.'],
+    phasesEyebrow: 'Delivery plan', phasesTitle: 'A structured journey from concept to launch',
+    investmentEyebrow: 'Investment', investmentTitle: 'Phase 1 development price', includedTitle: 'This price includes', included: ['Marketplace application for users on Android and iOS.', 'Scalable backend, REST API and database.', 'Web admin dashboard.', 'UI and UX for the first release.', 'Authentication, listings, search, chat, notifications and reports.', 'Image uploading, listing statuses and category management.', 'Core security setup and admin permissions.'],
+    paymentEyebrow: 'Payment schedule', paymentTitle: 'Payments aligned to clear delivery milestones', noteOne: 'Phase 1 does not include payment gateways, paid listings or subscriptions.', noteTwo: 'Third-party charges such as OTP messages, notifications, cloud storage and store accounts are not included in the development price.', noteThree: 'Business accounts, maps, reviews, AI, promoted listings and advanced monetisation can be added in later phases.', thanks: 'Thank you for considering this proposal.',
+    features: [
+      { title: 'Authentication & profile', description: 'Registration, login, password recovery and profile editing, with optional OTP phone verification.', icon: UserRound },
+      { title: 'Browsing & categories', description: 'Dynamic categories with recent, featured and suggested listings, fully managed from the dashboard.', icon: Store },
+      { title: 'Search & filters', description: 'Keyword search with category, price, location and condition filters, plus result sorting.', icon: Search },
+      { title: 'Listing details', description: 'Images, description, price, location, seller details, views, sharing and similar listings.', icon: FileSearch },
+      { title: 'Favourites', description: 'Save listings and automatically see their updated status when sold, deleted or expired.', icon: Heart },
+      { title: 'In-app chat', description: 'Listing-linked conversations between buyer and seller, with messages, read status and notifications.', icon: MessageCircle },
+      { title: 'Notifications', description: 'Alerts for messages, listing status, review decisions and administrative announcements.', icon: BellRing },
+      { title: 'Reports', description: 'Report fraudulent, inappropriate or prohibited listings for administrative review.', icon: ClipboardCheck },
+    ] as Feature[],
+    phases: [
+      { number: '01', title: 'Analysis & design', text: 'Define the architecture, database, API and security plan, then approve the UI/UX.' },
+      { number: '02', title: 'Platform development', text: 'Build the app, backend and dashboard with all agreed MVP functions.' },
+      { number: '03', title: 'Testing & launch', text: 'Test functionality, security and performance, then prepare the app for release.' },
+    ] as Phase[],
+    payments: [
+      { title: 'First payment', detail: 'Advance payment at project start', percentage: '20%', amount: '22,000 L.E' },
+      { title: 'Second payment', detail: 'On delivery and approval of the UI/UX design', percentage: '15%', amount: '16,500 L.E' },
+      { title: 'Third payment', detail: 'On delivery of the admin dashboard', percentage: '20%', amount: '22,000 L.E' },
+      { title: 'Fourth payment', detail: 'On delivery of the mobile application', percentage: '25%', amount: '27,500 L.E' },
+      { title: 'Final payment', detail: 'After acceptance and publishing on Google Play and the Apple App Store', percentage: '20%', amount: '22,000 L.E' },
+    ] as Payment[],
+  },
+};
 
 export default function App() {
+  const [language, setLanguage] = useState<'ar' | 'en'>('ar');
+  const [isDark, setIsDark] = useState(false);
+  const t = copy[language];
+  const isArabic = language === 'ar';
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100" dir="rtl">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900">Bubbles Laundry</h1>
-              <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
+    <div className={`${isDark ? 'dark bg-slate-950 text-slate-100' : 'bg-[#f8fafc] text-slate-800'} min-h-screen transition-colors`} dir={isArabic ? 'rtl' : 'ltr'}>
+      <header className="border-b border-slate-200/80 bg-white transition-colors dark:border-slate-800 dark:bg-slate-950">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
+          <a href="https://penta-k.com" target="_blank" rel="noreferrer" aria-label="Open company website" className="rounded-xl transition hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500">
+            <img src="/logo.png" alt="Penta-k" className="h-10 w-auto object-contain" />
+          </a>
+          <div className={`${isArabic ? 'text-left' : 'text-right'} flex items-center gap-3`}>
+            <div className="flex items-center gap-2">
+            <button type="button" onClick={() => setIsDark((value) => !value)} aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'} title={isDark ? 'Light mode' : 'Dark mode'} className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800">
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+            <button type="button" onClick={() => setLanguage(isArabic ? 'en' : 'ar')} className="rounded-lg border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 transition hover:bg-sky-100 dark:border-sky-900 dark:bg-sky-950/60 dark:text-sky-300 dark:hover:bg-sky-900/70">{isArabic ? 'English' : 'العربية'}</button>
             </div>
-            <a
-              href="https://penta-k.com"
-              className="text-left inline-flex items-center"
-              aria-label="Penta-k website"
-            >
-              <img src="/logo.png" alt="Penta-k Logo" className="h-15 inline-block" />
-            </a>
+            <div className="flex flex-col">
+            <p className="text-xs font-semibold tracking-[0.12em] text-sky-700">{t.label}</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">{t.date}</p>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* Company Info Card */}
-        <div className="bg-gradient-to-l from-blue-600 to-blue-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="flex items-start justify-between flex-wrap gap-6">
-            <div className="flex-1">
-              <h2 className="text-3xl font-bold mb-2">شركة Penta-k</h2>
-              <p className="text-blue-100 text-lg mb-4 leading-relaxed max-w-3xl">
-                شركة متخصصة في تصميم وتطوير حلول البرمجيات والتطبيقات الذكية،
-                وتقديم أنظمة متكاملة بجودة عالية وتجربة استخدام احترافية
-              </p>
-              <div className="flex flex-wrap gap-6">
-                <div className="flex items-center gap-2">
-                  <Globe className="w-5 h-5" />
-                  <a href="https://penta-k.com" className="hover:underline">penta-k.com</a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <PhoneCall className="w-5 h-5" />
-                  <a href="tel:+201061942646" className="hover:underline" dir="ltr">+20 10 61942646</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <main className="mx-auto max-w-6xl px-6 py-10 md:py-14">
+        <section className="relative overflow-hidden rounded-[2rem] bg-slate-950 px-7 py-12 text-white shadow-2xl md:px-12 md:py-16">
+          <div className="absolute -right-16 -top-20 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
+          <div className="absolute -bottom-24 left-1/3 h-60 w-60 rounded-full bg-indigo-500/20 blur-3xl" />
+          <div className="relative max-w-3xl"><div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-sky-100"><Sparkles className="h-4 w-4" />{t.platform}</div><p className="mb-3 text-sm font-medium text-sky-300">{t.preparedFor}</p><h1 className="text-4xl font-semibold tracking-tight md:text-6xl">{t.company}</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">{t.hero}</p><div className="mt-9 flex flex-wrap gap-3 text-sm">{t.tags.map((tag) => <Pill key={tag} label={tag} />)}</div></div>
+        </section>
 
-        {/* Project Overview */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6">
-            <FileText className="w-8 h-8 text-blue-600" />
-            <h2 className="text-2xl font-bold text-slate-900">نظرة عامة على المشروع</h2>
-          </div>
-          <div className="prose prose-slate max-w-none">
-            <h3 className="text-xl font-semibold text-slate-800 mb-3">
-              نظام متكامل لإدارة خدمات استلام وتسليم الملابس
-            </h3>
-            <p className="text-slate-600 text-lg leading-relaxed">
-              يشمل النظام أربعة مكونات أساسية لضمان تجربة متكاملة لجميع الأطراف المعنية
-            </p>
-          </div>
-        </div>
+        <section className="grid gap-5 py-10 sm:grid-cols-2 lg:grid-cols-4"><Stat label={t.priceLabel} value={t.price} /><Stat label={t.durationLabel} value={t.durationValue} /><Stat label={t.appLabel} value={t.appValue} /><Stat label={t.rolesLabel} value={t.rolesValue} /></section>
 
-        {/* System Components Grid */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {/* Customer App */}
-          <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-100 hover:border-blue-300 transition-colors">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <Smartphone className="w-6 h-6 text-blue-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">تطبيق العميل</h3>
-                <p className="text-sm text-slate-600">Android & iOS</p>
-              </div>
-            </div>
-            <p className="text-slate-600 mb-3">
-              تطبيق شامل للعملاء يتيح طلب خدمات الغسيل والتتبع والدفع الإلكتروني
-            </p>
-            <div className="text-sm text-slate-500">
-              <span className="font-semibold text-blue-600">المميزات الرئيسية:</span>
-              <span> تسجيل دخول، طلب استلام، تتبع الطلبات، دفع إلكتروني، محفظة، اشتراكات</span>
-            </div>
-          </div>
+        <section className="mb-10 grid gap-8 rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:grid-cols-[1.25fr_0.9fr] md:p-10"><div><Eyebrow text={t.objectiveEyebrow} /><h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">{t.objectiveTitle}</h2><p className="mt-5 max-w-2xl leading-8 text-slate-600">{t.objectiveText}</p></div><div className="rounded-2xl bg-sky-50 p-6"><Eyebrow text={t.scopeEyebrow} /><h3 className="mt-2 text-xl font-semibold text-slate-900">{t.scopeTitle}</h3><div className="mt-5 space-y-3">{t.scopeItems.map((item) => <CheckRow key={item} text={item} />)}</div></div></section>
 
-          {/* Delivery Agent App */}
-          <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-green-100 hover:border-green-300 transition-colors">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-green-100 rounded-lg">
-                <Package className="w-6 h-6 text-green-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">تطبيق المندوب</h3>
-                <p className="text-sm text-slate-600">Android & iOS</p>
-              </div>
-            </div>
-            <p className="text-slate-600 mb-3">
-              تطبيق مخصص للمندوبين لاستقبال وتنفيذ طلبات التوصيل
-            </p>
-            <div className="text-sm text-slate-500">
-              <span className="font-semibold text-green-600">المميزات الرئيسية:</span>
-              <span> استقبال الطلبات، التواصل مع العميل، تحديث الحالة، سجل التوصيلات</span>
-            </div>
-          </div>
+        <section className="mb-10"><SectionTitle eyebrow={t.userEyebrow} title={t.userTitle} /><div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">{t.features.map((feature) => <FeatureCard key={feature.title} feature={feature} />)}</div></section>
 
-          {/* Admin Dashboard */}
-          <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition-colors">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-purple-100 rounded-lg">
-                <Monitor className="w-6 h-6 text-purple-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">لوحة التحكم المركزية</h3>
-                <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
-              </div>
-            </div>
-            <p className="text-slate-600 mb-3">
-              لوحة تحكم شاملة لإدارة كافة جوانب النظام
-            </p>
-            <div className="text-sm text-slate-500">
-              <span className="font-semibold text-purple-600">المميزات الرئيسية:</span>
-              <span> إدارة كاملة، تحكم في الأسعار، تقارير مالية، إدارة المستخدمين، الشكاوى</span>
-            </div>
-          </div>
+        <section className="mb-10 grid gap-6 lg:grid-cols-2"><article className="rounded-[2rem] bg-slate-900 p-8 text-white shadow-xl"><div className="w-fit rounded-xl bg-white/10 p-3"><PackagePlus className="h-7 w-7 text-sky-300" /></div><SectionTitle dark eyebrow={t.listingEyebrow} title={t.listingTitle} /><p className="leading-7 text-slate-300">{t.listingText}</p><div className="mt-6 space-y-3">{t.listingPoints.map((item) => <DarkCheckRow key={item} text={item} />)}</div></article><article className="rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-slate-200"><div className="w-fit rounded-xl bg-sky-50 p-3"><LayoutDashboard className="h-7 w-7 text-sky-700" /></div><SectionTitle eyebrow={t.dashboardEyebrow} title={t.dashboardTitle} /><div className="grid gap-3 sm:grid-cols-2">{t.dashboardPoints.map((item) => <CheckRow key={item} text={item} />)}</div></article></section>
 
-          {/* Partner Dashboard */}
-          <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-orange-100 hover:border-orange-300 transition-colors">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-orange-100 rounded-lg">
-                <Monitor className="w-6 h-6 text-orange-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">لوحة المغاسل الشريكة</h3>
-                <p className="text-sm text-slate-600">Web App & Windows App & Android App</p>
-              </div>
-            </div>
-            <p className="text-slate-600 mb-3">
-              لوحة تحكم مستقلة لكل مغسلة شريكة
-            </p>
-            <div className="text-sm text-slate-500">
-              <span className="font-semibold text-orange-600">المميزات الرئيسية:</span>
-              <span> حساب مستقل، تحديد مناطق التغطية، متابعة الطلبات والأرباح</span>
-            </div>
-          </div>
-        </div>
+        <section className="mb-10 rounded-[2rem] border border-violet-100 bg-violet-50 p-7 md:p-10"><div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]"><div><div className="w-fit rounded-xl bg-violet-100 p-3"><LockKeyhole className="h-7 w-7 text-violet-700" /></div><SectionTitle eyebrow={t.securityEyebrow} title={t.securityTitle} /></div><div className="grid gap-3 sm:grid-cols-2">{t.securityPoints.map((item) => <CheckRow key={item} text={item} violet />)}</div></div></section>
 
-        {/* Detailed Features Sections */}
-        {/* Customer App Features */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <Smartphone className="w-7 h-7 text-blue-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">تطبيق العميل - Customer Mobile App</h2>
-              <p className="text-sm text-slate-600">Android & iOS</p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="تسجيل / تسجيل دخول" />
-            <FeatureItem icon={<Calendar className="w-5 h-5" />} title="طلب استلام وتسليم مع جدولة المواعيد" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="اختيار نوع الخدمة" />
-            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="تتبع حالة الطلب والمندوب" />
-            <FeatureItem icon={<CreditCard className="w-5 h-5" />} title="الدفع الإلكتروني" />
-            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="محفظة إلكترونية" />
-            <FeatureItem icon={<Award className="w-5 h-5" />} title="الاشتراكات ومتابعة الرصيد" />
-            <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="كوبونات خصم وعروض" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="سجل الطلبات والفواتير" />
-            <FeatureItem icon={<PhoneCall className="w-5 h-5" />} title="التواصل مع المندوب" />
-            <FeatureItem icon={<Globe className="w-5 h-5" />} title="دعم لغتين (عربي/English)" />
-            <FeatureItem icon={<Settings className="w-5 h-5" />} title="نظام شكاوى ودعم فني" />
-          </div>
-        </div>
+        <section className="mb-10"><SectionTitle eyebrow={t.phasesEyebrow} title={t.phasesTitle} /><div className="grid gap-4 md:grid-cols-3">{t.phases.map((phase) => <article key={phase.number} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><span className="text-sm font-semibold text-sky-600">{phase.number}</span><h3 className="mt-5 text-xl font-semibold text-slate-950">{phase.title}</h3><p className="mt-2 leading-7 text-slate-600">{phase.text}</p></article>)}</div></section>
 
-        {/* Delivery Agent App Features */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-green-100 rounded-lg">
-              <Package className="w-7 h-7 text-green-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">تطبيق المندوب - Delivery Agent App</h2>
-              <p className="text-sm text-slate-600">Android & iOS</p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="تسجيل واعتماد حساب المندوب" color="green" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="استقبال وتنفيذ الطلبات" color="green" />
-            <FeatureItem icon={<PhoneCall className="w-5 h-5" />} title="التواصل مع العميل (دردشة)" color="green" />
-            <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="تحديث حالة الطلب" color="green" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="سجل التوصيلات" color="green" />
-          </div>
-        </div>
-
-        {/* Admin Dashboard Features */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-purple-100 rounded-lg">
-              <Monitor className="w-7 h-7 text-purple-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">لوحة التحكم المركزية - Central Admin Dashboard</h2>
-              <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Settings className="w-5 h-5" />} title="إدارة التطبيق بالكامل" color="purple" />
-            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="التحكم الكامل في الأسعار" color="purple" />
-            <FeatureItem icon={<Award className="w-5 h-5" />} title="إدارة الاشتراكات" color="purple" />
-            <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="إدارة كوبونات الخصم" color="purple" />
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="إدارة العملاء والمندوبين" color="purple" />
-            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="تقارير مالية وفنية لحظية" color="purple" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="نظام عمولات مرن" color="purple" />
-            <FeatureItem icon={<Shield className="w-5 h-5" />} title="صلاحيات متعددة" color="purple" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="Backup تلقائي للبيانات" color="purple" />
-          </div>
-        </div>
-
-        {/* Partner Dashboard Features */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-orange-100 rounded-lg">
-              <Monitor className="w-7 h-7 text-orange-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">لوحة المغاسل الشريكة - Partner Laundry Dashboard</h2>
-              <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="حساب مستقل لكل مغسلة" color="orange" />
-            <FeatureItem icon={<Globe className="w-5 h-5" />} title="تحديد مناطق التغطية" color="orange" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="استقبال طلبات المناطق المحددة" color="orange" />
-            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="متابعة عدد الطلبات" color="orange" />
-            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="عرض الأرباح والعمولات" color="orange" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="تقارير خاصة" color="orange" />
-          </div>
-        </div>
-
-        {/* UI/UX Design Section */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-indigo-100 rounded-lg">
-              <Palette className="w-7 h-7 text-indigo-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">UI / UX Design - التصميم</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-              <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
-              <span className="text-slate-700">تصميم احترافي مخصص متوافق مع هوية Bubbles Laundry</span>
-            </div>
-            <div className="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-              <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
-              <span className="text-slate-700">دعم Light Mode & Dark Mode</span>
-            </div>
-            <div className="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-              <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
-              <span className="text-slate-700">دعم Arabic / English</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Timeline Section */}
-        <div className="bg-gradient-to-l from-slate-800 to-slate-900 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-700">
-            <div className="p-3 bg-slate-700 rounded-lg">
-              <Clock className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold">Delivery Timeline - خطة التنفيذ والتسليم</h2>
-              <p className="text-slate-300">آلية العمل والتسليم المرحلي</p>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-slate-700/50 rounded-xl p-6 border border-slate-600">
-              <h3 className="text-xl font-bold mb-3 text-amber-400">مدة التنفيذ الكاملة</h3>
-              <p className="text-3xl font-bold mb-2">2.5 شهر</p>
-              <p className="text-slate-300 text-sm">تشمل التصميم، البرمجة، الاختبارات، ورفع التطبيق على المتاجر</p>
-            </div>
-
-            <div className="bg-slate-700/50 rounded-xl p-6 border border-slate-600">
-              <h3 className="text-xl font-bold mb-3 text-green-400">التسليم المرحلي</h3>
-              <ul className="space-y-2 text-slate-300">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                  <span>تسليم نسخة Android Test (APK) لكل جزء</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                  <span>مراجعة كل مرحلة مع العميل</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                  <span>تنفيذ التعديلات المطلوبة</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        
-
-        {/* Pricing Section - interactive */}
-        <div className="bg-gradient-to-l from-emerald-600 to-emerald-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-emerald-500">
-            <div className="p-3 bg-emerald-500 rounded-lg">
-              <DollarSign className="w-7 h-7 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold">Pricing - التكلفة الإجمالية</h2>
-          </div>
-
-          {/* Pricing logic */}
-          {/** Using small local state to toggle chat inclusion. UI design cost is shown separately and not included in main total. */}
-          <PricingControl />
-        </div>
-
-        {/* Free Services Section */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-green-200">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-green-100 rounded-lg">
-              <Award className="w-7 h-7 text-green-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">Free Services - مميزات مقدمة من شركة Penta-k</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">سيرفر مجاني</div>
-              <div className="text-slate-600 text-sm">لمدة سنة</div>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">دومين مجاني</div>
-              <div className="text-slate-600 text-sm">لمدة سنة</div>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">دعم فني مجاني</div>
-              <div className="text-slate-600 text-sm">لمدة سنة</div>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">رفع على المتاجر</div>
-              <div className="text-slate-600 text-sm">مجاناً خلال أول سنة</div>
-            </div>
-          </div>
-
-          <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-amber-600 mt-0.5" />
-              <div>
-                <p className="text-slate-700 font-semibold mb-1">سياسة حسابات النشر (Google & Apple)</p>
-                <p className="text-sm text-slate-600">يتم رفع التطبيق مجاناً خلال أول سنة على حسابات شركة Penta-k لتقليل التكلفة المبدئية وضمان الالتزام بسياسات المتاجر</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Technologies Section */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <Code className="w-7 h-7 text-blue-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">Technologies & Development Standards</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <div className="p-6 bg-blue-50 rounded-xl border border-blue-200">
-              <div className="flex items-center gap-3 mb-4">
-                <Smartphone className="w-6 h-6 text-blue-600" />
-                <h3 className="text-lg font-bold text-slate-900">Flutter</h3>
-              </div>
-              <ul className="space-y-2 text-sm text-slate-700">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
-                  <span>تطوير تطبيقات الموبايل (Android & iOS)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
-                  <span>تطوير تطبيقات الديسكتوب (Windows)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
-                  <span>كود موحد (Single Codebase)</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="p-6 bg-emerald-50 rounded-xl border border-emerald-200">
-              <div className="flex items-center gap-3 mb-4">
-                <Server className="w-6 h-6 text-emerald-600" />
-                <h3 className="text-lg font-bold text-slate-900">Nest.JS Backend</h3>
-              </div>
-              <ul className="space-y-2 text-sm text-slate-700">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5" />
-                  <span>RESTful APIs</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5" />
-                  <span>PostgreSQL DB</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5" />
-                  <span>بنية قوية وقابلة للتوسع</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5" />
-                  <span>أداء عالي وتأمين البيانات</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="p-6 bg-purple-50 rounded-xl border border-purple-200">
-            <div className="flex items-center gap-3 mb-4">
-              <Shield className="w-6 h-6 text-purple-600" />
-              <h3 className="text-lg font-bold text-slate-900">Code Quality & Clean Architecture</h3>
-            </div>
-            <div className="grid md:grid-cols-3 gap-3">
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>Clean Code منظم</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>Best Practices</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>سهولة الصيانة</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>Code Review</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>Scalable Architecture</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>حماية من الأعطال</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* External Costs Section */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-amber-200">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-amber-100 rounded-lg">
-              <DollarSign className="w-7 h-7 text-amber-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">External Running Costs - التكاليف الخارجية</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-4 mb-6">
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <h3 className="font-bold text-slate-900 mb-2">Google Play Console</h3>
-              <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$25</div>
-              <p className="text-sm text-slate-600">مدى الحياة (دفعة واحدة)</p>
-            </div>
-
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <h3 className="font-bold text-slate-900 mb-2">Apple Developer Account</h3>
-              <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$100</div>
-              <p className="text-sm text-slate-600">سنوياً</p>
-            </div>
-
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <h3 className="font-bold text-slate-900 mb-2">Google Maps Platform</h3>
-              <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$300</div>
-              <p className="text-sm text-slate-600">حد مجاني شهرياً</p>
-              <p className="text-xs text-slate-500 mt-2">يتطلب حساب Google Console مع Visa دولارية</p>
-            </div>
-
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <h3 className="font-bold text-slate-900 mb-2">Hostinger VPS</h3>
-              <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$96</div>
-              <p className="text-sm text-slate-600">سنوياً (سيرفر خاص)</p>
-              <p className="text-xs text-green-600 mt-2">مجاني من Penta-k لأول سنة</p>
-            </div>
-          </div>
-          <div className="p-4 bg-amber-50 rounded-lg border border-amber-200 mb-6">
-            <h3 className="font-bold text-slate-900 mb-2">تكاليف المنصات وإدارة النشر</h3>
-            <p className="text-sm text-slate-700">
-              في حال استمرار التطبيقات على منصاتنا (Google Play و Apple Store) تكون التكلفة السنوية من 35 إلى 40
-              دولار. وإذا رغب العميل بنقل التطبيقات إلى حساباته الخاصة، نقوم بعملية النقل مقابل 40 دولار مع متابعة
-              التطبيق حتى الاستقرار على الحساب الجديد، وإدراج حسابات العميل ضمن الدعم الفني لمتابعة حالة المنصات
-              واستقرارها.
-            </p>
-          </div>
-
-          <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-            <h3 className="font-bold text-slate-900 mb-2">دعم فني مدفوع (إضافات جديدة)</h3>
-            <div className="flex items-baseline gap-2 mb-2">
-              <span className="text-3xl font-bold text-amber-600">5,000 جنيه</span>
-              <span className="text-slate-600">شهرياً</span>
-            </div>
-            <ul className="space-y-1 text-sm text-slate-700">
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
-                <span>20 ساعة عمل مع مبرمج مخصص</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
-                <span>تنفيذ أي إضافات أو تطويرات حسب الطلب</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Why Penta-k Section */}
-        <div className="bg-gradient-to-l from-blue-600 to-indigo-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-3">Why Penta-k? - ليه تختار Penta-k؟</h2>
-            <p className="text-blue-100 text-lg">نحن لا نكتب كود فقط، نبني حلول قابلة للنمو والتطور</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <Shield className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">جودة الكود</h3>
-              <p className="text-sm text-blue-100">اهتمام حقيقي بجودة الكود وليس مجرد تنفيذ</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <TrendingUp className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">قابلية التوسع</h3>
-              <p className="text-sm text-blue-100">تطبيقات قابلة للتوسع والنمو مع عملك</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <Clock className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">تسليم منظم</h3>
-              <p className="text-sm text-blue-100">تسليم على مراحل مع متابعة مستمرة</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <Users className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">سهولة الاستلام</h3>
-              <p className="text-sm text-blue-100">سهولة استلام المشروع من أي فريق تقني لاحقاً</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <DollarSign className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">توفير المستقبل</h3>
-              <p className="text-sm text-blue-100">كود نظيف = تكلفة أقل في المستقبل</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <Award className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">خبرة احترافية</h3>
-              <p className="text-sm text-blue-100">فريق متخصص بخبرة عالية</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Contact Section */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">للتواصل والاستفسار</h2>
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex items-center gap-3 text-lg">
-              <Globe className="w-6 h-6 text-blue-600" />
-              <a href="https://penta-k.com" className="text-blue-600 hover:underline font-semibold">
-                penta-k.com
-              </a>
-            </div>
-            <div className="flex items-center gap-3 text-lg" dir="ltr">
-              <PhoneCall className="w-6 h-6 text-green-600" />
-              <a href="tel:+201061942646" className="text-green-600 hover:underline font-semibold">
-                +20 10 61942646
-              </a>
-            </div>
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-slate-200">
-            <p className="text-slate-600">
-              شكراً لثقتكم في <span className="font-bold text-blue-600">Penta-k</span>
-            </p>
-            <p className="text-sm text-slate-500 mt-2">
-              نتطلع للعمل معكم على مشروع Bubbles Laundry
-            </p>
-          </div>
-        </div>
-
+        <section className="rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-10"><SectionTitle eyebrow={t.investmentEyebrow} title={t.investmentTitle} /><div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]"><div className="rounded-2xl bg-slate-950 p-7 text-white"><p className="text-sm font-medium text-sky-300">{t.investmentEyebrow}</p><p className="mt-3 text-4xl font-semibold">110,000 <span className="text-xl text-slate-300">{isArabic ? 'جنيه مصري' : 'L.E'}</span></p><div className="mt-6 flex items-center gap-2 border-t border-white/15 pt-5 text-sm text-slate-300"><Smartphone className="h-5 w-5 text-sky-300" />{t.appValue}</div></div><div><h3 className="mb-4 text-xl font-semibold text-slate-950">{t.includedTitle}</h3><div className="grid gap-3 sm:grid-cols-2">{t.included.map((item) => <CheckRow key={item} text={item} />)}</div></div></div><div className="mt-10"><SectionTitle eyebrow={t.paymentEyebrow} title={t.paymentTitle} /><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">{t.payments.map((payment) => <PaymentCard key={payment.title} payment={payment} />)}</div></div><div className="mt-8 grid gap-3 text-sm leading-6 text-slate-600"><Note icon={ShieldCheck} text={t.noteOne} /><Note icon={UsersRound} text={t.noteTwo} /><Note icon={BarChart3} text={t.noteThree} /></div></section>
       </main>
+      <footer className="border-t border-slate-200 bg-white px-6 py-8 text-center text-sm text-slate-500"><p className="font-semibold text-slate-800">Penta-k</p><p className="mt-1">{t.thanks}</p></footer>
     </div>
   );
 }
 
-// Helper Component for Feature Items
-function PricingControl() {
-  const TOTAL_COST = 88000;
-  const FIRST_PAYMENT = 8000;
-  const UI_PAYMENT = 14000;
-  const REMAINING_PHASES = 4;
-
-  const remaining = TOTAL_COST - FIRST_PAYMENT - UI_PAYMENT;
-  const evenInstallment = Math.floor(remaining / REMAINING_PHASES);
-  const lastInstallment = remaining - evenInstallment * (REMAINING_PHASES - 1);
-
-  const fmt = (n: number) => n.toLocaleString();
-
-  return (
-    <div>
-      <div className="text-center mb-6">
-        <div className="text-6xl font-bold mb-2">{fmt(TOTAL_COST)} جنيه مصري</div>
-        <div className="text-emerald-100 text-lg">التكلفة الإجمالية للمشروع شاملة الـ UI</div>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-4 mb-6">
-        <div className="w-full md:flex-[2] bg-white/10 rounded-xl p-6 border border-white/20">
-          <h4 className="font-bold text-lg mb-2">تسليم واجهات UI</h4>
-          <p className="text-emerald-100 text-sm">
-            يتم تسليم الواجهات قبل استكمال مراحل التطوير حسب جدول الدفع (الـ UI ثابت معنا).
-          </p>
-        </div>
-        <div className="flex-1 md:flex-[1] bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
-          <h3 className="text-xl font-bold mb-4">خدمة المحادثة (متوقفة الان)</h3>
-          <p className="text-emerald-100">يتم عرضها فقط في الوقت الحالي.</p>
-        </div>
-      </div>
-
-      <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
-        <h3 className="text-xl font-bold mb-4">شروط الدفع</h3>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(FIRST_PAYMENT)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">دفعة أولى مقدم</div>
-            <div className="mt-3 inline-flex items-center justify-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-bold text-emerald-700">
-              <CheckCircle className="w-3.5 h-3.5" />
-              تم الاستلام
-            </div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(UI_PAYMENT)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">بعد تسليم الـ UI</div>
-            <div className="mt-3 inline-flex items-center justify-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-bold text-emerald-700">
-              <CheckCircle className="w-3.5 h-3.5" />
-              تم الاستلام
-            </div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">بعد تسليم تطبيق المستخدم</div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">مع تسليم تطبيق المغسلة والدليفري</div>
-            <div className="mt-3 inline-flex items-center justify-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-700">
-              في انتظار التسليم
-            </div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">بعد تسليم الأدمن</div>
-            <div className="mt-3 inline-flex items-center justify-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-bold text-emerald-700">
-              <CheckCircle className="w-3.5 h-3.5" />
-              تم الاستلام
-            </div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(lastInstallment)} جنيه مصري</div>
-            <div className="text-sm text-emerald-100">المتبقي بعد رفع التطبيقات على Google Play و Apple Store</div>
-          </div>
-        </div>
-
-        <p className="text-sm text-emerald-100 mt-4">
-          في حال استمرار التطبيقات على منصاتنا (Google Play و Apple Store) تكون التكلفة السنوية من 35 إلى 40 دولار.
-          وإذا رغب العميل بنقل التطبيقات إلى حساباته الخاصة، نقوم بعملية النقل مقابل 40 دولار مع متابعة التطبيق حتى
-          الاستقرار على الحساب الجديد، وإدراج حسابات العميل ضمن الدعم الفني لمتابعة حالة المنصات واستقرارها.
-        </p>
-      </div>
-    </div>
-  );
-}
-function FeatureItem({ icon, title, color = 'blue' }: { icon: React.ReactNode; title: string; color?: string }) {
-  const colorClasses = {
-    blue: 'bg-blue-50 text-blue-600 border-blue-100',
-    green: 'bg-green-50 text-green-600 border-green-100',
-    purple: 'bg-purple-50 text-purple-600 border-purple-100',
-    orange: 'bg-orange-50 text-orange-600 border-orange-100'
-  };
-
-  return (
-    <div className={`flex items-start gap-3 p-3 rounded-lg border ${colorClasses[color as keyof typeof colorClasses]}`}>
-      <div className="mt-0.5">{icon}</div>
-      <span className="text-sm text-slate-700">{title}</span>
-    </div>
-  );
-}
-
-
-
-
-
+function Eyebrow({ text, dark = false }: { text: string; dark?: boolean }) { return <p className={`text-sm font-semibold tracking-[0.14em] ${dark ? 'text-sky-300' : 'text-sky-700'}`}>{text}</p>; }
+function Pill({ label }: { label: string }) { return <span className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-slate-100">{label}</span>; }
+function Stat({ label, value }: { label: string; value: string }) { return <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><p className="text-sm font-medium text-slate-500">{label}</p><p className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">{value}</p></div>; }
+function SectionTitle({ eyebrow, title, dark = false }: { eyebrow: string; title: string; dark?: boolean }) { return <div className="mb-7 mt-6"><Eyebrow text={eyebrow} dark={dark} /><h2 className={`mt-2 text-2xl font-semibold tracking-tight ${dark ? 'text-white' : 'text-slate-950'}`}>{title}</h2></div>; }
+function FeatureCard({ feature }: { feature: Feature }) { const Icon = feature.icon; return <article className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md"><div className="inline-flex rounded-xl bg-sky-50 p-3 text-sky-700"><Icon className="h-6 w-6" /></div><h3 className="mt-5 text-lg font-semibold text-slate-950">{feature.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{feature.description}</p></article>; }
+function CheckRow({ text, violet = false }: { text: string; violet?: boolean }) { return <div className="flex items-start gap-3 rounded-xl bg-slate-50 p-4 text-sm leading-6 text-slate-700"><Check className={`mt-0.5 h-4 w-4 shrink-0 ${violet ? 'text-violet-600' : 'text-sky-600'}`} />{text}</div>; }
+function DarkCheckRow({ text }: { text: string }) { return <div className="flex items-start gap-3 text-sm leading-6 text-slate-200"><Check className="mt-1 h-4 w-4 shrink-0 text-sky-300" />{text}</div>; }
+function Note({ icon: Icon, text }: { icon: IconType; text: string }) { return <div className="flex items-start gap-3"><Icon className="mt-0.5 h-5 w-5 shrink-0 text-sky-600" /><span>{text}</span></div>; }
+function PaymentCard({ payment }: { payment: Payment }) { return <article className="rounded-2xl border border-slate-200 bg-slate-50 p-5"><p className="text-sm font-semibold text-sky-700">{payment.title}</p><p className="mt-3 text-3xl font-semibold text-slate-950">{payment.percentage}</p><p className="mt-1 text-sm font-semibold text-slate-700">{payment.amount}</p><p className="mt-4 text-sm leading-6 text-slate-600">{payment.detail}</p></article>; }
