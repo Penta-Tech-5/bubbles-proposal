@@ -117,7 +117,7 @@ const labels: Record<
     deliveryTitle: 'مدة التنفيذ والتسليم',
     projectDuration: 'مدة المشروع: 4 شهور',
     totalCost: 'التكلفة الإجمالية للمشروع',
-    totalCostNote: 'شاملة تطبيقات العميل + مقدم الخدمة + الإدارة (موبايل + ديسكتوب) مع الربط الكامل',
+    totalCostNote: 'شاملة تطبيقات العميل + مقدم الخدمة موبايل مع الربط الكامل',
     paymentPlanTitle: 'طريقة الدفع',
     externalNote:
       'ملاحظة: بعد الفترات المجانية تبدأ اشتراكات التشغيل (الدعم الفني، السيرفر، ومنصات التطبيقات) حسب الخيار المناسب.',
@@ -326,7 +326,7 @@ const adminFeatures: LocalizedList = {
     'إدارة المدفوعات.',
     'التقارير والتحليلات التشغيلية.',
     'إدارة الاشتراكات والباقات.',
-    'لوحة تحكم موبايل Android + ديسكتوب Windows.'
+    'لوحة تحكم ويب '
   ],
   en: [
     'Manage customers and service providers.',
@@ -335,26 +335,21 @@ const adminFeatures: LocalizedList = {
     'Payments management.',
     'Operational reports and analytics.',
     'Subscriptions and plans management.',
-    'Android mobile admin app + Windows desktop app.'
-  ]
+    'Web-based admin dashboard.']
 };
 
 const deliverables: LocalizedList = {
   ar: [
     'تطبيق العميل: Android + iOS.',
-    'تطبيق مقدم الخدمة: Android.',
-    'تطبيق الإدارة: Android.',
-    'تطبيق ديسكتوب Windows للإدارة.',
-    'تطبيق ديسكتوب Windows لمقدمي الخدمة.',
+    'تطبيق مقدم الخدمة: Android + iOS.',
+    'موقع ويب للإدارة.',
     'نظام الطلبات والعروض والتقييمات والدردشة.',
     'الدفع الإلكتروني والنقدي + تعدد اللغات.'
   ],
   en: [
     'Customer app: Android + iOS.',
-    'Service provider app: Android.',
-    'Admin app: Android.',
-    'Windows desktop app for admin.',
-    'Windows desktop app for service providers.',
+    'Service provider app: Android +iOS.',
+    'Website for admin.',
     'Orders, offers, ratings, and chat system.',
     'Electronic/cash payments with multilingual support.'
   ]
@@ -364,7 +359,6 @@ const includedInPrice: LocalizedList = {
   ar: [
     'تحليل المتطلبات وتخطيط تجربة المستخدم.',
     'تطوير تطبيقات العميل/مقدم الخدمة/الإدارة.',
-    'تطوير نسخ ديسكتوب Windows للإدارة ومقدمي الخدمة.',
     'تنفيذ نظام الطلبات والعروض والتتبع والدردشة.',
     'تنفيذ نظام تقييمات متعدد الأطراف.',
     'الربط مع الدفع الإلكتروني + النقدي.',
@@ -374,7 +368,6 @@ const includedInPrice: LocalizedList = {
   en: [
     'Requirements analysis and UX planning.',
     'Development of customer/provider/admin apps.',
-    'Windows desktop apps for admin and providers.',
     'Order, offer, tracking, and chat workflows.',
     'Multi-party rating system.',
     'Electronic + cash payment integration.',
@@ -389,13 +382,6 @@ const technologies: TechCard[] = [
     details: {
       ar: 'تطوير تطبيقات العميل ومقدم الخدمة والإدارة على Android و iOS حسب النطاق.',
       en: 'Mobile development for customer, provider, and admin apps (Android/iOS by scope).'
-    }
-  },
-  {
-    name: 'Flutter Windows Desktop',
-    details: {
-      ar: 'نسخ Windows للإدارة ومقدمي الخدمة لمتابعة التشغيل وإدارة الطلبات.',
-      en: 'Windows desktop apps for admin and service providers operations.'
     }
   },
   {
@@ -636,7 +622,7 @@ const paymentMilestones: PaymentMilestone[] = [
   },
   {
     amount: { ar: '25%', en: '25%' },
-    title: { ar: 'بعد تسليم تطبيق الأدمن (موبايل + ديسكتوب)', en: 'After Admin app delivery (Mobile + Desktop)' }
+    title: { ar: 'بعد تسليم الأدمن + خدمة العملاء ويب)', en: 'After Admin app delivery (Mobile + Desktop)' }
   },
   {
     amount: { ar: '25%', en: '25%' },

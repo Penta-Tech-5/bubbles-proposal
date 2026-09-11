@@ -8,8 +8,10 @@ This file is a quick reference for preparing offer pages in this repository.
 - Duration: 4 months.
 - Delivery scope:
   - Customer app: Android + iOS
-  - Service provider app: Android + Windows desktop
-  - Admin app: Android + Windows desktop
+  - Service provider app: Android + iOS
+  - Admin website
+  - Background team: website
+  - Customer service: website
 
 ## Payment Milestones
 - 25% advance at contract signing.
