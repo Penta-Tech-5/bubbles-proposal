@@ -21,7 +21,7 @@ This file is a quick reference for preparing offer pages in this repository.
 
 ## Free Services (Default in this offer)
 - Free server during implementation period.
-- Free technical support for 6 months after delivery.
+- Free technical support for 6 months after delivery. 
 - Pre-launch readiness support (QA, performance review, go-live checks).
 
 ## Post-Free Subscriptions
