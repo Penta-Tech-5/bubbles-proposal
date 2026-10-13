@@ -3,7 +3,6 @@
   BookOpen,
   Building2,
   Check,
-  CalendarDays,
   ChevronLeft,
   ChevronRight,
   CircleDollarSign,
@@ -339,7 +338,6 @@ export default function App() {
             <p className="mb-3 text-sm font-semibold text-sky-300">{t.prepared}</p>
             <h1 className="text-4xl font-semibold tracking-tight md:text-6xl">{t.title}</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 md:text-xl">{t.subtitle}</p>
-            <div className="mt-7 inline-flex items-center gap-2 rounded-xl border border-amber-300/30 bg-amber-400/15 px-4 py-3 text-sm font-semibold text-amber-100"><CalendarDays className="h-4 w-4" />{t.validUntil}</div>
           </div>
         </section>
 
