@@ -1,1452 +1,385 @@
-﻿/// <reference types="vite/client" />
-import {
-  Award,
+﻿import {
+  BarChart3,
+  BookOpen,
+  Building2,
+  Check,
+  CalendarDays,
   ChevronLeft,
   ChevronRight,
-  CheckCircle,
-  Clock,
-  Code,
-  DollarSign,
-  ExternalLink,
+  CircleDollarSign,
+  Cloud,
+  Code2,
+  CreditCard,
+  FileArchive,
   FileText,
-  Globe,
-  Languages,
+  GraduationCap,
+  Headphones,
+  LayoutDashboard,
+  LockKeyhole,
+  MessageCircle,
   Moon,
-  Monitor,
   Package,
-  PhoneCall,
-  Shield,
+  Radio,
+  Rocket,
+  Server,
+  ShieldCheck,
+  ShoppingBag,
+  Smartphone,
+  Sparkles,
+  Store,
   Sun,
-  TrendingUp,
   Users,
-  X
+  Video,
 } from 'lucide-react';
-import React from 'react';
+import { useState } from 'react';
 
 type Lang = 'ar' | 'en';
-type Theme = 'dark' | 'light';
-type FeatureColor = 'blue' | 'green' | 'purple' | 'orange' | 'indigo';
-type Localized = Record<Lang, string>;
-type LocalizedList = Record<Lang, string[]>;
+type IconType = React.ComponentType<{ className?: string }>;
+type Localized = { ar: string; en: string };
+type Feature = { title: Localized; text: Localized; icon: IconType };
+type Stage = { number: string; title: Localized; price: string; duration: Localized; intro: Localized; points: Localized[]; deliverables: Localized[]; icon: IconType };
+type PaymentMilestone = { title: Localized; detail: Localized; amount: string };
 
-type SectionCard = {
-  title: Localized;
-  description: Localized;
-  icon: React.ComponentType<{ className?: string }>;
-  points: LocalizedList;
-};
+const l = (value: Localized, lang: Lang) => value[lang];
 
-type PaymentGateway = {
-  title: Localized;
-  points: LocalizedList;
-};
-
-type TechCard = {
-  name: string;
-  details: Localized;
-};
-
-type ExternalCost = {
-  title: Localized;
-  amount: Localized;
-  subtitle: Localized;
-  note?: Localized;
-};
-
-type SmsPlan = {
-  tier: Localized;
-  price: Localized;
-  volume: Localized;
-  note?: Localized;
-};
-
-type GalleryImage = {
-  src: string;
-  title: Localized;
-};
-
-type GalleryKind = 'mobile' | 'desktop';
-
-type PaymentMilestone = {
-  amount: Localized;
-  title: Localized;
-};
-
-const labels: Record<
-  Lang,
-  {
-    offerTitle: string;
-    companyTitle: string;
-    companyText: string;
-    overviewTitle: string;
-    overviewText: string;
-    studentFeatures: string;
-    teacherFeatures: string;
-    adminFeatures: string;
-    deliveryTitle: string;
-    projectDuration: string;
-    totalCost: string;
-    totalCostNote: string;
-    paymentPlanTitle: string;
-    externalNote: string;
-    paymentGatewaysTitle: string;
-    freeServices: string;
-    technologies: string;
-    externalCosts: string;
-    whyUs: string;
-    whyUsSub: string;
-    contact: string;
-    thanks: string;
-    projectFooter: string;
-    logoAlt: string;
-    arBtn: string;
-    enBtn: string;
-  }
-> = {
+const ui = {
   ar: {
-    offerTitle: 'عرض السعر التفصيلي للمشروع',
-    companyTitle: 'شركة Penta-k',
-    companyText:
-      'شركة متخصصة في تصميم وتطوير حلول البرمجيات والتطبيقات الذكية، وتقديم أنظمة متكاملة بجودة عالية وتجربة استخدام احترافية.',
-    overviewTitle: 'وصف عام لمشروع منصة خدمات السيارات عند الطلب',
-    overviewText:
-      'منصة رقمية لطلب خدمات السيارات عند الطلب (غسيل، كفرات، بطاريات، صيانة خفيفة) حيث يطلب العميل الخدمة ويستقبل عروض أسعار من مقدمي الخدمة القريبين، مع نظام تشغيل وإدارة متكامل.',
-    studentFeatures: 'مميزات تطبيق العملاء',
-    teacherFeatures: 'مميزات تطبيق مقدمي الخدمة',
-    adminFeatures: 'مميزات لوحة الإدارة',
-    deliveryTitle: 'مدة التنفيذ والتسليم',
-    projectDuration: 'مدة المشروع: 4 شهور',
-    totalCost: 'التكلفة الإجمالية للمشروع',
-    totalCostNote: 'شاملة تطبيقات العميل + مقدم الخدمة موبايل مع الربط الكامل',
-    paymentPlanTitle: 'طريقة الدفع',
-    externalNote:
-      'ملاحظة: بعد الفترات المجانية تبدأ اشتراكات التشغيل (الدعم الفني، السيرفر، ومنصات التطبيقات) حسب الخيار المناسب.',
-    paymentGatewaysTitle: 'طرق الدفع ونموذج الربح',
-    freeServices: 'Free Services - مميزات مقدمة من شركة Penta-k',
-    technologies: 'Technologies & Development Standards',
-    externalCosts: 'External Running Costs - التكاليف التشغيلية',
-    whyUs: 'Why Penta-k? - ليه تختار Penta-k؟',
-    whyUsSub: 'نحن لا نكتب كود فقط، نبني حلول قابلة للنمو والتطور',
+    offer: 'عرض فني ومالي متكامل',
+    title: 'منصة غيم التعليمية والتدريبية',
+    subtitle: 'منظومة رقمية متكاملة للتعليم، التدريب المهني، إدارة المدارس، التجارة والخدمات الرقمية.',
+    prepared: 'إعداد عرض تطوير مخصص لمنصة غيم',
+    timeline: 'مدة التنفيذ',
+    timelineValue: '6 شهور',
+    total: 'إجمالي المراحل',
+    totalValue: '15,000 ريال',
+    platforms: 'المنصات',
+    platformsValue: 'Android + iOS',
+    phases: 'مراحل التنفيذ',
+    overview: 'فهم المشروع',
+    overviewText: 'غيم ليست منصة كورسات فقط؛ بل بيئة رقمية موحدة تربط التعليم الإلكتروني، التدريب المهني، إدارة المدارس، السوق التعليمي، الشراكات والخدمات الرقمية داخل منظومة قابلة للتوسع.',
+    audience: 'الفئات المستفيدة',
+    audienceText: 'يتم تصميم الصلاحيات والواجهات حسب طبيعة كل فئة، مع إمكانية إضافة أدوار جديدة مستقبلًا دون إعادة بناء المنصة.',
+    pillars: 'المكونات الرئيسية للمنصة',
+    mvp: 'النسخة الأولى MVP',
+    mvpText: 'الهدف من النسخة الأولى إطلاق الأساس التشغيلي للمنصة: التعليم والتدريب، المحتوى، الحسابات، الشات، الدفع الأساسي، ولوحة الإدارة، بحيث تصبح المراحل التالية إضافات مباشرة على نفس النظام.',
+    mvpIncludes: 'ما سيتم تسليمه في أول MVP',
+    technology: 'التقنيات والمعايير المستخدمة',
+    architecture: 'البنية التشغيلية والاستضافة',
+    payments: 'خطة الدفعات',
+    paymentNote: 'تم اعتماد مقدم 25% من إجمالي المشروع. وبما أن قيمة المقدم لا تساوي نصف قيمة المرحلة الأولى، فسيتم ربط الدفعات التالية بمراحل التسليم، مع اعتماد الجدول النهائي في الاتفاق التنفيذي.',
+    external: 'الخدمات والتكاليف الخارجية',
+    externalNote: 'الخدمات الخارجية ورسوم الاستخدام أو الاشتراكات يتم تحديدها حسب حجم الاستخدام واختيار العميل، ولا تعتبر جزءًا من قيمة التطوير إلا إذا تم النص على ذلك صراحة.',
+    validUntil: 'هذا العرض ساري حتى نهاية شهر أكتوبر فقط، وبعد ذلك يحتاج إلى إعادة اعتماد الأسعار والمدة.',
+    scopeNote: 'كل مرحلة تضيف مميزات إلى نفس المنصة والتطبيقات الحالية، وليست مشروعًا منفصلًا أو إعادة بناء من البداية.',
     contact: 'للتواصل والاستفسار',
-    thanks: 'شكرًا لثقتكم في',
-    projectFooter: 'نتطلع للعمل معكم على مشروع منصة خدمات السيارات عند الطلب.',
-    logoAlt: 'شعار Penta-k',
-    arBtn: 'العربية',
-    enBtn: 'English'
+    thanks: 'شكرًا لثقتكم في Penta-k',
+    website: 'زيارة موقع الشركة',
+    arabic: 'العربية',
+    english: 'English',
+    dark: 'الوضع المظلم',
+    light: 'الوضع الفاتح',
+    included: 'يشمل التنفيذ',
+    phasePrice: 'قيمة المرحلة',
+    stageDelivery: 'مخرجات المرحلة',
+    firstPayment: 'مقدم المشروع',
+    firstPaymentDetail: '25% عند بدء المشروع',
+    firstPaymentAmount: '3,750 ريال',
+    remainingPayments: 'الدفعات المرحلية',
+    remainingPaymentsDetail: 'بعد المقدم، يتم تقسيم المبلغ المتبقي على 7 دفعات؛ دفعة نهائية للمرحلة الأولى، ثم دفعتان لكل مرحلة من المراحل الثانية والثالثة والرابعة.',
+    remainingPaymentsAmount: '11,250 ريال',
+    overviewHeading: 'منصة واحدة للتعليم والتدريب والخدمات الرقمية',
+    scalableHeading: 'منظومة قابلة للتوسع',
+    audienceHeading: 'كل فئة تحصل على تجربة وصلاحيات مناسبة لطبيعة دورها.',
+    pillarsHeading: 'المنصة تجمع التعليم، الإدارة، السوق والشراكات في تجربة رقمية موحدة.',
+    mvpHeading: 'إطلاق الأساس التشغيلي قبل التوسع',
+    architectureHeading: 'استضافة منفصلة وحماية للمحتوى',
+    externalHeading: 'نطاقات تعتمد على تفاصيل خارجية',
+    finalHeading: 'منصة غيم — تعليم وتدريب وشراكات قابلة للنمو',
   },
   en: {
-    offerTitle: 'Detailed Project Offer',
-    companyTitle: 'Penta-k Company',
-    companyText:
-      'A software house specialized in building smart digital solutions and integrated systems with high quality and professional user experience.',
-    overviewTitle: 'On-Demand Car Services Platform Overview',
-    overviewText:
-      'A digital on-demand car services platform (car wash, tires, batteries, light maintenance) where customers request services and receive competitive offers from nearby service providers.',
-    studentFeatures: 'Customer App Features',
-    teacherFeatures: 'Service Provider App Features',
-    adminFeatures: 'Admin Dashboard Features',
-    deliveryTitle: 'Timeline & Deliverables',
-    projectDuration: 'Project duration: 4 months',
-    totalCost: 'Total Project Cost',
-    totalCostNote: 'Includes customer, provider, and admin apps (mobile + desktop) with full integration',
-    paymentPlanTitle: 'Payment Plan',
-    externalNote:
-      'Note: After free periods, operations subscriptions start (support, server, and app-store management) based on selected option.',
-    paymentGatewaysTitle: 'Payment Methods & Revenue Model',
-    freeServices: 'Free Services by Penta-k',
-    technologies: 'Technologies & Development Standards',
-    externalCosts: 'External Operating Costs',
-    whyUs: 'Why Penta-k?',
-    whyUsSub: 'We do not just write code, we build scalable solutions',
-    contact: 'Contact & Inquiries',
-    thanks: 'Thank you for trusting',
-    projectFooter: 'We look forward to delivering your on-demand car services platform.',
-    logoAlt: 'Penta-k Logo',
-    arBtn: 'العربية',
-    enBtn: 'English'
-  }
+    offer: 'Complete Technical & Commercial Proposal',
+    title: 'Ghym Education & Training Platform',
+    subtitle: 'A scalable digital ecosystem for education, professional training, school management, commerce and digital services.',
+    prepared: 'A tailored development proposal for Ghym Platform',
+    timeline: 'Delivery timeline',
+    timelineValue: '6 months',
+    total: 'Total project phases',
+    totalValue: 'SAR 15,000',
+    platforms: 'Platforms',
+    platformsValue: 'Android + iOS',
+    phases: 'Delivery phases',
+    overview: 'Project understanding',
+    overviewText: 'Ghym is more than a courses platform. It is a unified digital ecosystem connecting online education, professional training, school management, an education marketplace, partnerships and digital services in a scalable system.',
+    audience: 'Target users',
+    audienceText: 'The platform uses role-based experiences and permissions for each audience, while keeping the architecture ready for future roles.',
+    pillars: 'Core platform components',
+    mvp: 'Initial MVP',
+    mvpText: 'The first MVP launches the operational foundation: education and training, content, accounts, chat, basic payments and administration. Later phases extend the same apps and platform.',
+    mvpIncludes: 'Initial MVP deliverables',
+    technology: 'Technology & engineering standards',
+    architecture: 'Infrastructure & hosting',
+    payments: 'Payment schedule',
+    paymentNote: 'A 25% advance is applied to the total project. Since this advance does not equal half of Phase 1, the remaining payments will be tied to delivery milestones and finalized in the execution agreement.',
+    external: 'External services & operating costs',
+    externalNote: 'External service fees and usage-based subscriptions depend on the client’s selection and usage volume and are excluded from development unless explicitly stated.',
+    validUntil: 'This proposal is valid until the end of October only; after that, the pricing and timeline require re-approval.',
+    scopeNote: 'Each phase adds features to the same platform and existing applications. It is not a separate project or a rebuild from scratch.',
+    contact: 'Contact & inquiries',
+    thanks: 'Thank you for trusting Penta-k',
+    website: 'Visit company website',
+    arabic: 'العربية',
+    english: 'English',
+    dark: 'Dark mode',
+    light: 'Light mode',
+    included: 'Included in delivery',
+    phasePrice: 'Phase price',
+    stageDelivery: 'Phase deliverables',
+    firstPayment: 'Project advance',
+    firstPaymentDetail: '25% at project start',
+    firstPaymentAmount: 'SAR 3,750',
+    remainingPayments: 'Milestone payments',
+    remainingPaymentsDetail: 'After the advance, the balance is divided into 7 payments: one final payment for Phase 1, then two payments for each of Phases 2, 3 and 4.',
+    remainingPaymentsAmount: 'SAR 11,250',
+    overviewHeading: 'One platform for education, training and digital services',
+    scalableHeading: 'A scalable ecosystem',
+    audienceHeading: 'Each audience receives an experience and permissions tailored to its role.',
+    pillarsHeading: 'Education, administration, commerce and partnerships in one digital experience.',
+    mvpHeading: 'Launch the operating foundation before expansion',
+    architectureHeading: 'Separated hosting and protected content',
+    externalHeading: 'Scopes that depend on external details',
+    finalHeading: 'Ghym Platform — education, training and scalable partnerships',
+  },
 };
 
-const mainSections: SectionCard[] = [
-  {
-    title: {
-      ar: 'فكرة المنصة',
-      en: 'Platform Concept'
-    },
-    description: {
-      ar: 'العميل يطلب خدمة سيارات ويستقبل عروض أسعار تنافسية من مقدمي الخدمة القريبين.',
-      en: 'Customers request car services and receive competitive offers from nearby providers.'
-    },
-    icon: FileText,
-    points: {
-      ar: [
-        'خدمات عند الطلب: غسيل، كفرات، بطاريات، صيانة خفيفة.',
-        'استقبال عروض متعددة لنفس الطلب.',
-        'الاعتماد على القرب الجغرافي لسرعة الاستجابة.',
-        'اختيار أفضل عرض حسب السعر والتقييم.'
-      ],
-      en: [
-        'On-demand services: wash, tires, batteries, light maintenance.',
-        'Multiple offers per customer request.',
-        'Geo-proximity matching for faster service.',
-        'Choose best offer by price and rating.'
-      ]
-    }
-  },
-  {
-    title: {
-      ar: 'أهداف المشروع',
-      en: 'Project Goals'
-    },
-    description: {
-      ar: 'رفع جودة الخدمة وزيادة كفاءة التشغيل وتحقيق دخل مستدام للمنصة.',
-      en: 'Improve service quality, operational efficiency, and sustainable platform revenue.'
-    },
-    icon: Users,
-    points: {
-      ar: [
-        'تسهيل الوصول لخدمات السيارات في أي وقت.',
-        'خلق منافسة بين مقدمي الخدمة لتحسين الجودة.',
-        'الاعتماد على نظام تقييمات فعال.',
-        'تشغيل المنصة بكفاءة عبر لوحة إدارة مركزية.'
-      ],
-      en: [
-        'Easier access to car services at any time.',
-        'Competitive provider market for better quality.',
-        'Ratings-driven quality improvement.',
-        'Efficient platform operations via central admin.'
-      ]
-    }
-  },
-  {
-    title: {
-      ar: 'تطبيق العملاء',
-      en: 'Customer App'
-    },
-    description: {
-      ar: 'تجربة عميل متكاملة من تسجيل الحساب حتى الطلب والدفع والتقييم.',
-      en: 'End-to-end customer journey from signup to service request, payment, and rating.'
-    },
-    icon: TrendingUp,
-    points: {
-      ar: [
-        'تسجيل حساب وتحديد الموقع.',
-        'طلب الخدمة واستقبال عروض متعددة.',
-        'تتبع مقدم الخدمة لحظيًا.',
-        'دردشة مباشرة + دفع + تقييم.'
-      ],
-      en: [
-        'Account signup and location selection.',
-        'Request service and receive multiple offers.',
-        'Real-time provider tracking.',
-        'Live chat, payment, and rating.'
-      ]
-    }
-  },
-  {
-    title: {
-      ar: 'تطبيق مقدمي الخدمة',
-      en: 'Service Provider App'
-    },
-    description: {
-      ar: 'تطبيق متكامل لمقدمي الخدمة لإدارة الطلبات والعروض والأرباح.',
-      en: 'A complete provider app for handling requests, offers, execution, and earnings.'
-    },
-    icon: Code,
-    points: {
-      ar: [
-        'تسجيل الحساب وتفعيل الاشتراك.',
-        'استقبال الطلبات وتقديم عروض أسعار.',
-        'تنفيذ الطلبات ومتابعة الأرباح.',
-        'GPS + تقييمات + دردشة متكاملة + تعدد لغات.'
-      ],
-      en: [
-        'Account registration and subscription activation.',
-        'Receive requests and submit price offers.',
-        'Execute orders and track earnings.',
-        'GPS, ratings, integrated chat, and multilingual support.'
-      ]
-    }
-  }
+const audience: Feature[] = [
+  { icon: GraduationCap, title: { ar: 'الطلاب والمتدربون', en: 'Students & trainees' }, text: { ar: 'حساب شخصي لمتابعة الكورسات، الدروس، التقدم، الاختبارات، الملفات والطلبات.', en: 'Personal accounts for courses, lessons, progress, assessments, files and requests.' } },
+  { icon: Users, title: { ar: 'أولياء الأمور', en: 'Parents' }, text: { ar: 'متابعة أداء الأبناء، الحضور، التحصيل، الخطط والتقارير المدرسية.', en: 'Follow children’s performance, attendance, achievement, plans and school reports.' } },
+  { icon: BookOpen, title: { ar: 'المعلمون والمدربون', en: 'Teachers & trainers' }, text: { ar: 'رفع المحتوى، إدارة الكورسات، متابعة الطلاب، التقييمات وإصدار الشهادات.', en: 'Upload content, manage courses, follow learners, reviews and certificates.' } },
+  { icon: Building2, title: { ar: 'المدارس والمؤسسات', en: 'Schools & institutions' }, text: { ar: 'حسابات مؤسسية لمتابعة الطلاب، الموظفين، الخطط، النماذج والتقارير.', en: 'Institutional accounts for students, staff, plans, forms and reports.' } },
+  { icon: Store, title: { ar: 'البائعون والمكتبات', en: 'Sellers & libraries' }, text: { ar: 'إدارة المنتجات والمخزون والطلبات والمدفوعات والعمولات من خلال حساب مستقل.', en: 'Independent accounts for products, inventory, orders, payments and commissions.' } },
+  { icon: HandshakeIcon, title: { ar: 'الشركاء ومقدمو الخدمات', en: 'Partners & providers' }, text: { ar: 'إدارة الشراكات والعقود والخدمات والبرامج والمبادرات من خلال صلاحيات محددة.', en: 'Manage partnerships, contracts, services, programs and initiatives with defined permissions.' } },
 ];
 
-const studentFeatures: LocalizedList = {
-  ar: [
-    'تسجيل حساب العميل بسرعة.',
-    'طلب الخدمة وتحديد الموقع بسهولة.',
-    'استقبال عروض أسعار من مقدمي خدمة متعددين.',
-    'اختيار العرض المناسب حسب السعر والتقييم.',
-    'تتبع مقدم الخدمة على الخريطة.',
-    'دردشة مباشرة مع مقدم الخدمة.',
-    'دعم الدفع الإلكتروني والنقدي.',
-    'نظام تقييم بعد إتمام الخدمة.'
-  ],
-  en: [
-    'Fast customer account registration.',
-    'Service request with location selection.',
-    'Receive offers from multiple providers.',
-    'Choose offer based on price and rating.',
-    'Track provider on map.',
-    'Direct chat with provider.',
-    'Electronic and cash payment support.',
-    'Post-service rating workflow.'
-  ]
-};
-
-const teacherFeatures: LocalizedList = {
-  ar: [
-    'تسجيل وتفعيل حساب مقدم الخدمة.',
-    'استقبال طلبات العملاء القريبة.',
-    'تقديم عروض أسعار تنافسية.',
-    'إدارة تنفيذ الطلبات خطوة بخطوة.',
-    'متابعة الأرباح وحركة الطلبات.',
-    'تحديد الموقع GPS أثناء التشغيل.',
-    'نظام تقييمات لتحسين الثقة والجودة.',
-    'دعم الدفع الإلكتروني والنقدي.',
-    'دردشة متكاملة وتعدد اللغات.'
-  ],
-  en: [
-    'Provider account registration and activation.',
-    'Receive nearby customer requests.',
-    'Submit competitive pricing offers.',
-    'Manage order execution lifecycle.',
-    'Track earnings and order history.',
-    'GPS positioning during operation.',
-    'Ratings system for trust and quality.',
-    'Electronic and cash payment support.',
-    'Integrated chat and multilingual support.'
-  ]
-};
-
-const adminFeatures: LocalizedList = {
-  ar: [
-    'إدارة المستخدمين ومقدمي الخدمة.',
-    'إدارة الخدمات والعمولات.',
-    'متابعة الطلبات في الوقت الفعلي.',
-    'إدارة المدفوعات.',
-    'التقارير والتحليلات التشغيلية.',
-    'إدارة الاشتراكات والباقات.',
-    'لوحة تحكم ويب '
-  ],
-  en: [
-    'Manage customers and service providers.',
-    'Services and commissions management.',
-    'Real-time order monitoring.',
-    'Payments management.',
-    'Operational reports and analytics.',
-    'Subscriptions and plans management.',
-    'Web-based admin dashboard.']
-};
-
-const deliverables: LocalizedList = {
-  ar: [
-    'تطبيق العميل: Android + iOS.',
-    'تطبيق مقدم الخدمة: Android + iOS.',
-    'موقع ويب للإدارة.',
-    'نظام الطلبات والعروض والتقييمات والدردشة.',
-    'الدفع الإلكتروني والنقدي + تعدد اللغات.'
-  ],
-  en: [
-    'Customer app: Android + iOS.',
-    'Service provider app: Android +iOS.',
-    'Website for admin.',
-    'Orders, offers, ratings, and chat system.',
-    'Electronic/cash payments with multilingual support.'
-  ]
-};
-
-const includedInPrice: LocalizedList = {
-  ar: [
-    'تحليل المتطلبات وتخطيط تجربة المستخدم.',
-    'تطوير تطبيقات العميل/مقدم الخدمة/الإدارة.',
-    'تنفيذ نظام الطلبات والعروض والتتبع والدردشة.',
-    'تنفيذ نظام تقييمات متعدد الأطراف.',
-    'الربط مع الدفع الإلكتروني + النقدي.',
-    'الاختبارات الشاملة والجودة والأمان.',
-    'النشر والتسليم النهائي.'
-  ],
-  en: [
-    'Requirements analysis and UX planning.',
-    'Development of customer/provider/admin apps.',
-    'Order, offer, tracking, and chat workflows.',
-    'Multi-party rating system.',
-    'Electronic + cash payment integration.',
-    'Comprehensive QA, stability, and security checks.',
-    'Deployment and final delivery.'
-  ]
-};
-
-const technologies: TechCard[] = [
-  {
-    name: 'Flutter Mobile',
-    details: {
-      ar: 'تطوير تطبيقات العميل ومقدم الخدمة والإدارة على Android و iOS حسب النطاق.',
-      en: 'Mobile development for customer, provider, and admin apps (Android/iOS by scope).'
-    }
-  },
-  {
-    name: 'Node.js Backend',
-    details: {
-      ar: 'خدمات API لإدارة الطلبات والعروض والدردشة والمدفوعات والتقييمات.',
-      en: 'API services for requests, offers, chat, payments, and ratings.'
-    }
-  },
-  {
-    name: 'Database (PostgreSQL)',
-    details: {
-      ar: 'قاعدة بيانات مركزية لإدارة المستخدمين والطلبات وحركة المنصة.',
-      en: 'Centralized data layer for users, orders, and platform operations.'
-    }
-  },
-  {
-    name: 'Maps & GPS',
-    details: {
-      ar: 'تحديد المواقع وربط العملاء بمقدمي الخدمة القريبين وتتبع التنفيذ.',
-      en: 'Location mapping, nearby provider matching, and live tracking.'
-    }
-  },
-  {
-    name: 'Realtime Chat & Notifications',
-    details: {
-      ar: 'مراسلة فورية بين العميل ومقدم الخدمة مع تنبيهات لحالة الطلب.',
-      en: 'Live chat between customer and provider with real-time order notifications.'
-    }
-  },
-  {
-    name: 'Payment Integrations',
-    details: {
-      ar: 'دعم الدفع الإلكتروني والنقدي ضمن دورة الطلب.',
-      en: 'Electronic and cash payment flows in the order lifecycle.'
-    }
-  }
+const pillars: Feature[] = [
+  { icon: BriefcaseIcon, title: { ar: 'غيم للأعمال والتطوير المهني', en: 'Ghym Business & professional growth' }, text: { ar: 'ربط العملاء بمقدمي الخدمات، الدورات المهنية، إعداد الوثائق والتقارير، وتطوير المهارات والكفاءات.', en: 'Connect clients with providers, offer professional courses, prepare documents and reports, and develop skills.' } },
+  { icon: GraduationCap, title: { ar: 'التعليم والتدريب', en: 'Education & training' }, text: { ar: 'دورات وبرامج وحصص مسجلة أو مباشرة، فردية أو جماعية، مع اختبارات وشهادات وأنشطة تعليمية.', en: 'Recorded or live courses, programs and classes, with assessments, certificates and learning activities.' } },
+  { icon: Building2, title: { ar: 'إدارة المدارس', en: 'School management' }, text: { ar: 'متابعة التحصيل والأداء، الحضور، الزيارات الصفية، الخطط العلاجية والإثرائية، النماذج والتقارير.', en: 'Achievement, performance, attendance, classroom visits, intervention plans, forms and reports.' } },
+  { icon: FileArchive, title: { ar: 'مركز الملفات والخدمات', en: 'Files & services center' }, text: { ar: 'ملفات جاهزة أو مخصصة، بنوك أسئلة، خطط، تقارير، ملفات إنجاز وسير ذاتية وخدمات تصميم.', en: 'Ready-made or custom files, question banks, plans, reports, portfolios, CVs and design services.' } },
+  { icon: ShoppingBag, title: { ar: 'غيم ماركت', en: 'Ghym Market' }, text: { ar: 'كتب وقرطاسية ومراجع ووسائل تعليمية، مع البائعين والمخزون والطلبات والعمولات والتقييمات.', en: 'Books, stationery, references and educational tools with sellers, inventory, orders, commissions and reviews.' } },
+  { icon: Radio, title: { ar: 'غيم شراكات', en: 'Ghym Partnerships' }, text: { ar: 'برامج تدريب واختبارات، عقود واتفاقيات، مبادرات وملفات مؤسسية ولوحة خاصة لكل شريك.', en: 'Training and test programs, agreements, initiatives, institutional files and partner dashboards.' } },
+  { icon: Sparkles, title: { ar: 'العروض والتطوير المهني', en: 'Offers & professional growth' }, text: { ar: 'عروض وكوبونات ومزايا حصرية، وربط العملاء بمقدمي الخدمات ودعم تطوير المهارات والسير الذاتية.', en: 'Offers, coupons and exclusive benefits, plus service matching, skills development and CV services.' } },
 ];
 
-const paymentGateways: PaymentGateway[] = [
+const stages: Stage[] = [
   {
-    title: { ar: 'طرق الدفع داخل المنصة', en: 'Supported Payment Methods' },
-    points: {
-      ar: ['الدفع الإلكتروني.', 'الدفع النقدي.'],
-      en: [
-        'Electronic payments.',
-        'Cash payments.'
-      ]
-    }
+    number: '01', icon: Rocket, price: '3,000 ريال', duration: { ar: 'المرحلة التأسيسية', en: 'Foundation phase' },
+    title: { ar: 'التعليم والتدريب والـ MVP', en: 'Education, training & MVP' },
+    intro: { ar: 'إطلاق الأساس الفعلي لمنصة غيم من خلال بناء الحسابات والمحتوى التعليمي والتدريب والشات والطلبات والدفع الأساسي.', en: 'Launch Ghym’s operational foundation through accounts, learning content, training, chat, requests and basic payments.' },
+    points: [
+      { ar: 'تطبيق مشترك للطالب والمدرس Android وiOS.', en: 'Shared student and teacher app for Android and iOS.' },
+      { ar: 'تطبيق الإدارة Android في المرحلة الأولى.', en: 'Android admin app in the first phase.' },
+      { ar: 'تسجيل ودخول وحسابات وصلاحيات أساسية.', en: 'Authentication, accounts and core permissions.' },
+      { ar: 'إضافة الكورسات والبرامج والمواد والمحاضرات والدروس.', en: 'Courses, programs, subjects, lectures and lessons.' },
+      { ar: 'رفع الفيديوهات والملفات وPDF لكل محاضرة.', en: 'Video, file and PDF uploads for each lesson.' },
+      { ar: 'منع تسجيل الشاشة قدر الإمكان والتحكم في تحميل المرفقات.', en: 'Best-effort screen recording prevention and attachment download controls.' },
+      { ar: 'رسائل نصية وصور وتسجيلات صوتية وفيديوهات وملفات مرتبطة بالكورس.', en: 'Course-linked messages with text, images, audio recordings, videos and files; voice and video calls are not included.' },
+      { ar: 'تعليقات وردود وإشعارات أساسية.', en: 'Comments, replies and core notifications.' },
+      { ar: 'أسعار واشتراكات وكورسات مجانية وعروض وكوبونات.', en: 'Pricing, subscriptions, free courses, offers and coupons.' },
+    ],
+    deliverables: [
+      { ar: 'نسخة MVP قابلة للتشغيل.', en: 'A usable initial MVP.' },
+      { ar: 'الخلفية البرمجية وقاعدة البيانات ونظام الصلاحيات.', en: 'Backend, database and permission system.' },
+      { ar: 'تطبيق الطالب والمدرس المشترك.', en: 'Shared student and teacher mobile app.' },
+      { ar: 'تطبيق إدارة Android.', en: 'Android admin app.' },
+      { ar: 'إدارة أساسية للكورسات والملفات والاشتراكات.', en: 'Core course, file and subscription management.' },
+    ],
   },
   {
-    title: { ar: 'نموذج الربح التشغيلي', en: 'Platform Revenue Model' },
-    points: {
-      ar: [
-        'عمولات على الطلبات المنفذة.',
-        'اشتراكات لمقدمي الخدمة.',
-        'تحسين جودة الخدمة عبر المنافسة والتقييمات.'
-      ],
-      en: [
-        'Commissions on completed orders.',
-        'Subscriptions for service providers.',
-        'Quality uplift through competition and ratings.'
-      ]
-    }
-  }
+    number: '02', icon: Building2, price: '6,500 ريال', duration: { ar: 'المرحلة المدرسية', en: 'School phase' },
+    title: { ar: 'إدارة المدارس والمتابعة التعليمية', en: 'School management & educational follow-up' },
+    intro: { ar: 'تحويل غيم إلى نظام متكامل لإدارة المدارس ومتابعة الأداء والتحصيل والتقارير والصلاحيات المؤسسية.', en: 'Expand Ghym into a complete school management system for performance, achievement, reporting and institutional permissions.' },
+    points: [
+      { ar: 'تطبيقات أو واجهات مخصصة للطالب وولي الأمر والمدرس ومدير المدرسة.', en: 'Dedicated role experiences for students, parents, teachers and school managers.' },
+      { ar: 'تطبيقات Android وiOS للأدوار المطلوبة.', en: 'Android and iOS apps for the required roles.' },
+      { ar: 'إضافة تطبيق الإدارة iOS.', en: 'Add the iOS admin app.' },
+      { ar: 'إنشاء حسابات المدارس والشراكات التعليمية.', en: 'Create school and educational partnership accounts.' },
+      { ar: 'إدارة الطلاب والمدرسين والفصول والبيانات المؤسسية.', en: 'Manage students, teachers, classes and institutional data.' },
+      { ar: 'متابعة التحصيل والمهارات والأداء التعليمي.', en: 'Track achievement, skills and educational performance.' },
+      { ar: 'الحضور والغياب والتقييمات الإلكترونية.', en: 'Attendance, absence and electronic evaluations.' },
+      { ar: 'تقييم المعلمين والزيارات الصفية والملاحظة الميدانية.', en: 'Teacher evaluations, classroom visits and field observations.' },
+      { ar: 'الخطط العلاجية والإثرائية والمبادرات والأنشطة المدرسية.', en: 'Remedial, enrichment, initiative and school activity plans.' },
+      { ar: 'الاستبانات والنماذج والتقارير والإحصاءات وأرشفة الملفات.', en: 'Surveys, forms, reports, statistics and school file archiving.' },
+    ],
+    deliverables: [
+      { ar: 'حسابات وصلاحيات الأدوار المدرسية.', en: 'School role accounts and permissions.' },
+      { ar: 'لوحات متابعة وتقارير مدرسية.', en: 'School dashboards and reports.' },
+      { ar: 'نظام حضور وتقييم ومتابعة.', en: 'Attendance, evaluation and follow-up system.' },
+      { ar: 'لوحة تحكم مركزية مطورة.', en: 'Expanded central dashboard.' },
+      { ar: 'تطبيق الإدارة iOS.', en: 'iOS admin app.' },
+    ],
+  },
+  {
+    number: '03', icon: ShoppingBag, price: '2,500 ريال', duration: { ar: 'مرحلة السوق التعليمي', en: 'Education marketplace phase' },
+    title: { ar: 'غيم ماركت والمكتبات والبائعون', en: 'Ghym Market, libraries & sellers' },
+    intro: { ar: 'إطلاق السوق التعليمي لبيع الكتب والقرطاسية والمراجع والمنتجات والوسائل التعليمية مع إدارة المخزون والعمولات.', en: 'Launch the education marketplace for books, stationery, references and learning tools with inventory and commission management.' },
+    points: [
+      { ar: 'تطبيق مستقل للبائع أو المكتبة.', en: 'Independent seller or library app.' },
+      { ar: 'تسجيل البائعين والمكتبات وإنشاء حساباتهم.', en: 'Seller and library registration and accounts.' },
+      { ar: 'إضافة المنتجات والتصنيفات والأسعار.', en: 'Products, categories and pricing.' },
+      { ar: 'إدارة مخزون كل مكتبة.', en: 'Inventory management for each library.' },
+      { ar: 'الطلبات والسلة والفواتير وحالة الطلب.', en: 'Cart, orders, invoices and order status.' },
+      { ar: 'الدفع الإلكتروني عبر Paymob أو Geidea حسب اختيار العميل.', en: 'Online payment through Paymob or Geidea, selected by the client.' },
+      { ar: 'تحديد عمولة المنصة وإعداد تقارير الشركاء.', en: 'Platform commissions and partner reports.' },
+      { ar: 'التقييمات والمراجعات والشكاوى والشات.', en: 'Ratings, reviews, complaints and chat.' },
+      { ar: 'زيادة خصائص المتجر داخل تطبيقات الطالب وولي الأمر والمدرس.', en: 'Marketplace features added to student, parent and teacher apps.' },
+      { ar: 'حسابات داخل المنصة لشركات الشحن، مع تحديد API لاحقًا.', en: 'In-platform shipping accounts, with external APIs assessed later.' },
+    ],
+    deliverables: [
+      { ar: 'تطبيق البائع أو المكتبة.', en: 'Seller or library app.' },
+      { ar: 'كتالوج المنتجات والمخزون والطلبات.', en: 'Product catalog, inventory and order management.' },
+      { ar: 'بوابة الدفع بعد توفير حساب العميل.', en: 'Payment gateway integration once client credentials are provided.' },
+      { ar: 'نظام العمولات والتقارير الأساسية.', en: 'Commission system and core reports.' },
+      { ar: 'تحديث تطبيقات المستخدمين ولوحة التحكم.', en: 'Updates to user apps and the dashboard.' },
+    ],
+  },
+  {
+    number: '04', icon: Radio, price: '3,000 ريال', duration: { ar: 'مرحلة التوسع والتطوير', en: 'Expansion phase' },
+    title: { ar: 'الشراكات والبث المباشر والخدمات المتقدمة', en: 'Partnerships, live learning & advanced services' },
+    intro: { ar: 'تفعيل الشراكات والاشتراكات المؤسسية والعروض والتحليلات والبث المباشر وربط الشحن حسب التكاملات المطلوبة.', en: 'Activate partnerships, institutional subscriptions, offers, analytics, live learning and shipping integrations according to the required integrations.' },
+    points: [
+      { ar: 'بث مباشر داخل تطبيق التعليم لكورس أو مجموعة محددة.', en: 'Live classes inside the education app for a course or selected group.' },
+      { ar: 'Whiteboard وRaise Hand والتفاعل أثناء المحاضرة حسب الاتفاق.', en: 'Whiteboard, Raise Hand and in-class interaction subject to scope.' },
+      { ar: 'سيرفر مستقل للبث أو خدمة بث خارجية لتجنب الضغط على سيرفر المستخدمين.', en: 'Dedicated live-stream server or external service to protect core performance.' },
+      { ar: 'إنشاء السيرة الذاتية CV والملفات المهنية.', en: 'CV builder and professional portfolio files.' },
+      { ar: 'غيم شراكات: برامج اختبارات وتدريب واتفاقيات وعقود ومبادرات.', en: 'Ghym Partnerships: test preparation, training, agreements and initiatives.' },
+      { ar: 'لوحات خاصة بالشركاء لمتابعة الأداء والنتائج.', en: 'Partner dashboards for performance and results.' },
+      { ar: 'غيم سبل: العروض والخصومات والكوبونات والمزايا الحصرية.', en: 'Ghym Offers: promotions, discounts, coupons and exclusive benefits.' },
+      { ar: 'اشتراكات مؤسسية مرنة للمدارس والشركات.', en: 'Flexible institutional subscriptions for schools and companies.' },
+      { ar: 'ربط شركات الشحن عند توفر API وتسعيره بعد معرفة الشركة.', en: 'Shipping APIs assessed and priced after the provider is identified.' },
+      { ar: 'تقارير وتحليلات متقدمة وتخصيص ذكي حسب نطاق الاتفاق.', en: 'Advanced analytics and smart personalization according to the agreed scope.' },
+    ],
+    deliverables: [
+      { ar: 'منظومة البث أو التكامل المختار.', en: 'Selected live-stream solution or integration.' },
+      { ar: 'خدمات CV والملفات المهنية.', en: 'CV and professional file services.' },
+      { ar: 'إدارة الشراكات والعروض والاشتراكات.', en: 'Partnership, offer and subscription management.' },
+      { ar: 'تكامل الشحن إذا كان API متاحًا.', en: 'Shipping integration if a usable API is available.' },
+      { ar: 'لوحات التقارير والتحليلات المتقدمة.', en: 'Advanced reporting and analytics dashboards.' },
+    ],
+  },
 ];
 
-const externalCosts: ExternalCost[] = [
-  {
-    title: { ar: 'اشتراك الدعم الفني', en: 'Technical Support Subscription' },
-    amount: { ar: '10000 جنيه مصري', en: 'EGP 10,000' },
-    subtitle: { ar: 'سنويًا بعد 6 شهور دعم مجاني', en: 'Yearly after 6 free support months' },
-    note: {
-      ar: 'يشمل: صيانة السيرفر بشكل مستمر، تحديثات أمنية على السيرفر والسيستم، إصلاح أي أخطاء، أولوية الرد على الاستفسارات، وإخطاركم بالتحديثات والتطويرات أولًا بأول.',
-      en: 'Includes continuous server maintenance, full security updates, bug fixing, priority response, and proactive updates/enhancement notices.'
-    }
-  },
-  {
-    title: { ar: 'باقة السيرفر الخاص (Dedicated)', en: 'Dedicated Server Package' },
-    amount: { ar: '6000 جنيه مصري', en: 'EGP 6,000' },
-    subtitle: { ar: 'سنويًا (تكلفة السيرفر فقط)', en: 'Yearly (server cost only)' },
-    note: {
-      ar: 'مخصص للعميل على سيرفر منفصل خاص به بالكامل.',
-      en: 'For clients who require a fully dedicated private server.'
-    }
-  },
-  {
-    title: { ar: 'باقة السيرفر المشترك (Shared)', en: 'Shared Server Package' },
-    amount: { ar: '3000 جنيه مصري', en: 'EGP 3,000' },
-    subtitle: { ar: 'سنويًا', en: 'Yearly' },
-    note: {
-      ar: 'في حالة الاستضافة على سيرفر مشترك مع عميل آخر.',
-      en: 'For hosting on a shared server with another client.'
-    }
-  },
-  {
-    title: { ar: 'سياسة الترقية والنقل', en: 'Upgrade & Migration Policy' },
-    amount: { ar: 'مجانًا', en: 'Free' },
-    subtitle: { ar: 'عند الحاجة لشريحة أعلى', en: 'When higher tier is needed' },
-    note: {
-      ar: 'يتم إخطار العميل عند الحاجة لمساحة أكبر أو شريحة أعلى، وعملية النقل أو الترقية تتم مجانًا.',
-      en: 'Client is notified if larger capacity/higher tier is required, and migration/upgrade to higher tier is performed free of charge.'
-    }
-  },
-  {
-    title: { ar: 'رفع التطبيقات على منصات الشركة', en: 'Publishing on Company Store Accounts' },
-    amount: { ar: 'Apple: 60$ سنويًا + Google: 20$ سنويًا', en: 'Apple: $60/year + Google: $20/year' },
-    subtitle: { ar: 'مع متابعة دورية كاملة من الشركة', en: 'With full periodic follow-up by company' },
-    note: {
-      ar: 'يشمل الصيانة الدورية، الإخطار بأي تحديثات أو إنذارات من Google/Apple، ويمكن نقل التطبيقات لاحقًا إلى حساب العميل مجانًا في أي وقت.',
-      en: 'Includes periodic maintenance and alerts for Google/Apple requirements. Apps can be transferred later to client-owned accounts for free anytime.'
-    }
-  },
-  {
-    title: { ar: 'رفع التطبيقات على حساب العميل', en: 'Publishing on Client-Owned Accounts' },
-    amount: { ar: 'اشتراك دعم فني للمنصات: 50$ سنويًا', en: 'Store technical support: $50/year' },
-    subtitle: { ar: 'لمنصتي Google و Apple', en: 'For both Google and Apple platforms' },
-    note: {
-      ar: 'إذا كانت التطبيقات على حسابات الشركة تكون المتابعة الكاملة مسؤولية الشركة، أما على حساب العميل فيتوفر اشتراك دعم المنصات السنوي المذكور.',
-      en: 'When apps stay on company accounts, platform follow-up is fully handled by the company. On client accounts, the above yearly store-support plan applies.'
-    }
-  }
+const mvpItems: Localized[] = [
+  { ar: 'تطبيق مشترك للطالب والمدرس Android وiOS.', en: 'Shared student and teacher app for Android and iOS.' },
+  { ar: 'تطبيق الإدارة Android في المرحلة الأولى.', en: 'Android admin app in Phase 1.' },
+  { ar: 'الخلفية البرمجية وقاعدة البيانات ونظام الصلاحيات متعدد الأدوار.', en: 'Backend, database and role-based permissions.' },
+  { ar: 'إنشاء الكورسات والمواد والدروس ورفع الفيديوهات والملفات.', en: 'Courses, subjects, lessons, video and file uploads.' },
+  { ar: 'Cloudflare لتخزين الفيديوهات وعزلها عن سيرفر البيانات.', en: 'Cloudflare video storage isolated from the data server.' },
+  { ar: 'نظام رسائل كامل يدعم النص والصور والتسجيلات الصوتية والملفات.', en: 'Full messaging supporting text, images, audio recordings, video and files; calls are not included.' },
+  { ar: 'تعليقات وردود وإشعارات أساسية.', en: 'Comments, replies and core notifications.' },
+  { ar: 'أسعار واشتراكات وكورسات مجانية وعروض وكوبونات.', en: 'Pricing, subscriptions, free courses, offers and coupons.' },
+  { ar: 'طلبات ودفع أساسي حسب بوابة الدفع المعتمدة.', en: 'Requests and basic payments through the selected gateway.' },
+  { ar: 'إدارة أساسية للمستخدمين والكورسات والمحتوى من الإدارة.', en: 'Core user, course and content administration.' },
 ];
 
-const technicalSupportScope: LocalizedList = {
-  ar: [
-    'صيانة السيرفر بشكل مستمر طوال فترة الاشتراك.',
-    'تحديثات أمنية دورية على السيرفر والسيستم كاملًا.',
-    'إصلاح أي أخطاء تشغيلية تظهر أثناء الاستخدام.',
-    'أولوية في الرد على الاستفسارات وطلبات الدعم.',
-    'إخطار العميل بأي تحديثات مهمة تخص النظام أو المنصات.',
-    'عرض فرص التطوير والتحسين بشكل دوري.'
-  ],
-  en: [
-    'Continuous server maintenance during subscription period.',
-    'Periodic security updates for both server and full system.',
-    'Fixing any operational errors that appear in production.',
-    'Priority response for support questions and incidents.',
-    'Client notifications for important system/store updates.',
-    'Regular recommendations for enhancements and improvements.'
-  ]
-};
-
-const smsPlans: SmsPlan[] = [
-  {
-    tier: { ar: 'الفئة الأولى', en: 'Tier 1' },
-    price: { ar: '130 ريال', en: 'SAR 130' },
-    volume: { ar: '1,000 رسالة', en: '1,000 messages' }
-  },
-  {
-    tier: { ar: 'الفئة الثانية', en: 'Tier 2' },
-    price: { ar: '500 ريال', en: 'SAR 500' },
-    volume: { ar: '5,000 رسالة', en: '5,000 messages' }
-  },
-  {
-    tier: { ar: 'الفئة الثالثة', en: 'Tier 3' },
-    price: { ar: '900 ريال', en: 'SAR 900' },
-    volume: { ar: '10,000 رسالة', en: '10,000 messages' }
-  },
-  {
-    tier: { ar: 'الفئة الرابعة', en: 'Tier 4' },
-    price: { ar: '3700 ريال', en: 'SAR 3,700' },
-    volume: { ar: '50,000 رسالة', en: '50,000 messages' }
-  },
-  {
-    tier: { ar: 'الفئة الخامسة', en: 'Tier 5' },
-    price: { ar: '6900 ريال', en: 'SAR 6,900' },
-    volume: { ar: '100,000 رسالة', en: '100,000 messages' }
-  },
-  {
-    tier: { ar: 'الفئة الخاصة', en: 'Custom Tier' },
-    price: { ar: 'حسب الاتفاق', en: 'Custom pricing' },
-    volume: { ar: 'للكميات الكبيرة والجهات الخيرية', en: 'For high-volume and charitable entities' }
-  }
+const paymentPlan: PaymentMilestone[] = [
+  { title: { ar: 'المرحلة الأولى — الدفعة الابتدائية', en: 'Phase 1 — Initial payment' }, detail: { ar: 'مقدم المشروع عند بدء التنفيذ.', en: 'Project advance at the start of development.' }, amount: '3,750 ريال' },
+  { title: { ar: 'المرحلة الأولى — الدفعة النهائية', en: 'Phase 1 — Final payment' }, detail: { ar: 'بعد تسليم واعتماد مميزات الـ MVP.', en: 'After delivery and approval of the MVP features.' }, amount: '1,607 ريال' },
+  { title: { ar: 'المرحلة الثانية — الدفعة الابتدائية', en: 'Phase 2 — Initial payment' }, detail: { ar: 'عند بدء تنفيذ نظام المدارس.', en: 'At the start of school management development.' }, amount: '1,607 ريال' },
+  { title: { ar: 'المرحلة الثانية — الدفعة النهائية', en: 'Phase 2 — Final payment' }, detail: { ar: 'بعد تسليم واعتماد نظام المدارس.', en: 'After delivery and approval of school management.' }, amount: '1,607 ريال' },
+  { title: { ar: 'المرحلة الثالثة — الدفعة الابتدائية', en: 'Phase 3 — Initial payment' }, detail: { ar: 'عند بدء تنفيذ غيم ماركت.', en: 'At the start of Ghym Market development.' }, amount: '1,607 ريال' },
+  { title: { ar: 'المرحلة الثالثة — الدفعة النهائية', en: 'Phase 3 — Final payment' }, detail: { ar: 'بعد تسليم واعتماد المتجر وتطبيق البائع.', en: 'After delivery and approval of the marketplace and seller app.' }, amount: '1,607 ريال' },
+  { title: { ar: 'المرحلة الرابعة — الدفعة الابتدائية', en: 'Phase 4 — Initial payment' }, detail: { ar: 'عند بدء تنفيذ التوسع والتكاملات.', en: 'At the start of expansion and integrations.' }, amount: '1,607 ريال' },
+  { title: { ar: 'المرحلة الرابعة — الدفعة النهائية', en: 'Phase 4 — Final payment' }, detail: { ar: 'بعد تسليم واعتماد مميزات المرحلة الرابعة.', en: 'After delivery and approval of Phase 4 features.' }, amount: '1,607.16 ريال' },
 ];
 
-const bubblesBasePath = `${import.meta.env.BASE_URL}bubbles/`;
-const bubblesDesktopBasePath = `${import.meta.env.BASE_URL}bubbles-desktop/`;
-
-const bubblesGalleryImages: GalleryImage[] = [
-  {
-    src: `${bubblesBasePath}bubbles-home.png`,
-    title: { ar: 'الصفحة الرئيسية', en: 'Home Screen' }
-  },
-  {
-    src: `${bubblesBasePath}bubbles-orders.png`,
-    title: { ar: 'الطلبات', en: 'Orders' }
-  },
-  {
-    src: `${bubblesBasePath}bubbles-on-the-way.png`,
-    title: { ar: 'في الطريق', en: 'On The Way' }
-  },
-  {
-    src: `${bubblesBasePath}bubbles-pay.png`,
-    title: { ar: 'الدفع', en: 'Payment' }
-  },
-  {
-    src: `${bubblesBasePath}bubbles-payment-success.png`,
-    title: { ar: 'نجاح الدفع', en: 'Payment Success' }
-  },
-  {
-    src: `${bubblesBasePath}bubbles-chat-typing.png`,
-    title: { ar: 'الدردشة', en: 'Chat' }
-  }
+const technologies: Feature[] = [
+  { icon: Code2, title: { ar: 'Node.js للخلفية البرمجية', en: 'Node.js Backend' }, text: { ar: 'الخلفية البرمجية وواجهات REST وقاعدة منطق مركزية قابلة للتوسع والتكامل.', en: 'Scalable backend, REST APIs and centralized business logic.' } },
+  { icon: Smartphone, title: { ar: 'Flutter لتطبيقات الهاتف', en: 'Flutter Mobile' }, text: { ar: 'تطبيق مشترك للطالب والمدرس، ثم تطبيق البائع والتطبيقات الإضافية حسب المراحل.', en: 'Shared student/teacher app, followed by seller and additional apps by phase.' } },
+  { icon: GlobeIcon, title: { ar: 'Next.js للويب', en: 'Next.js Web' }, text: { ar: 'موقع متجاوب ولوحات ويب قابلة للتوسع للمنصة والإدارة والشركاء.', en: 'Responsive website and scalable web dashboards for the platform and partners.' } },
+  { icon: Server, title: { ar: 'DevOps & Operations', en: 'DevOps & Operations' }, text: { ar: 'إدارة النشر والمراقبة والنسخ الاحتياطي والأمان وتحسين أداء السيرفرات.', en: 'Deployment, monitoring, backups, security and server performance management.' } },
+  { icon: Cloud, title: { ar: 'Cloudflare Storage', en: 'Cloudflare Storage' }, text: { ar: 'تخزين الفيديوهات والمحتوى المرئي بشكل منفصل عن بيانات المنصة.', en: 'Separate video and media storage isolated from core platform data.' } },
+  { icon: ShieldCheck, title: { ar: 'Security & Roles', en: 'Security & Roles' }, text: { ar: 'صلاحيات حسب الدور وحماية المحتوى والتحكم في الملفات والتحميل.', en: 'Role permissions, content protection and file/download controls.' } },
 ];
 
-const bubblesDesktopGalleryImages: GalleryImage[] = [
-  {
-    src: `${bubblesDesktopBasePath}desktop-dashboard.png`,
-    title: { ar: 'لوحة القيادة', en: 'Dashboard' }
-  },
-  {
-    src: `${bubblesDesktopBasePath}desktop-orders.png`,
-    title: { ar: 'الطلبات', en: 'Orders' }
-  },
-  {
-    src: `${bubblesDesktopBasePath}desktop-pending.png`,
-    title: { ar: 'الطلبات المعلقة', en: 'Pending Orders' }
-  },
-  {
-    src: `${bubblesDesktopBasePath}desktop-delivery.png`,
-    title: { ar: 'المندوب', en: 'Delivery Agent' }
-  },
-  {
-    src: `${bubblesDesktopBasePath}desktop-late-orders.png`,
-    title: { ar: 'الطلبات المتأخرة', en: 'Late Orders' }
-  },
-  {
-    src: `${bubblesDesktopBasePath}desktop-overview.jpeg`,
-    title: { ar: 'عرض عام للنظام', en: 'System Overview' }
-  }
-];
-
-const paymentMilestones: PaymentMilestone[] = [
-  {
-    amount: { ar: '25%', en: '25%' },
-    title: { ar: 'دفعة مقدمة عند التعاقد', en: 'Advance payment at contract signing' }
-  },
-  {
-    amount: { ar: '25%', en: '25%' },
-    title: { ar: 'بعد تسليم الأدمن + خدمة العملاء ويب)', en: 'After Admin app delivery (Mobile + Desktop)' }
-  },
-  {
-    amount: { ar: '25%', en: '25%' },
-    title: { ar: 'بعد تسليم تطبيق مقدمي الخدمة', en: 'After Service Providers app delivery' }
-  },
-  {
-    amount: { ar: '25%', en: '25%' },
-    title: { ar: 'بعد الانتهاء من تطبيق اليوزر', en: 'After Customer app completion' }
-  }
-];
-
-const projectName = 'منصة خدمات السيارات عند الطلب';
+function HandshakeIcon({ className }: { className?: string }) { return <span className={`inline-flex items-center justify-center ${className ?? ''}`}>🤝</span>; }
+function GlobeIcon({ className }: { className?: string }) { return <span className={`inline-flex items-center justify-center ${className ?? ''}`}>🌐</span>; }
+function BriefcaseIcon({ className }: { className?: string }) { return <span className={`inline-flex items-center justify-center ${className ?? ''}`}>💼</span>; }
 
 export default function App() {
-  const [lang, setLang] = React.useState<Lang>('ar');
-  const [theme, setTheme] = React.useState<Theme>('dark');
-  const logoCandidates = ['/logo.png', 'logo.png', './logo.png', '/public/logo.png'];
-  const [logoIndex, setLogoIndex] = React.useState(0);
-  const [bubblesSlideIndex, setBubblesSlideIndex] = React.useState(0);
-  const [bubblesDesktopSlideIndex, setBubblesDesktopSlideIndex] = React.useState(0);
-  const [lightboxState, setLightboxState] = React.useState<{ kind: GalleryKind; index: number } | null>(null);
-  const isDark = theme === 'dark';
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setBubblesSlideIndex((prev) => (prev + 1) % bubblesGalleryImages.length);
-    }, 2800);
-    return () => clearInterval(timer);
-  }, []);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setBubblesDesktopSlideIndex((prev) => (prev + 1) % bubblesDesktopGalleryImages.length);
-    }, 3200);
-    return () => clearInterval(timer);
-  }, []);
-
-  const nextBubblesSlide = () => {
-    setBubblesSlideIndex((prev) => (prev + 1) % bubblesGalleryImages.length);
-  };
-
-  const prevBubblesSlide = () => {
-    setBubblesSlideIndex((prev) => (prev - 1 + bubblesGalleryImages.length) % bubblesGalleryImages.length);
-  };
+  const [language, setLanguage] = useState<Lang>('ar');
+  const [isDark, setIsDark] = useState(false);
+  const t = ui[language];
+  const isArabic = language === 'ar';
+  const logoSrc = 'logo.png';
 
   return (
-    <div
-      className={`${isDark ? 'dark-proposal min-h-screen bg-gradient-to-br from-slate-900 to-slate-950' : 'min-h-screen bg-gradient-to-br from-slate-50 to-slate-100'}`}
-      dir={lang === 'ar' ? 'rtl' : 'ltr'}
-    >
-      {isDark ? (
-        <style>{`
-          .dark-proposal .bg-white { background-color: rgba(15, 23, 42, 0.92) !important; }
-          .dark-proposal .bg-slate-50 { background-color: rgba(30, 41, 59, 0.82) !important; }
-          .dark-proposal .bg-blue-50 { background-color: rgba(30, 64, 175, 0.18) !important; }
-          .dark-proposal .bg-indigo-50 { background-color: rgba(30, 58, 138, 0.22) !important; }
-          .dark-proposal .bg-green-50 { background-color: rgba(22, 101, 52, 0.22) !important; }
-          .dark-proposal .bg-purple-50 { background-color: rgba(107, 33, 168, 0.20) !important; }
-          .dark-proposal .bg-orange-50 { background-color: rgba(154, 52, 18, 0.20) !important; }
-          .dark-proposal .bg-amber-50 { background-color: rgba(146, 64, 14, 0.20) !important; }
-          .dark-proposal .text-slate-900 { color: #f8fafc !important; }
-          .dark-proposal .text-slate-700 { color: #e2e8f0 !important; }
-          .dark-proposal .text-slate-600 { color: #cbd5e1 !important; }
-          .dark-proposal .text-slate-500 { color: #94a3b8 !important; }
-          .dark-proposal .border-slate-200 { border-color: #334155 !important; }
-          .dark-proposal .border-blue-100 { border-color: #1e40af !important; }
-          .dark-proposal .border-indigo-100 { border-color: #1d4ed8 !important; }
-          .dark-proposal .border-green-200 { border-color: #166534 !important; }
-          .dark-proposal .border-purple-100 { border-color: #6b21a8 !important; }
-          .dark-proposal .border-orange-100 { border-color: #9a3412 !important; }
-          .dark-proposal .border-amber-200 { border-color: #92400e !important; }
-          .dark-proposal .hover\\:border-blue-300:hover { border-color: #3b82f6 !important; }
-        `}</style>
-      ) : null}
-      <header className={isDark ? 'bg-slate-900 shadow-sm border-b border-slate-700 sticky top-0 z-50' : 'bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50'}>
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h1 className={isDark ? 'text-2xl font-bold text-white' : 'text-2xl font-bold text-slate-900'}>{projectName}</h1>
-              <p className={isDark ? 'text-sm text-slate-300' : 'text-sm text-slate-600'}>{labels[lang].offerTitle}</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className={isDark ? 'inline-flex items-center gap-2 rounded-lg border border-slate-600 bg-slate-800 px-2 py-1' : 'inline-flex items-center gap-2 rounded-lg border border-slate-200 px-2 py-1'}>
-                <Languages className={isDark ? 'w-4 h-4 text-slate-300' : 'w-4 h-4 text-slate-500'} />
-                <button
-                  type="button"
-                  className={`px-3 py-2 text-sm font-semibold transition-colors ${
-                    lang === 'ar'
-                      ? 'bg-blue-600 text-white rounded-md'
-                      : isDark
-                        ? 'bg-slate-800 text-slate-200 hover:bg-slate-700 rounded-md'
-                        : 'bg-white text-slate-700 hover:bg-slate-100 rounded-md'
-                  }`}
-                  onClick={() => setLang('ar')}
-                >
-                  {labels[lang].arBtn}
-                </button>
-                <button
-                  type="button"
-                  className={`px-3 py-2 text-sm font-semibold transition-colors ${
-                    lang === 'en'
-                      ? 'bg-blue-600 text-white rounded-md'
-                      : isDark
-                        ? 'bg-slate-800 text-slate-200 hover:bg-slate-700 rounded-md'
-                        : 'bg-white text-slate-700 hover:bg-slate-100 rounded-md'
-                  }`}
-                  onClick={() => setLang('en')}
-                >
-                  {labels[lang].enBtn}
-                </button>
-              </div>
-              <div className={isDark ? 'inline-flex items-center gap-2 rounded-lg border border-slate-600 bg-slate-800 px-2 py-1' : 'inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-2 py-1'}>
-                <button
-                  type="button"
-                  className={`px-3 py-2 text-sm font-semibold transition-colors rounded-md ${
-                    theme === 'dark'
-                      ? 'bg-blue-600 text-white'
-                      : isDark
-                        ? 'text-slate-200 hover:bg-slate-700'
-                        : 'text-slate-700 hover:bg-slate-100'
-                  }`}
-                  onClick={() => setTheme('dark')}
-                >
-                  <span className="inline-flex items-center gap-1">
-                    <Moon className="w-4 h-4" />
-                    Dark
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className={`px-3 py-2 text-sm font-semibold transition-colors rounded-md ${
-                    theme === 'light'
-                      ? 'bg-blue-600 text-white'
-                      : isDark
-                        ? 'text-slate-200 hover:bg-slate-700'
-                        : 'text-slate-700 hover:bg-slate-100'
-                  }`}
-                  onClick={() => setTheme('light')}
-                >
-                  <span className="inline-flex items-center gap-1">
-                    <Sun className="w-4 h-4" />
-                    Light
-                  </span>
-                </button>
-              </div>
-              <a
-                href="https://penta-k.com"
-                className={isDark ? 'inline-flex items-center rounded-md bg-slate-800 p-1' : 'inline-flex items-center rounded-md bg-slate-900 p-1'}
-                aria-label="Penta-k website"
-              >
-                {logoIndex < logoCandidates.length ? (
-                  <img
-                    src={logoCandidates[logoIndex]}
-                    alt={labels[lang].logoAlt}
-                    className="h-12 w-auto object-contain"
-                    onError={() => setLogoIndex((idx) => idx + 1)}
-                  />
-                ) : (
-                  <span className="px-3 py-2 text-xs font-bold text-white">Penta-k</span>
-                )}
-              </a>
-            </div>
+    <div className={`${isDark ? 'dark bg-slate-950 text-slate-100' : 'bg-[#f7f9fc] text-slate-800'} min-h-screen transition-colors`} dir={isArabic ? 'rtl' : 'ltr'}>
+      <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 backdrop-blur transition-colors dark:border-slate-800 dark:bg-slate-950/90">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 md:px-8">
+          <a href="https://penta-k.com" target="_blank" rel="noreferrer" aria-label={t.website} className="rounded-xl transition hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500">
+            <img src={logoSrc} alt="Penta-k" width="64" height="64" loading="eager" className="h-14 w-14 rounded-xl bg-white p-1.5 object-contain shadow-sm ring-1 ring-slate-200 dark:ring-slate-700" />
+          </a>
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={() => setIsDark((value) => !value)} className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800" aria-label={isDark ? t.light : t.dark} title={isDark ? t.light : t.dark}>
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+            <button type="button" onClick={() => setLanguage(isArabic ? 'en' : 'ar')} className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-100 dark:border-sky-900 dark:bg-sky-950/60 dark:text-sky-300 dark:hover:bg-sky-900/70">
+              {isArabic ? t.english : t.arabic}
+            </button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="bg-gradient-to-l from-blue-600 to-blue-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="flex items-start justify-between flex-wrap gap-6">
-            <div className="flex-1">
-              <h2 className="text-3xl font-bold mb-2">{labels[lang].companyTitle}</h2>
-              <p className="text-blue-100 text-lg mb-4 leading-relaxed max-w-3xl">{labels[lang].companyText}</p>
-              <div className="flex flex-wrap gap-6">
-                <div className="flex items-center gap-2">
-                  <Globe className="w-5 h-5" />
-                  <a href="https://penta-k.com" className="hover:underline">
-                    penta-k.com
-                  </a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <PhoneCall className="w-5 h-5" />
-                  <a href="tel:+201061942646" className="hover:underline" dir="ltr">
-                    +20 10 61942646
-                  </a>
-                </div>
-              </div>
-            </div>
+      <main className="mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-12">
+        <section className="relative overflow-hidden rounded-[2rem] bg-slate-950 px-7 py-12 text-white shadow-2xl md:px-14 md:py-16">
+          <div className="absolute -right-20 -top-24 h-96 w-96 rounded-full bg-sky-500/20 blur-3xl" />
+          <div className="absolute -bottom-32 left-1/3 h-80 w-80 rounded-full bg-violet-500/20 blur-3xl" />
+          <div className="relative max-w-4xl">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-sky-100"><Sparkles className="h-4 w-4" />{t.offer}</div>
+            <p className="mb-3 text-sm font-semibold text-sky-300">{t.prepared}</p>
+            <h1 className="text-4xl font-semibold tracking-tight md:text-6xl">{t.title}</h1>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 md:text-xl">{t.subtitle}</p>
+            <div className="mt-7 inline-flex items-center gap-2 rounded-xl border border-amber-300/30 bg-amber-400/15 px-4 py-3 text-sm font-semibold text-amber-100"><CalendarDays className="h-4 w-4" />{t.validUntil}</div>
           </div>
-        </div>
+        </section>
 
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6">
-            <FileText className="w-8 h-8 text-blue-600" />
-            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].overviewTitle}</h2>
-          </div>
-          <p className="text-slate-600 text-lg leading-relaxed">{labels[lang].overviewText}</p>
-        </div>
+        <section className="mb-10 grid gap-8 rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 transition-colors dark:bg-slate-900 dark:ring-slate-800 md:grid-cols-[1.1fr_0.9fr] md:p-10">
+          <div><Eyebrow text={t.overview} /><h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t.overviewHeading}</h2><p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">{t.overviewText}</p></div>
+          <div className="rounded-2xl bg-sky-50 p-6 dark:bg-sky-950/40"><div className="mb-4 flex items-center gap-3"><div className="rounded-xl bg-white p-3 text-sky-700 shadow-sm dark:bg-slate-900 dark:text-sky-300"><LayoutDashboard className="h-6 w-6" /></div><h3 className="text-xl font-semibold text-slate-950 dark:text-white">{t.scalableHeading}</h3></div><p className="leading-7 text-slate-700 dark:text-slate-200">{t.scopeNote}</p></div>
+        </section>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {mainSections.map((section) => {
-            const Icon = section.icon;
-            return (
-              <div
-                key={section.title.en}
-                className="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-100 hover:border-blue-300 transition-colors"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-blue-100 rounded-lg">
-                    <Icon className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900">{section.title[lang]}</h3>
-                    <p className="text-sm text-slate-600">{section.description[lang]}</p>
-                  </div>
-                </div>
-                <ul className="space-y-2 text-sm text-slate-700">
-                  {section.points[lang].map((point) => (
-                    <li key={point} className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
-        </div>
+        <SectionHeading eyebrow={t.audience} title={t.audienceHeading} />
+        <section className="mb-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">{audience.map((item) => <FeatureCard key={l(item.title, language)} feature={item} lang={language} />)}</section>
 
-        <FeatureSection
-          title={labels[lang].studentFeatures}
-          subtitle="Core Attendance System"
-          icon={<Users className="w-7 h-7 text-blue-600" />}
-          color="blue"
-          items={studentFeatures[lang]}
-        />
+        <SectionHeading eyebrow={t.pillars} title={t.pillarsHeading} />
+        <section className="mb-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">{pillars.map((item) => <FeatureCard key={l(item.title, language)} feature={item} lang={language} />)}</section>
 
-        <FeatureSection
-          title={labels[lang].teacherFeatures}
-          subtitle="Attendance Workflow"
-          icon={<Package className="w-7 h-7 text-green-600" />}
-          color="green"
-          items={teacherFeatures[lang]}
-        />
+        <section className="mb-12 rounded-[2rem] bg-slate-900 p-7 text-white shadow-xl md:p-10"><div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]"><div><div className="w-fit rounded-2xl bg-white/10 p-4"><Rocket className="h-8 w-8 text-sky-300" /></div><Eyebrow dark text={t.mvp} /><h2 className="mt-3 text-3xl font-semibold">{t.mvpHeading}</h2><p className="mt-5 leading-8 text-slate-300">{t.mvpText}</p></div><div><h3 className="mb-5 text-xl font-semibold text-white">{t.mvpIncludes}</h3><div className="grid gap-3 sm:grid-cols-2">{mvpItems.map((item) => <DarkCheck key={l(item, language)} text={l(item, language)} />)}</div></div></div></section>
 
-        <FeatureSection
-          title={labels[lang].adminFeatures}
-          subtitle="Admin Control Panel"
-          icon={<Monitor className="w-7 h-7 text-purple-600" />}
-          color="purple"
-          items={adminFeatures[lang]}
-        />
+        <SectionHeading eyebrow={t.technology} title={isArabic ? 'اختيارات تقنية مناسبة لمنصة متعددة الأدوار وقابلة للنمو' : 'Technology choices designed for a multi-role, scalable platform.'} />
+        <section className="mb-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">{technologies.map((item) => <FeatureCard key={l(item.title, language)} feature={item} lang={language} />)}</section>
 
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-indigo-100 rounded-lg">
-              <Clock className="w-7 h-7 text-indigo-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">{labels[lang].deliveryTitle}</h2>
-              <p className="text-sm text-slate-600">{labels[lang].projectDuration}</p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {deliverables[lang].map((item) => (
-              <div key={item} className="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-                <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
-                <span className="text-slate-700">{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <section className="mb-12 rounded-[2rem] border border-violet-100 bg-violet-50 p-7 dark:border-violet-900 dark:bg-violet-950/40 md:p-10"><div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr]"><div><div className="w-fit rounded-2xl bg-violet-100 p-4 text-violet-700 dark:bg-violet-900 dark:text-violet-200"><Server className="h-8 w-8" /></div><Eyebrow text={t.architecture} /><h2 className="mt-3 text-3xl font-semibold text-slate-950 dark:text-white">{t.architectureHeading}</h2><p className="mt-5 leading-8 text-slate-700 dark:text-slate-200">{t.externalNote}</p></div><div className="grid gap-3 sm:grid-cols-2"><CheckRow text={isArabic ? 'Hostinger لاستضافة خدمات المنصة حسب الخطة المناسبة.' : 'Hostinger hosting according to the required plan.'} /><CheckRow text={isArabic ? 'سيرفر الشركة كخيار بديل للعميل حسب الاتفاق.' : 'Company-owned server as an alternative option.'} /><CheckRow text={isArabic ? 'DevOps للنشر والمراقبة والنسخ الاحتياطي والأمان.' : 'DevOps for deployment, monitoring, backups and security.'} /><CheckRow text={isArabic ? 'Cloudflare لعزل الفيديوهات وتسريع الوصول إليها.' : 'Cloudflare to isolate and accelerate video delivery.'} /><CheckRow text={isArabic ? 'سيرفر مستقل أو خدمة خارجية للبث المباشر.' : 'Dedicated server or external live-stream service.'} /><CheckRow text={isArabic ? 'Paymob أو Geidea للدفع بعد توفير حساب العميل.' : 'Paymob or Geidea after the client provides an account.'} /></div></div></section>
 
-        <div
-          className={`rounded-2xl p-8 mb-8 text-white shadow-xl ${
-            isDark ? 'bg-gradient-to-l from-blue-700 to-indigo-800' : 'bg-gradient-to-l from-emerald-600 to-emerald-700'
-          }`}
-        >
-          <div className={`flex items-center gap-3 mb-6 pb-4 border-b ${isDark ? 'border-blue-500' : 'border-emerald-500'}`}>
-            <div className={`p-3 rounded-lg ${isDark ? 'bg-blue-500' : 'bg-emerald-500'}`}>
-              <DollarSign className="w-7 h-7 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold">{labels[lang].totalCost}</h2>
-          </div>
-          <div className="text-center mb-6">
-            <div className="text-6xl font-bold mb-2">150000 جنيه مصري</div>
-            <div className={`text-lg ${isDark ? 'text-blue-100' : 'text-emerald-100'}`}>{labels[lang].totalCostNote}</div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-            {includedInPrice[lang].map((item) => (
-              <div key={item} className="bg-white/10 rounded-lg p-4 border border-white/20 flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 mt-1" />
-                <span className="text-sm">{item}</span>
-              </div>
-            ))}
-          </div>
-          <div className="bg-white/10 rounded-xl p-5 border border-white/20">
-            <h3 className="text-xl font-bold mb-4">{labels[lang].paymentPlanTitle}</h3>
-            <div className="grid md:grid-cols-2 gap-3">
-              {paymentMilestones.map((milestone) => (
-                <div key={milestone.title.en} className="bg-white/10 rounded-lg p-4 border border-white/20">
-                  <div className="text-2xl font-bold mb-1">{milestone.amount[lang]}</div>
-                  <p className={`text-sm ${isDark ? 'text-blue-100' : 'text-emerald-50'}`}>{milestone.title[lang]}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <p className={`text-sm mt-4 ${isDark ? 'text-blue-100' : 'text-emerald-100'}`}>{labels[lang].externalNote}</p>
-        </div>
+        <section className="mb-12 grid gap-6 lg:grid-cols-2"><article className="rounded-[2rem] bg-slate-950 p-7 text-white md:p-9"><div className="flex items-center gap-3"><div className="rounded-xl bg-white/10 p-3"><ShieldCheck className="h-6 w-6 text-sky-300" /></div><h2 className="text-2xl font-semibold">{t.included}</h2></div><div className="mt-7 grid gap-4">{(isArabic ? ['تحليل المتطلبات وتصميم تجربة المستخدم.', 'تطوير الخلفية البرمجية وقاعدة البيانات وواجهات الربط.', 'تطبيقات Flutter حسب كل مرحلة.', 'موقع Next.js ولوحة التحكم المركزية.', 'نظام الصلاحيات والحسابات والأدوار.', 'اختبار الوظائف الأساسية وتجهيز الإصدارات.'] : ['Requirements analysis and user experience design.', 'Backend, database and integration APIs.', 'Flutter apps delivered by phase.', 'Next.js website and central dashboard.', 'Accounts, roles and permissions.', 'Core testing and release preparation.']).map((item) => <DarkCheck key={item} text={item} />)}</div></article><article className="rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800 md:p-9"><div className="flex items-center gap-3"><div className="rounded-xl bg-sky-50 p-3 text-sky-700 dark:bg-sky-950 dark:text-sky-300"><Headphones className="h-6 w-6" /></div><h2 className="text-2xl font-semibold text-slate-950 dark:text-white">{t.externalHeading}</h2></div><div className="mt-7 grid gap-3">{(isArabic ? ['رسوم Paymob أو Geidea وحسابات الدفع على العميل.', 'تكلفة Cloudflare وتخزين الفيديوهات حسب الاستخدام.', 'تكلفة البث المباشر والسيرفر الخاص به حسب الاختيار.', 'تكامل شركات الشحن يتحدد بعد معرفة توفر API.', 'حسابات المتاجر وخدمات الرسائل أو أي خدمات خارجية.'] : ['Paymob or Geidea fees and payment accounts are client-side.', 'Cloudflare and video storage costs depend on usage.', 'Live streaming and dedicated server costs depend on the selected option.', 'Shipping integration depends on API availability.', 'Store accounts, messaging and other external services.']).map((item) => <CheckRow key={item} text={item} />)}</div></article></section>
+        <section className="mb-12 rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800 md:p-10"><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"><Stat icon={CircleDollarSign} label={t.total} value={t.totalValue} /><Stat icon={ClockIcon} label={t.timeline} value={t.timelineValue} /><Stat icon={Smartphone} label={t.platforms} value={t.platformsValue} /><Stat icon={LayersIcon} label={t.phases} value="4" /></div><div className="mt-12"><SectionHeading eyebrow={t.phases} title={isArabic ? 'مراحل التنفيذ ومخرجات كل مرحلة' : 'Delivery phases and phase deliverables'} /><section className="space-y-6">{stages.map((stage) => <StageCard key={stage.number} stage={stage} lang={language} />)}</section></div><div className="mt-12"><SectionHeading eyebrow={t.payments} title={isArabic ? 'دفعات مرتبطة ببداية ونهاية كل مرحلة' : 'Payments linked to the start and completion of each phase'} /><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">{paymentPlan.map((payment) => <PaymentCard key={l(payment.title, language)} icon={CreditCard} title={l(payment.title, language)} amount={payment.amount} detail={l(payment.detail, language)} />)}</div><div className="mt-6 flex items-start gap-3 rounded-2xl bg-amber-50 p-5 text-sm leading-7 text-amber-950 dark:bg-amber-950/40 dark:text-amber-100"><FileText className="mt-1 h-5 w-5 shrink-0" />{t.paymentNote}</div></div></section>
 
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border border-slate-200">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-slate-100 rounded-lg">
-              <FileText className="w-7 h-7 text-slate-700" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].paymentGatewaysTitle}</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {paymentGateways.map((gateway) => (
-              <div key={gateway.title.en} className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-                <h3 className="font-bold text-slate-900 mb-2">{gateway.title[lang]}</h3>
-                <ul className="space-y-1 text-sm text-slate-700">
-                  {gateway.points[lang].map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-green-200">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-green-100 rounded-lg">
-              <Award className="w-7 h-7 text-green-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].freeServices}</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'سيرفر مجاني' : 'Free Server'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'طوال مدة التنفيذ (4 شهور)' : 'Throughout implementation period (4 months)'}</div>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'نشر التطبيقات' : 'App Publishing'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'تجهيز ورفع تطبيقات العميل على المنصات المطلوبة' : 'Preparing and publishing customer apps to required stores'}</div>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'دعم فني مجاني' : 'Free Technical Support'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'لمدة 6 شهور بعد التسليم' : 'For 6 months after delivery'}</div>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">{lang === 'ar' ? 'تجهيزات ما قبل الإطلاق' : 'Pre-Launch Setup'}</div>
-              <div className="text-slate-600 text-sm">{lang === 'ar' ? 'اختبارات الجودة، مراجعة الأداء، وتجهيز التشغيل الفعلي' : 'QA testing, performance review, and go-live readiness'}</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <Code className="w-7 h-7 text-blue-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].technologies}</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {technologies.map((tech) => (
-              <div key={tech.name} className="p-5 bg-slate-50 rounded-xl border border-slate-200">
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{tech.name}</h3>
-                <p className="text-sm text-slate-600">{tech.details[lang]}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-amber-200">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-amber-100 rounded-lg">
-              <DollarSign className="w-7 h-7 text-amber-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">{labels[lang].externalCosts}</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-            {externalCosts.map((cost) => (
-              <div key={cost.title.en} className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-                <h3 className="font-bold text-slate-900 mb-2">{cost.title[lang]}</h3>
-                <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">
-                  {cost.amount[lang]}
-                </div>
-                <p className="text-sm text-slate-600">{cost.subtitle[lang]}</p>
-                {cost.note ? <p className="text-xs text-slate-500 mt-2">{cost.note[lang]}</p> : null}
-              </div>
-            ))}
-          </div>
-
-          <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-            <h3 className="font-bold text-slate-900 mb-3">
-              {lang === 'ar' ? 'خدمة الدعم الفني تشمل' : 'Technical Support Scope'}
-            </h3>
-            <ul className="space-y-2 text-sm text-slate-700">
-              {technicalSupportScope[lang].map((item) => (
-                <li key={item} className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-indigo-200">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-indigo-100 rounded-lg">
-              <FileText className="w-7 h-7 text-indigo-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">{lang === 'ar' ? 'أسعار خدمة الرسائل (SMS)' : 'SMS Service Pricing'}</h2>
-              <p className="text-sm text-slate-600">
-                {lang === 'ar'
-                  ? 'الأسعار المرجعية حسب مزود الخدمة، ويمكن للعميل مراجعة التفاصيل الرسمية عبر الرابط.'
-                  : 'Reference pricing based on provider tiers. Official details are available via the link.'}
-              </p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-5">
-            {smsPlans.map((plan) => (
-              <div key={plan.tier.en} className="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
-                <h3 className="font-bold text-slate-900 mb-2">{plan.tier[lang]}</h3>
-                <div className="text-xl font-bold text-indigo-700 mb-1">{plan.price[lang]}</div>
-                <p className="text-sm text-slate-700">{plan.volume[lang]}</p>
-                {plan.note ? <p className="text-xs text-slate-500 mt-2">{plan.note[lang]}</p> : null}
-              </div>
-            ))}
-          </div>
-          <a
-            href="https://oursms.com/pricing/"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-white text-sm font-semibold hover:bg-indigo-700"
-          >
-            {lang === 'ar' ? 'عرض تفاصيل الأسعار الرسمية' : 'View Official Pricing Details'}
-          </a>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-blue-200">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <Users className="w-7 h-7 text-blue-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">{lang === 'ar' ? 'عملاؤنا من السعودية' : 'Our Clients in Saudi Arabia'}</h2>
-              <p className="text-sm text-slate-600">
-                {lang === 'ar'
-                  ? 'نماذج من المشاريع التي تم تنفيذها أو يجري العمل عليها.'
-                  : 'Sample projects delivered or currently in progress.'}
-              </p>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div className="p-5 rounded-xl border border-slate-200 bg-slate-50">
-              <div className="flex items-center justify-between gap-4 flex-wrap">
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900">{lang === 'ar' ? 'تطبيق استقرار' : 'Istiqrar App'}</h3>
-                  <p className="text-sm text-slate-600">{lang === 'ar' ? 'متوفر على Google Play و Apple App Store' : 'Available on Google Play and Apple App Store'}</p>
-                </div>
-                <div className="flex gap-2 flex-wrap">
-                  <a
-                    href="https://play.google.com/store/search?q=%D8%A7%D8%B3%D8%AA%D9%82%D8%B1%D8%A7%D8%B1&c=apps"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-md bg-green-600 px-3 py-2 text-white text-sm font-semibold hover:bg-green-700"
-                  >
-                    Google Play <ExternalLink className="w-4 h-4" />
-                  </a>
-                  <a
-                    href="https://apps.apple.com/us/app/%D8%A7%D8%B3%D8%AA%D9%82%D8%B1%D8%A7%D8%B1/id1593169684"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-md bg-slate-900 px-3 py-2 text-white text-sm font-semibold hover:bg-slate-800"
-                  >
-                    Apple Store <ExternalLink className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-5 rounded-xl border border-slate-200 bg-slate-50">
-              <div className="flex items-center justify-between gap-4 flex-wrap">
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900">{lang === 'ar' ? 'ويب سايت راكان للعقارات' : 'Rakan Real Estate Website'}</h3>
-                  <p className="text-sm text-slate-600">{lang === 'ar' ? 'منصة ويب عقارية' : 'Real-estate web platform'}</p>
-                </div>
-                <a
-                  href="https://rakan-dev.penta-k.com/ar"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-3 py-2 text-white text-sm font-semibold hover:bg-blue-700"
-                >
-                  {lang === 'ar' ? 'فتح المشروع' : 'Open Project'} <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-
-            <div className="p-5 rounded-xl border border-slate-200 bg-slate-50">
-              <div className="flex items-center justify-between gap-4 flex-wrap mb-4">
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900">{lang === 'ar' ? 'سيستم Bubbles' : 'Bubbles System'}</h3>
-                  <p className="text-sm text-slate-600">{lang === 'ar' ? 'قيد التطوير (Under Development)' : 'Under Development'}</p>
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6 items-start">
-                <div>
-                  <div className="relative w-[240px] h-[500px] rounded-[28px] border-8 border-slate-900 bg-black shadow-xl overflow-hidden">
-                    <button
-                      type="button"
-                      onClick={() => setLightboxState({ kind: 'mobile', index: bubblesSlideIndex })}
-                      className="block w-full h-full bg-black"
-                      title={lang === 'ar' ? 'اضغط لفتح الصورة' : 'Click to open image'}
-                    >
-                      <img
-                        src={bubblesGalleryImages[bubblesSlideIndex].src}
-                        alt={bubblesGalleryImages[bubblesSlideIndex].title[lang]}
-                        className="w-full h-full object-contain bg-black"
-                      />
-                    </button>
-                    <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-1.5 rounded-full bg-slate-700" />
-                  </div>
-
-                  <div className="mt-4 flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={prevBubblesSlide}
-                      className="rounded-full bg-white border border-slate-200 p-2 text-slate-700 hover:bg-slate-100"
-                      aria-label="Previous image"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <div className="text-sm font-semibold text-slate-700">{bubblesGalleryImages[bubblesSlideIndex].title[lang]}</div>
-                    <button
-                      type="button"
-                      onClick={nextBubblesSlide}
-                      className="rounded-full bg-white border border-slate-200 p-2 text-slate-700 hover:bg-slate-100"
-                      aria-label="Next image"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="relative w-full max-w-[620px] h-[360px] rounded-2xl border-8 border-slate-900 bg-black shadow-xl overflow-hidden">
-                    <button
-                      type="button"
-                      onClick={() => setLightboxState({ kind: 'desktop', index: bubblesDesktopSlideIndex })}
-                      className="block w-full h-full bg-black"
-                      title={lang === 'ar' ? 'اضغط لفتح الصورة' : 'Click to open image'}
-                    >
-                      <img
-                        src={bubblesDesktopGalleryImages[bubblesDesktopSlideIndex].src}
-                        alt={bubblesDesktopGalleryImages[bubblesDesktopSlideIndex].title[lang]}
-                        className="w-full h-full object-contain bg-black"
-                      />
-                    </button>
-                  </div>
-
-                  <div className="mt-4 rounded-lg border border-slate-200 bg-white p-3">
-                    <p className="text-sm font-semibold text-slate-900">
-                      {lang === 'ar' ? 'السيستم تحت الإنشاء حاليًا.' : 'System is currently under development.'}
-                    </p>
-                    <p className="text-sm text-slate-600 mt-1">
-                      {lang === 'ar'
-                        ? 'سيتم تسليم: Admin + User + Delivery.'
-                        : 'Planned delivery: Admin + User + Delivery.'}
-                    </p>
-                  </div>
-
-                  <div className="mt-3 flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setBubblesDesktopSlideIndex(
-                          (prev) => (prev - 1 + bubblesDesktopGalleryImages.length) % bubblesDesktopGalleryImages.length
-                        )
-                      }
-                      className="rounded-full bg-white border border-slate-200 p-2 text-slate-700 hover:bg-slate-100"
-                      aria-label="Previous desktop image"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <div className="text-sm font-semibold text-slate-700">{bubblesDesktopGalleryImages[bubblesDesktopSlideIndex].title[lang]}</div>
-                    <button
-                      type="button"
-                      onClick={() => setBubblesDesktopSlideIndex((prev) => (prev + 1) % bubblesDesktopGalleryImages.length)}
-                      className="rounded-full bg-white border border-slate-200 p-2 text-slate-700 hover:bg-slate-100"
-                      aria-label="Next desktop image"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-
-                  <div className="mt-3 grid grid-cols-3 md:grid-cols-6 gap-2 max-w-[620px]">
-                    {bubblesDesktopGalleryImages.map((img, idx) => (
-                      <button
-                        key={img.src}
-                        type="button"
-                        onClick={() => setBubblesDesktopSlideIndex(idx)}
-                        className={`overflow-hidden rounded-md border-2 ${idx === bubblesDesktopSlideIndex ? 'border-blue-600' : 'border-slate-200'}`}
-                      >
-                        <img src={img.src} alt={img.title[lang]} className="w-full h-14 object-cover" />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-3 grid grid-cols-3 md:grid-cols-6 gap-2 max-w-[520px]">
-                {bubblesGalleryImages.map((img, idx) => (
-                  <button
-                    key={img.src}
-                    type="button"
-                    onClick={() => setBubblesSlideIndex(idx)}
-                    className={`overflow-hidden rounded-md border-2 ${idx === bubblesSlideIndex ? 'border-blue-600' : 'border-slate-200'}`}
-                  >
-                    <img src={img.src} alt={img.title[lang]} className="w-full h-16 object-cover" />
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-l from-blue-600 to-indigo-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-3">{labels[lang].whyUs}</h2>
-            <p className="text-blue-100 text-lg">{labels[lang].whyUsSub}</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <ValueCard
-              icon={<Shield className="w-8 h-8 mb-3" />}
-              title={lang === 'ar' ? 'جودة الكود' : 'Code Quality'}
-              text={lang === 'ar' ? 'اهتمام حقيقي بجودة الكود وليس مجرد تنفيذ.' : 'Real focus on quality, not just delivery.'}
-            />
-            <ValueCard
-              icon={<TrendingUp className="w-8 h-8 mb-3" />}
-              title={lang === 'ar' ? 'قابلية التوسع' : 'Scalability'}
-              text={lang === 'ar' ? 'المنصة قابلة للتوسع مع زيادة العملاء ومقدمي الخدمة.' : 'The platform scales as customers and service providers grow.'}
-            />
-            <ValueCard
-              icon={<Clock className="w-8 h-8 mb-3" />}
-              title={lang === 'ar' ? 'تسليم منظم' : 'Structured Delivery'}
-              text={lang === 'ar' ? 'تسليم على مراحل مع متابعة مستمرة.' : 'Milestone-based delivery with steady follow-up.'}
-            />
-            <ValueCard
-              icon={<Users className="w-8 h-8 mb-3" />}
-              title={lang === 'ar' ? 'سهولة الإدارة' : 'Easy Management'}
-              text={
-                lang === 'ar'
-                  ? 'لوحة إدارة واضحة لمتابعة الطلبات ومقدمي الخدمة والعملاء.'
-                  : 'Clear admin panel for orders, providers, and customers management.'
-              }
-            />
-            <ValueCard
-              icon={<DollarSign className="w-8 h-8 mb-3" />}
-              title={lang === 'ar' ? 'توفير المستقبل' : 'Future Savings'}
-              text={lang === 'ar' ? 'كود نظيف = تكلفة أقل في التطويرات القادمة.' : 'Clean code reduces future update costs.'}
-            />
-            <ValueCard
-              icon={<Award className="w-8 h-8 mb-3" />}
-              title={lang === 'ar' ? 'خبرة احترافية' : 'Professional Experience'}
-              text={lang === 'ar' ? 'فريق متخصص بخبرة عملية في حلول الإنتاج.' : 'Specialized team with real production experience.'}
-            />
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">{labels[lang].contact}</h2>
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex items-center gap-3 text-lg">
-              <Globe className="w-6 h-6 text-blue-600" />
-              <a href="https://penta-k.com" className="text-blue-600 hover:underline font-semibold">
-                penta-k.com
-              </a>
-            </div>
-            <div className="flex items-center gap-3 text-lg" dir="ltr">
-              <PhoneCall className="w-6 h-6 text-green-600" />
-              <a href="tel:+201061942646" className="text-green-600 hover:underline font-semibold">
-                +20 10 61942646
-              </a>
-            </div>
-          </div>
-          <div className="mt-8 pt-6 border-t border-slate-200">
-            <p className="text-slate-600">
-              {labels[lang].thanks} <span className="font-bold text-blue-600">Penta-k</span>
-            </p>
-            <p className="text-sm text-slate-500 mt-2">{labels[lang].projectFooter}</p>
-          </div>
-        </div>
-
-        {lightboxState !== null ? (
-          <div className="fixed inset-0 z-[70] bg-black/85 flex items-center justify-center p-4">
-            <button
-              type="button"
-              onClick={() => setLightboxState(null)}
-              className="absolute top-4 right-4 rounded-full bg-white/10 text-white p-2 hover:bg-white/20"
-              aria-label="Close"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() =>
-                setLightboxState((prev) => {
-                  if (!prev) return prev;
-                  const gallery = prev.kind === 'mobile' ? bubblesGalleryImages : bubblesDesktopGalleryImages;
-                  return { ...prev, index: (prev.index - 1 + gallery.length) % gallery.length };
-                })
-              }
-              className="absolute left-4 md:left-8 rounded-full bg-white/10 text-white p-3 hover:bg-white/20"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-7 h-7" />
-            </button>
-
-            <img
-              src={(lightboxState.kind === 'mobile' ? bubblesGalleryImages : bubblesDesktopGalleryImages)[lightboxState.index].src}
-              alt={(lightboxState.kind === 'mobile' ? bubblesGalleryImages : bubblesDesktopGalleryImages)[lightboxState.index].title[lang]}
-              className="max-h-[85vh] max-w-[90vw] object-contain rounded-lg"
-            />
-
-            <button
-              type="button"
-              onClick={() =>
-                setLightboxState((prev) => {
-                  if (!prev) return prev;
-                  const gallery = prev.kind === 'mobile' ? bubblesGalleryImages : bubblesDesktopGalleryImages;
-                  return { ...prev, index: (prev.index + 1) % gallery.length };
-                })
-              }
-              className="absolute right-4 md:right-8 rounded-full bg-white/10 text-white p-3 hover:bg-white/20"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-7 h-7" />
-            </button>
-          </div>
-        ) : null}
+        <section className="rounded-[2rem] border border-slate-200 bg-white p-7 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-10"><p className="text-sm font-semibold text-sky-700 dark:text-sky-300">{t.contact}</p><h2 className="mt-3 text-3xl font-semibold text-slate-950 dark:text-white">{t.finalHeading}</h2><p className="mx-auto mt-4 max-w-3xl leading-8 text-slate-600 dark:text-slate-300">{t.validUntil}</p><a href="https://penta-k.com" target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-2 rounded-xl bg-sky-600 px-5 py-3 font-semibold text-white transition hover:bg-sky-700">{t.website}<ChevronLeft className="h-4 w-4" /></a></section>
       </main>
+
+      <footer className="border-t border-slate-200 bg-white px-6 py-8 text-center text-sm text-slate-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"><p className="font-semibold text-slate-900 dark:text-slate-100">Penta-k</p><p className="mt-1">{t.thanks}</p></footer>
     </div>
   );
 }
 
-function FeatureSection({
-  title,
-  subtitle,
-  icon,
-  items,
-  color
-}: {
-  title: string;
-  subtitle: string;
-  icon: React.ReactNode;
-  items: string[];
-  color: FeatureColor;
-}) {
-  return (
-    <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-      <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-        <div className={`p-3 rounded-lg ${getPillColor(color)}`}>{icon}</div>
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900">{title}</h2>
-          <p className="text-sm text-slate-600">{subtitle}</p>
-        </div>
-      </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {items.map((item) => (
-          <FeatureItem key={item} icon={<CheckCircle className="w-5 h-5" />} title={item} color={color} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function getPillColor(color: FeatureColor) {
-  if (color === 'green') return 'bg-green-100';
-  if (color === 'purple') return 'bg-purple-100';
-  if (color === 'orange') return 'bg-orange-100';
-  if (color === 'indigo') return 'bg-indigo-100';
-  return 'bg-blue-100';
-}
-
-function ValueCard({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
-  return (
-    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-      {icon}
-      <h3 className="font-bold text-lg mb-2">{title}</h3>
-      <p className="text-sm text-blue-100">{text}</p>
-    </div>
-  );
-}
-
-function FeatureItem({
-  icon,
-  title,
-  color = 'blue'
-}: {
-  icon: React.ReactNode;
-  title: string;
-  color?: FeatureColor;
-}) {
-  const colorClasses = {
-    blue: 'bg-blue-50 text-blue-600 border-blue-100',
-    green: 'bg-green-50 text-green-600 border-green-100',
-    purple: 'bg-purple-50 text-purple-600 border-purple-100',
-    orange: 'bg-orange-50 text-orange-600 border-orange-100',
-    indigo: 'bg-indigo-50 text-indigo-600 border-indigo-100'
-  };
-
-  return (
-    <div className={`flex items-start gap-3 p-3 rounded-lg border ${colorClasses[color]}`}>
-      <div className="mt-0.5">{icon}</div>
-      <span className="text-sm text-slate-700">{title}</span>
-    </div>
-  );
-}
-
+function ClockIcon({ className }: { className?: string }) { return <span className={`inline-flex items-center justify-center ${className ?? ''}`}>⏱️</span>; }
+function LayersIcon({ className }: { className?: string }) { return <span className={`inline-flex items-center justify-center ${className ?? ''}`}>◈</span>; }
+function Pill({ text }: { text: string }) { return <span className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-slate-100">{text}</span>; }
+function Eyebrow({ text, dark = false }: { text: string; dark?: boolean }) { return <p className={`mt-6 text-sm font-semibold tracking-[0.12em] ${dark ? 'text-sky-300' : 'text-sky-700 dark:text-sky-300'}`}>{text}</p>; }
+function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) { return <div className="mb-6"><Eyebrow text={eyebrow} /><h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{title}</h2></div>; }
+function Stat({ icon: Icon, label, value }: { icon: IconType; label: string; value: string }) { return <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800"><Icon className="h-5 w-5 text-sky-600 dark:text-sky-300" /><p className="mt-4 text-sm font-medium text-slate-500 dark:text-slate-400">{label}</p><p className="mt-2 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">{value}</p></div>; }
+function FeatureCard({ feature, lang }: { feature: Feature; lang: Lang }) { const Icon = feature.icon; return <article className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-900 dark:ring-slate-800"><div className="inline-flex rounded-xl bg-sky-50 p-3 text-sky-700 dark:bg-sky-950/60 dark:text-sky-300"><Icon className="h-6 w-6" /></div><h3 className="mt-5 text-lg font-semibold text-slate-950 dark:text-white">{l(feature.title, lang)}</h3><p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{l(feature.text, lang)}</p></article>; }
+function CheckRow({ text }: { text: string }) { return <div className="flex items-start gap-3 rounded-xl bg-slate-50 p-4 text-sm leading-6 text-slate-700 dark:bg-slate-800 dark:text-slate-200"><Check className="mt-1 h-4 w-4 shrink-0 text-sky-600 dark:text-sky-300" />{text}</div>; }
+function DarkCheck({ text }: { text: string }) { return <div className="flex items-start gap-3 text-sm leading-7 text-slate-200"><Check className="mt-1 h-4 w-4 shrink-0 text-sky-300" />{text}</div>; }
+function PaymentCard({ icon: Icon, title, amount, detail }: { icon: IconType; title: string; amount: string; detail: string }) { return <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-800"><div className="flex items-center gap-3"><div className="rounded-xl bg-sky-100 p-3 text-sky-700 dark:bg-sky-950 dark:text-sky-300"><Icon className="h-5 w-5" /></div><p className="font-semibold text-slate-950 dark:text-white">{title}</p></div><p className="mt-5 text-3xl font-semibold text-sky-700 dark:text-sky-300">{amount}</p><p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{detail}</p></article>; }
+function StageCard({ stage, lang }: { stage: Stage; lang: Lang }) { const Icon = stage.icon; return <article className="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800"><div className="grid lg:grid-cols-[0.68fr_1.32fr]"><div className="bg-slate-950 p-7 text-white md:p-9"><div className="flex items-center justify-between"><div className="rounded-2xl bg-white/10 p-4"><Icon className="h-7 w-7 text-sky-300" /></div><span className="text-5xl font-semibold text-white/20">{stage.number}</span></div><p className="mt-8 text-sm font-semibold text-sky-300">{l(stage.duration, lang)}</p><h3 className="mt-3 text-2xl font-semibold leading-tight">{l(stage.title, lang)}</h3><p className="mt-5 leading-8 text-slate-300">{l(stage.intro, lang)}</p><div className="mt-8 border-t border-white/15 pt-6"><p className="text-sm text-slate-400">{ui[lang].phasePrice}</p><p className="mt-2 text-3xl font-semibold text-white">{stage.price}</p></div></div><div className="p-7 md:p-9"><div className="grid gap-8 xl:grid-cols-[1.15fr_0.85fr]"><div><h4 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-950 dark:text-white"><Check className="h-5 w-5 text-sky-600 dark:text-sky-300" />{ui[lang].included}</h4><div className="grid gap-3">{stage.points.map((point) => <CheckRow key={l(point, lang)} text={l(point, lang)} />)}</div></div><div><h4 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-950 dark:text-white"><Rocket className="h-5 w-5 text-violet-600 dark:text-violet-300" />{ui[lang].stageDelivery}</h4><div className="space-y-3">{stage.deliverables.map((item) => <div key={l(item, lang)} className="flex items-start gap-3 text-sm leading-7 text-slate-600 dark:text-slate-300"><Check className="mt-1 h-4 w-4 shrink-0 text-violet-600 dark:text-violet-300" />{l(item, lang)}</div>)}</div></div></div></div></div></article>; }
