@@ -70,6 +70,7 @@ type GalleryKind = 'mobile' | 'desktop';
 type PaymentMilestone = {
   amount: Localized;
   title: Localized;
+  paid: boolean;
 };
 
 const labels: Record<
@@ -101,6 +102,13 @@ const labels: Record<
     logoAlt: string;
     arBtn: string;
     enBtn: string;
+    paidLabel: string;
+    providerCompaniesTitle: string;
+    providerCompaniesSubtitle: string;
+    providerCompaniesDescription: string;
+    providerCompaniesCost: string;
+    providerCompaniesDuration: string;
+    providerCompaniesPayment: string;
   }
 > = {
   ar: {
@@ -132,7 +140,14 @@ const labels: Record<
     projectFooter: 'نتطلع للعمل معكم على مشروع منصة خدمات السيارات عند الطلب.',
     logoAlt: 'شعار Penta-k',
     arBtn: 'العربية',
-    enBtn: 'English'
+    enBtn: 'English',
+    paidLabel: 'تم السداد',
+    providerCompaniesTitle: 'ميزة الشركات ومقدمي الخدمة',
+    providerCompaniesSubtitle: 'توسعة مخصصة للشركات ومقدمي خدمات السيارات',
+    providerCompaniesDescription: 'إضافة ميزة تسمح بتسجيل الشركات ومقدمي الخدمة كجهات مستقلة داخل المنصة، مع إدارة بياناتهم وخدماتهم وطلبات العملاء الخاصة بهم من خلال النظام.',
+    providerCompaniesCost: '30,000 جنيه مصري',
+    providerCompaniesDuration: 'من 20 إلى 30 يومًا بحد أقصى',
+    providerCompaniesPayment: '15,000 جنيه مقدمًا، و15,000 جنيه بعد الانتهاء والتسليم.'
   },
   en: {
     offerTitle: 'Detailed Project Offer',
@@ -163,7 +178,14 @@ const labels: Record<
     projectFooter: 'We look forward to delivering your on-demand car services platform.',
     logoAlt: 'Penta-k Logo',
     arBtn: 'العربية',
-    enBtn: 'English'
+    enBtn: 'English',
+    paidLabel: 'Paid',
+    providerCompaniesTitle: 'Companies & Service Providers Feature',
+    providerCompaniesSubtitle: 'A dedicated expansion for automotive service companies and providers',
+    providerCompaniesDescription: 'Adds independent company and service-provider accounts to the platform, with management of their profiles, services and customer requests from the system.',
+    providerCompaniesCost: 'EGP 30,000',
+    providerCompaniesDuration: '20 to 30 days maximum',
+    providerCompaniesPayment: 'EGP 15,000 advance and EGP 15,000 after completion and delivery.'
   }
 };
 
@@ -618,19 +640,23 @@ const bubblesDesktopGalleryImages: GalleryImage[] = [
 const paymentMilestones: PaymentMilestone[] = [
   {
     amount: { ar: '25%', en: '25%' },
-    title: { ar: 'دفعة مقدمة عند التعاقد', en: 'Advance payment at contract signing' }
+    title: { ar: 'دفعة مقدمة عند التعاقد', en: 'Advance payment at contract signing' },
+    paid: true
   },
   {
     amount: { ar: '25%', en: '25%' },
-    title: { ar: 'بعد تسليم الأدمن + خدمة العملاء ويب)', en: 'After Admin app delivery (Mobile + Desktop)' }
+    title: { ar: 'بعد تسليم الأدمن + خدمة العملاء ويب)', en: 'After Admin app delivery (Mobile + Desktop)' },
+    paid: true
   },
   {
     amount: { ar: '25%', en: '25%' },
-    title: { ar: 'بعد تسليم تطبيق مقدمي الخدمة', en: 'After Service Providers app delivery' }
+    title: { ar: 'بعد تسليم تطبيق مقدمي الخدمة', en: 'After Service Providers app delivery' },
+    paid: true
   },
   {
     amount: { ar: '25%', en: '25%' },
-    title: { ar: 'بعد الانتهاء من تطبيق اليوزر', en: 'After Customer app completion' }
+    title: { ar: 'بعد الانتهاء من تطبيق اليوزر', en: 'After Customer app completion' },
+    paid: false
   }
 ];
 
@@ -923,13 +949,50 @@ export default function App() {
             <div className="grid md:grid-cols-2 gap-3">
               {paymentMilestones.map((milestone) => (
                 <div key={milestone.title.en} className="bg-white/10 rounded-lg p-4 border border-white/20">
-                  <div className="text-2xl font-bold mb-1">{milestone.amount[lang]}</div>
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="text-2xl font-bold mb-1">{milestone.amount[lang]}</div>
+                    {milestone.paid ? (
+                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-emerald-400/20 px-2.5 py-1 text-xs font-semibold text-emerald-100">
+                        <CheckCircle className="h-4 w-4" />
+                        {labels[lang].paidLabel}
+                      </span>
+                    ) : null}
+                  </div>
                   <p className={`text-sm ${isDark ? 'text-blue-100' : 'text-emerald-50'}`}>{milestone.title[lang]}</p>
                 </div>
               ))}
             </div>
           </div>
           <p className={`text-sm mt-4 ${isDark ? 'text-blue-100' : 'text-emerald-100'}`}>{labels[lang].externalNote}</p>
+        </div>
+
+        <div className={isDark ? 'rounded-2xl p-8 mb-8 shadow-lg border border-blue-800 bg-slate-900' : 'rounded-2xl p-8 mb-8 shadow-lg border border-blue-100 bg-white'}>
+          <div className="flex items-start justify-between gap-5 flex-wrap mb-6 pb-5 border-b border-slate-200">
+            <div className="flex items-center gap-3">
+              <div className={isDark ? 'p-3 rounded-xl bg-blue-900/50' : 'p-3 rounded-xl bg-blue-100'}>
+                <Users className="w-7 h-7 text-blue-600" />
+              </div>
+              <div>
+                <h2 className={isDark ? 'text-2xl font-bold text-white' : 'text-2xl font-bold text-slate-900'}>{labels[lang].providerCompaniesTitle}</h2>
+                <p className={isDark ? 'text-sm text-slate-300 mt-1' : 'text-sm text-slate-600 mt-1'}>{labels[lang].providerCompaniesSubtitle}</p>
+              </div>
+            </div>
+            <div className="rounded-xl bg-blue-600 px-5 py-3 text-center text-white shadow-md">
+              <p className="text-xs font-medium text-blue-100">{lang === 'ar' ? 'التكلفة الإضافية' : 'Additional cost'}</p>
+              <p className="mt-1 text-2xl font-bold">{labels[lang].providerCompaniesCost}</p>
+            </div>
+          </div>
+          <p className={isDark ? 'text-slate-200 leading-8 mb-6' : 'text-slate-700 leading-8 mb-6'}>{labels[lang].providerCompaniesDescription}</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className={isDark ? 'flex items-start gap-3 rounded-xl bg-slate-800 p-4' : 'flex items-start gap-3 rounded-xl bg-blue-50 p-4'}>
+              <Clock className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
+              <div><p className={isDark ? 'font-semibold text-white' : 'font-semibold text-slate-900'}>{lang === 'ar' ? 'مدة التنفيذ' : 'Delivery duration'}</p><p className={isDark ? 'mt-1 text-sm text-slate-300' : 'mt-1 text-sm text-slate-600'}>{labels[lang].providerCompaniesDuration}</p></div>
+            </div>
+            <div className={isDark ? 'flex items-start gap-3 rounded-xl bg-slate-800 p-4' : 'flex items-start gap-3 rounded-xl bg-blue-50 p-4'}>
+              <DollarSign className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
+              <div><p className={isDark ? 'font-semibold text-white' : 'font-semibold text-slate-900'}>{lang === 'ar' ? 'خطة السداد' : 'Payment schedule'}</p><p className={isDark ? 'mt-1 text-sm text-slate-300' : 'mt-1 text-sm text-slate-600'}>{labels[lang].providerCompaniesPayment}</p></div>
+            </div>
+          </div>
         </div>
 
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border border-slate-200">
