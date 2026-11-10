@@ -69,7 +69,7 @@ const copy = {
   external: { ar: 'التكاليف التشغيلية والخارجية', en: 'Operational & external costs' },
   contact: { ar: 'للتواصل', en: 'Contact' },
   contactText: { ar: 'يسعدنا مناقشة التفاصيل وتأكيد نطاق التنفيذ قبل بدء المشروع.', en: 'We would be happy to discuss the details and confirm the scope before starting.' },
-  validity: { ar: 'عرض السعر ساري من 10/11/2026 إلى 15/11/2026 فقط. في حال عدم الرد خلال هذه الفترة، يعتبر العرض غير معتمد تلقائيًا، وقد تحتاج الأسعار والمدة إلى إعادة المراجعة بسبب ارتباط فريق التنفيذ بمواعيد تسليم مشاريع أخرى.', en: 'This proposal is valid from 10/11/2026 to 15/11/2026 only. If no response is received during this period, the proposal will not be considered approved, and the pricing and timeline may need to be reviewed because the delivery team is scheduled for other projects.' },
+  validity: { ar: 'عرض السعر ساري من 10/11/2026 إلى 30/11/2026 فقط. في حال عدم الرد خلال هذه الفترة، يعتبر العرض غير معتمد تلقائيًا، وقد تحتاج الأسعار والمدة إلى إعادة المراجعة بسبب ارتباط فريق التنفيذ بمواعيد تسليم مشاريع أخرى.', en: 'This proposal is valid from 10/11/2026 to 30/11/2026 only. If no response is received during this period, the proposal will not be considered approved, and the pricing and timeline may need to be reviewed because the delivery team is scheduled for other projects.' },
 };
 
 const features: Feature[] = [
