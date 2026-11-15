@@ -367,10 +367,103 @@ function App() {
           <div className="mt-5 flex gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-7 text-amber-900 dark:border-amber-400/20 dark:bg-amber-400/10 dark:text-amber-100"><CircleDollarSign className="mt-1 h-5 w-5 shrink-0" /><p><strong>{ui.note}:</strong> {ui.separate}. {isArabic ? 'رسوم بوابة الدفع، الخرائط، Cloudflare أو التخزين تتغير حسب الجهة المزودة والاستهلاك الفعلي.' : 'Payment gateway, maps, Cloudflare, and storage fees vary by provider and actual usage.'}</p></div>
         </section>
 
+        <section className="relative overflow-hidden border-y border-cyan-200 bg-gradient-to-br from-cyan-50 via-white to-slate-50 py-20 dark:border-cyan-400/20 dark:from-[#0a2535] dark:via-[#0b1728] dark:to-[#07111f]">
+          <div className="absolute -left-24 top-10 h-64 w-64 rounded-full bg-cyan-300/20 blur-3xl dark:bg-cyan-400/10" />
+          <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+            <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+              <SectionHeading
+                eyebrow={{ ar: '08 — نطاق توسعة مستقل', en: '08 — Separate expansion scope' }}
+                title={{ ar: 'التطوير المتقدم لمنصة Luxlane', en: 'Advanced Luxlane expansion' }}
+                description={{ ar: 'هذه المتطلبات تمثل نطاقًا جديدًا وكبيرًا يتجاوز العرض الأساسي الحالي، ولذلك يتم عرضه بشكل مستقل لحين عقد جلسات تفصيلية مع العميل واعتماد الأولويات والتكاملات.', en: 'These requirements represent a large new scope beyond the current base proposal, so they are presented separately until detailed workshops confirm priorities and integrations.' }}
+                lang={lang}
+              />
+              <span className="rounded-full border border-amber-300 bg-amber-100 px-4 py-2 text-xs font-black text-amber-900 dark:border-amber-400/20 dark:bg-amber-400/10 dark:text-amber-200">{isArabic ? 'تقدير مبدئي قابل للمراجعة' : 'Preliminary estimate — subject to review'}</span>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {[
+                {
+                  icon: Smartphone,
+                  title: { ar: 'تجربة العميل المتقدمة', en: 'Advanced customer experience' },
+                  items: [
+                    { ar: 'تحسين موقع Next.js لمحركات البحث والظهور المحلي SEO/GEO لجذب الزيارات المجانية.', en: 'Optimize the Next.js website for SEO/GEO and organic discovery.' },
+                    { ar: 'تقويم تفاعلي يعرض سعر كل ليلة مباشرة مع تسعير مختلف للأيام والمواسم.', en: 'Interactive calendar showing nightly prices with day and seasonal variations.' },
+                    { ar: 'مسار حجز يدوي عبر WhatsApp للوحدات الاستثمارية السنوية مع تحويل العميل للمبيعات.', en: 'Manual WhatsApp booking flow for annual investment units with sales handover.' },
+                    { ar: 'جولات افتراضية 360° عبر Matterport وخدمات إضافية أثناء الدفع مثل الشيف والسيارة واليخت.', en: 'Matterport 360° tours and checkout upsells such as chef, car, or yacht services.' },
+                    { ar: 'مراجعات موثقة، برنامج ولاء، ومستويات VIP للعملاء المتكررين.', en: 'Verified reviews, loyalty program, and VIP levels for returning customers.' },
+                  ],
+                },
+                {
+                  icon: CalendarCheck2,
+                  title: { ar: 'محرك حجز متعدد القنوات', en: 'Multi-channel booking engine' },
+                  items: [
+                    { ar: 'Channel Manager لربط ومزامنة Airbnb وBooking.com وBookingWhizz لحظيًا.', en: 'Channel Manager integration and real-time sync with Airbnb, Booking.com, and BookingWhizz.' },
+                    { ar: 'تحديث التوافر ومنع الحجز المزدوج عبر جميع القنوات.', en: 'Availability updates and double-booking prevention across channels.' },
+                    { ar: 'حساب الليالي ورسوم النظافة والضرائب والتأمين القابل للاسترداد تلقائيًا.', en: 'Automatic calculation of nights, cleaning, taxes, and refundable deposit.' },
+                    { ar: 'نظام White Label لحجوزات الفنادق لتوسيع نطاق الخدمات.', en: 'White-label hotel booking capability to extend the service offering.' },
+                  ],
+                },
+                {
+                  icon: CreditCard,
+                  title: { ar: 'المدفوعات والتسويات المتقدمة', en: 'Advanced payments & settlements' },
+                  items: [
+                    { ar: 'محرك أكواد خصم وعروض مع أكواد مخصصة للوسطاء.', en: 'Promo-code engine with broker-specific discount codes.' },
+                    { ar: 'حجز أو تجميد مبلغ التأمين على بطاقة العميل دون سحبه، ثم فكه تلقائيًا بعد تأكيد فريق النظافة.', en: 'Pre-authorize the security deposit without capturing it, then release it after housekeeping confirmation.' },
+                    { ar: 'الربط مع Paymob وApple Pay وGoogle Pay حسب الاعتماد النهائي.', en: 'Integration with Paymob, Apple Pay, and Google Pay subject to final approval.' },
+                    { ar: 'اقتطاع عمولة Luxlane وتحويل المتبقي تلقائيًا إلى محفظة المالك.', en: 'Automatic Luxlane commission deduction and transfer of the balance to the owner wallet.' },
+                  ],
+                },
+                {
+                  icon: Users2,
+                  title: { ar: 'بوابة الوسطاء والتشغيل', en: 'Broker & operations portals' },
+                  items: [
+                    { ar: 'بوابة مستقلة لكل وسيط لمتابعة وحداته وعملائه وحجوزاته وعمولاته.', en: 'A dedicated portal for each broker to manage units, clients, bookings, and commissions.' },
+                    { ar: 'تتبع الأداء والحجوزات والعمولات مع استخراج ملفات PDF احترافية للوحدات.', en: 'Performance, booking, and commission tracking with professional property PDFs.' },
+                    { ar: 'إرسال ملف الوحدة للعميل بضغطة واحدة من بوابة الوسيط.', en: 'One-click sharing of property documents with customers.' },
+                    { ar: 'إدارة بانرات الصفحة الرئيسية والعروض الموسمية من لوحة الإدارة.', en: 'Admin management for homepage banners and seasonal offers.' },
+                    { ar: 'لوحة Housekeeping للتنظيف، فحص التلفيات بالصور، إشعارات الخروج، وإطلاق التأمين.', en: 'Housekeeping dashboard for cleaning, photo-based damage checks, checkout alerts, and deposit release.' },
+                  ],
+                },
+                {
+                  icon: Search,
+                  title: { ar: 'مميزات الذكاء الاصطناعي', en: 'AI-powered features' },
+                  items: [
+                    { ar: 'بحث باللغة الطبيعية يفهم طلب العميل ويحوّله إلى فلاتر ونتائج لحظية.', en: 'Natural-language search that converts customer intent into live filters and results.' },
+                    { ar: 'AI Concierge للرد على الاستفسارات مع تحويل المحادثة لموظف بشري أو WhatsApp عند الحاجة.', en: 'AI Concierge with human or WhatsApp handover when needed.' },
+                    { ar: 'بحث بصري برفع صورة لعرض الوحدات الأقرب في التصميم.', en: 'Visual search by uploading an image to find visually similar units.' },
+                    { ar: 'تسعير ديناميكي لسد الأيام الفارغة وتوليد أوصاف تسويقية متوافقة مع SEO.', en: 'Dynamic pricing to fill empty days and AI-generated SEO-ready descriptions.' },
+                    { ar: 'تلخيص تقييمات الضيوف وتحليل المشاعر وقراءة الهويات وOCR وتجهيز العقود آليًا.', en: 'Guest-review summaries, sentiment analysis, ID OCR, KYC, and automated contract preparation.' },
+                  ],
+                },
+                {
+                  icon: BarChart3,
+                  title: { ar: 'التسويق والتحليلات', en: 'Marketing & analytics' },
+                  items: [
+                    { ar: 'ربط Meta Pixel وConversions API وGoogle Tag Manager وGA4 لتتبع رحلة العميل.', en: 'Meta Pixel, Conversions API, Google Tag Manager, and GA4 for customer journey tracking.' },
+                    { ar: 'ربط Meta وGoogle Ads وإنشاء Dynamic Catalog لإعادة الاستهداف.', en: 'Meta and Google Ads integration with a dynamic catalog for retargeting.' },
+                    { ar: 'ربط Snapchat وTikTok Events API لاستهداف الخليج والسوق الأمريكي بدقة.', en: 'Snapchat and TikTok Events API for accurate GCC and US targeting.' },
+                    { ar: 'تقارير وتحليلات تساعد على تحسين ROAS وتقليل تكلفة الاستحواذ على العميل.', en: 'Reports and analytics to improve ROAS and reduce customer acquisition cost.' },
+                  ],
+                },
+              ].map(({ icon: Icon, title, items }) => (
+                <article key={title.en} className="rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/75">
+                  <div className="flex items-center gap-3"><div className="rounded-2xl bg-cyan-100 p-3 text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-300"><Icon className="h-6 w-6" /></div><h3 className="text-xl font-black text-slate-950 dark:text-white">{text(title, lang)}</h3></div>
+                  <ul className="mt-6 space-y-3">{items.map((item) => <li key={item.en} className="flex gap-3 text-sm leading-7 text-slate-600 dark:text-slate-300"><CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-emerald-500" />{text(item, lang)}</li>)}</ul>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-6 grid gap-5 lg:grid-cols-[1fr_1fr]">
+              <div className="rounded-3xl border border-slate-200 bg-white p-7 dark:border-white/10 dark:bg-slate-900/80"><div className="flex items-center gap-3"><Globe2 className="h-7 w-7 text-cyan-600 dark:text-cyan-300" /><h3 className="text-xl font-black text-slate-950 dark:text-white">{isArabic ? 'المنصات الإضافية المتوقعة' : 'Additional expected platforms'}</h3></div><p className="mt-5 text-sm leading-8 text-slate-600 dark:text-slate-300">{isArabic ? 'إلى جانب تطبيقات العميل وموقعه، قد يتطلب النطاق الجديد بوابة وسيط، لوحة Housekeeping، بوابة مالك موسعة، ولوحة إدارة متقدمة. يتم اعتماد شكل كل منصة وصلاحياتها بعد جلسات تحليل منفصلة.' : 'Beyond the customer apps and website, the new scope may require a broker portal, housekeeping dashboard, expanded owner portal, and advanced admin dashboard. Each platform and permission model will be confirmed through dedicated discovery workshops.'}</p></div>
+              <div className="rounded-3xl border border-amber-300 bg-amber-50 p-7 dark:border-amber-400/20 dark:bg-amber-400/10"><div className="flex items-center gap-3"><CircleDollarSign className="h-7 w-7 text-amber-700 dark:text-amber-300" /><h3 className="text-xl font-black text-slate-950 dark:text-white">{isArabic ? 'التقدير المبدئي للتوسعة' : 'Preliminary expansion estimate'}</h3></div><div className="mt-5 grid gap-4 sm:grid-cols-2"><div className="rounded-2xl bg-white/70 p-4 dark:bg-slate-950/30"><p className="text-xs font-bold text-slate-500 dark:text-slate-400">{isArabic ? 'المدة المتوقعة' : 'Estimated timeline'}</p><p className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{isArabic ? 'لا تقل عن سنة' : 'At least 1 year'}</p></div><div className="rounded-2xl bg-white/70 p-4 dark:bg-slate-950/30"><p className="text-xs font-bold text-slate-500 dark:text-slate-400">{isArabic ? 'التكلفة المبدئية' : 'Preliminary cost'}</p><p className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{isArabic ? 'في حدود 850,000 جنيه' : 'Around EGP 850,000'}</p></div></div><p className="mt-5 text-sm leading-8 text-amber-950 dark:text-amber-100">{isArabic ? 'هذا تقدير مبدئي وليس سعرًا نهائيًا؛ لأن المتطلبات الحالية مكتوبة بشكل عام، والتكلفة والمدة النهائيتان تتحددان بعد معرفة تفاصيل التكاملات، الحسابات الخارجية، نماذج الذكاء الاصطناعي، وعدد المنصات والعمليات المطلوبة.' : 'This is a preliminary estimate, not a final quote. Final cost and timeline depend on detailed integrations, external accounts, AI models, number of platforms, and operational workflows.'}</p></div>
+            </div>
+          </div>
+        </section>
+
         <section className="border-y border-slate-200 bg-white py-16 dark:border-white/10 dark:bg-[#0b1728]">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <SectionHeading
-              eyebrow={{ ar: '08 — خبرة سابقة في العقارات', en: '08 — Previous real-estate experience' }}
+              eyebrow={{ ar: '09 — خبرة سابقة في العقارات', en: '09 — Previous real-estate experience' }}
               title={{ ar: 'أعمالنا السابقة في المجال العقاري', en: 'Our previous real-estate work' }}
               description={{ ar: 'نقدم لكم نموذجًا من أعمال Penta-K في بناء المنصات العقارية متعددة الأطراف، لإظهار قدرتنا على تنفيذ تجربة مشابهة وقابلة للتوسع لمشروع Luxlane.', en: 'Here is a Penta-K example of a multi-sided real-estate platform, demonstrating our ability to deliver a similar and scalable experience for Luxlane.' }}
               lang={lang}
