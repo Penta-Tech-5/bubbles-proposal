@@ -671,6 +671,10 @@ function PricingControl() {
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
             <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
             <div className="text-sm text-emerald-100">بعد تسليم تطبيق المستخدم</div>
+            <div className="mt-3 inline-flex items-center justify-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-700">
+              في انتظار التسليم
+            </div>
+            
           </div>
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
             <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
