@@ -675,9 +675,13 @@ function PricingControl() {
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
             <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
             <div className="text-sm text-emerald-100">مع تسليم تطبيق المغسلة والدليفري</div>
-            <div className="mt-3 inline-flex items-center justify-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-700">
-              في انتظار التسليم
+            <div className="mt-3 inline-flex items-center justify-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-bold text-emerald-700">
+              <CheckCircle className="w-3.5 h-3.5" />
+              تم الاستلام
             </div>
+            {/* <div className="mt-3 inline-flex items-center justify-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-700">
+              في انتظار التسليم
+            </div> */}
           </div>
           <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
             <div className="text-2xl font-bold mb-1">{fmt(evenInstallment)} جنيه مصري</div>
